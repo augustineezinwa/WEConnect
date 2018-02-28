@@ -1,0 +1,69 @@
+h1 {
+    text-align: center;
+}
+
+.header {
+
+    text-align : center;
+    background-color :black;
+    color:white;
+}
+
+img {
+
+    border : 2px solid yellow;
+
+}
+
+.btn1 ,.btn2 {
+    
+    width : 30%;
+    height: 40px;
+}
+
+.form1 {
+
+    margin-top: 130px;
+    margin-bottom:130px;
+
+}
+
+input[type=text] {
+    width :60%;
+    border:4px solid lightgreen;
+    border-radius: 5px;
+    height: 36px;
+    padding-bottom: 3px;
+    
+}
+
+.c3 {
+
+    background: url('../images/flight/austraila/virgin.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    width: 100%;
+    margin:0 auto;
+}
+
+.review {
+
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    border-bottom: 4px solid grey;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;
+    font-size:50px;
+}
+
+.footer {
+
+    text-align : center;
+    background-color :black;
+    color:white;
+    height : 100px;
+}
+
+
+
