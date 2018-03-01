@@ -132,3 +132,11 @@ input[type=text] {
 
     margin :4px;
 }
+
+.bl {
+
+    border-left : 2px solid green;
+
+    padding-top: 10px;
+
+}
