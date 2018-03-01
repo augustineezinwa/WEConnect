@@ -127,3 +127,8 @@ input[type=text] {
 .dropdown:hover .dropbtn {
     background-color: darkgreen;
 }
+
+.card {
+
+    margin :4px;
+}
