@@ -33,9 +33,9 @@
     
                        
     
-                    <button class ="nav-item btn1 btn-success">Login</button>
+                    <button class ="nav-item btn1 btn-success"data-toggle="modal" data-target="#exampleModalCenter">Login</button>
     
-                    <button class ="nav-item btn2 btn-success">Register</button>
+                    <button class ="nav-item btn2 btn-success"data-toggle="modal" data-target="#exampleModalCenter2">Register</button>
     
     
                 </div>
@@ -959,7 +959,83 @@ Read Review</button>
         </div>
     </div>
 
-</div>
+</div>    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Login to WEConnect!</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body"> 
+                <form>
+                <div class="form-group">
+                    <label for ="userName">Enter Fullname</label>
+                    <input type="text1" class="form-control" placeholder="Enter Your full Name" required/>
+                    
+            </div>
+            <div class="form-group">
+                    <label for ="password">Enter Password</label>
+                    <input type="password" class="form-control" placeholder="Enter Your Password" required/>
+                    
+            </div>
+            <button type="submit" class="btn btn-success">Login</button>
+                </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+    <!--modal box for sign-up-->
+
+          <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Sign up to WEConnect!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        
+                            <form>
+                                    <div class="form-group">
+                                        <label for ="userName">Enter Full Name</label>
+                                        <input type="text1" class="form-control" placeholder="Enter Your Full Name" required/>
+                                        
+                                </div>
+                                <div class="form-group">
+                                        <label for ="password">Enter Password</label>
+                                        <input type="password" class="form-control" placeholder="Enter Your Password" required/>
+                                        <div class="form-group">
+                                                <label for ="password">Confirm Password</label>
+                                                <input type="password" class="form-control" placeholder="Enter Your Password" required/>
+            
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="profileImage">Upload Profile Image </label>
+                                                <input type="file" class="form-control-file" id="profileImage">
+                                              </div> 
+                                              <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1">Tell us a little about yourself
+                                                    </label>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                  </div>
+                                <button type="submit" class="btn btn-success">Sign up</button>
+                                    </form>
+                        </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
 </div> 
 
 
