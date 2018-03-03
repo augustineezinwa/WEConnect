@@ -22,4 +22,4 @@ function disp() {
 }
 
 
-setInterval(disp, 4000);
+setInterval(disp, 5000);
