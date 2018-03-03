@@ -183,3 +183,9 @@ input[type=text] {
     overflow:scroll;
 
 }
+
+
+.imgheight {
+
+    height: 220px;
+}
