@@ -180,7 +180,8 @@ input[type=text] {
 .cardheight {
 
     height : 500px;
-    overflow:scroll;
+    overflow-y:scroll;
+    
 
 }
 
