@@ -58,6 +58,18 @@ input[type=text] {
         width: 100%;
         margin:0 auto;
     }
+
+
+    .c7 {
+        
+            background: url('../images/catalog3.jpg') no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            width: 100%;
+            margin:0 auto;
+            
+        }
 .review {
 
     font-family: Arial, Helvetica, sans-serif;
