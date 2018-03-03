@@ -2,6 +2,8 @@ h1 {
     text-align: center;
 }
 
+
+
 .header {
 
     text-align : center;
@@ -47,6 +49,15 @@ input[type=text] {
     margin:0 auto;
 }
 
+.c6 {
+    
+        background: url('../images/flight/austraila/virgin.jpg') no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 350px;
+        width: 100%;
+        margin:0 auto;
+    }
 .review {
 
     font-family: Arial, Helvetica, sans-serif;
@@ -164,4 +175,11 @@ input[type=text] {
     float:right;
     margin: 3px;
     
+}
+
+.cardheight {
+
+    height : 500px;
+    overflow:scroll;
+
 }
