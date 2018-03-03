@@ -7,6 +7,7 @@ let i=0;
 
 let arrOfFlightVirginImages = [imglink5, imglink6, imglink7, imglink8];
 
+c6.style.backgroundImage = arrOfFlightVirginImages[0];
 function disp() {
     
         c6.style.backgroundImage = arrOfFlightVirginImages[i];
