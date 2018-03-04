@@ -15,13 +15,14 @@
    
    <div class ="header">
     
-    <div class ="container">
+   <div class ="container">
 
         <div class ="row">
 
             <div class = "col-sm-12">
 
-            <h1 class ="col">We<span><img src ="./images/w2.gif" alt =""/></span>Connect</h1>
+            
+            <h1>We<span><img src ="./images/w2.gif" alt =""/></span>Connect</h1>
 
             </div>
 
@@ -45,9 +46,9 @@
     </div>
 
    </div>
-
+<div class ="container-fluid">
  <div class ="c3" id ="c4">
-   <div class = "container ">
+   <div class = "container">
 
         <div class = "row">
 
@@ -84,9 +85,12 @@
    </div>
    
  </div>
+</div>
 
-<div class ="container"><p class =" text-center review">Top Reviews of the Day!</p></div>
-  <div class = "container">
+
+
+<div class ="container-fluid"><p class =" text-center review">Top Reviews of the Day!</p></div>
+  <div class = "container-fluid">
   
         <div class = "row">
 
@@ -222,7 +226,8 @@
                 </div>
             </div>
 
-        </div>    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        </div>   
+         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -271,8 +276,11 @@
                                 
                                     <form>
                                             <div class="form-group">
-                                                <label for ="userName">Enter Full name </label>
-                                                <input type="text1" class="form-control" placeholder="Enter Your Full name" required/>
+                                                <label for ="fullName">Enter full name</label>
+                                                <input type="text1" class="form-control" placeholder="Enter Your Full Name" required/>
+
+                                                <label for ="userName">Enter Username or Email</label>
+                                                <input type="text1" class="form-control" placeholder="Enter Your username or email" required/>
                                                 
                                         </div>
                                         <div class="form-group">
@@ -294,6 +302,10 @@
                                                           </div>
                                         <button type="submit" class="btn btn-success">Sign up</button>
                                             </form>
+                                            <button type="submit" style ="float:right"class="btn btn-success"data-dismiss="modal" 
+                                            data-toggle="modal" data-target="#exampleModalCenter">login</button>
+                                            <p style ="float:right">Have an Account ? &nbsp</p>
+                                        </form>
                                 </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
