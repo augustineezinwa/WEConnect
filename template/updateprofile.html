@@ -2,7 +2,15 @@
 <html lang ="en">
 <head>
 
-<meta name = "view-port" content = "width=device-width initial-scale = 1.0"/>
+    <script>window.currentUser = null;</script>
+    <meta name = "viewport" content = "width=device-width,initial-scale = 1,user-scalable=no,minimum-scale =1.0"/>
+    
+    <meta name ="apple-mobile-web-app-capable" content="yes">
+    
+    <script>if (window.devicePixelRatio > 1) document.cookie = 'pixelRatio=' + window.devicePixelRatio + ';path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT';</script>
+    
+    
+    <title>WEConnect | Update Profile</title>
 
 <link rel = "stylesheet" type = "text/css" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 <link rel = "stylesheet" type = "text/css" href = "./styles/index.css"/>
@@ -94,7 +102,7 @@
 
             <div class ="col">
                 
-                <div class ="card">
+                <div class ="card "style ="margin-top:45px;">
                         <img class="rounded float-left"
                         style ="width:100%;border:2px solid black;border-radius:120px;" src="./images/book.jpg"alt=""/>
                     <div class ="card-body">
@@ -130,37 +138,29 @@
 
             <div class ="col">
 
-                <div class ="row">
+                <div class ="row c8">
 
                     <div class ="col">
 
                             <div class ="container">
                                     
                                             
-                                <div class = "row">
+                                <div class = "row ">
                                         
                                         <div class ="col-sm-12">
-                                            <div class="btn-group dropright"style = "margin-top:29px">
+                                            <div class="btn-group dropdown"style = "margin-top:29px">
                                                      <button type="button" class="btn btn-lg btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             Search By
                                                     </button>
                                                     <div class="dropdown-menu bg-light">
                                                              <div class="dropdown">
-                                                                    <button class="dropbtn">Location</button>
-                                                                        <div class="dropdown-content ">
-                                                                            <a href="#">Link 1</a>
-                                                                            <a href="#">Link 2</a>
-                                                                            <a href="#">Link 3</a>
-                                                                        </div>
+                                                                    <button class="dropbtn" id ="location1">Location</button>
+                                                                        
                                                                         </div>
                     
                                                                 <div class="dropdown">
-                                                                    <button class="dropbtn">Category</button>
-                                                                    <div class="dropdown-content">
-                                                                        <a href="#">Link 1</a>
-                                                                        <a href="#">Link 2</a>
-                                                                        <a href="#">Link 3</a>
-                                                                    </div>
+                                                                    <button class="dropbtn"id="category1">Category</button>
+                                                                    
                                                                     </div>
                                                         </div>
                                                     </div>
@@ -173,6 +173,38 @@
                                     
                             <div class = "row">
                                 
+                                    <div class ="col-sm-12">
+                                            
+                                                                <div id="category3">
+                                                                       
+                                                                        <div class="input-group" >   
+                                                                            <select class="custom-select" id="inputGroupSelect04">
+                                                                              <option selected>Choose category...</option>
+                                                                              <option value="1">Flight</option>
+                                                                              <option value="2">Restaurant</option>
+                                                                              <option value="3">Hotels</option>
+                                                                            </select>
+                                                                            <div class="input-group-append">
+                                                                              <button class="btn btn-secondary" type="button" style="color:white;">Search by Category</button>
+                                                                            </div>
+                                                                          </div></div>
+                                            
+                                                                          
+                                                                                  
+                                                                        <div id="location3">
+                                                                            <div class="input-group"  >
+                                                                                <select class="custom-select" id="inputGroupSelect04">
+                                                                                  <option selected>Choose location...</option>
+                                                                                  <option value="1">New York</option>
+                                                                                  <option value="2">Austrailia</option>
+                                                                                  <option value="3">Nigeria</option>
+                                                                                </select>
+                                                                                <div class="input-group-append">
+                                                                                  <button class="btn btn-secondary" type="button"style ="color:white;">Search by location</button>
+                                                                                </div>
+                                                                              </div></div>
+                                            
+                                                        </div>
                                 <div class ="col-sm-12">
                                     
                                     <form class ="form1">
@@ -341,7 +373,7 @@
       </div>
 
 
-
+      <script src ="./js/index3.js"></script>
       <script src ="./js/index.js"></script>
       <script src = "./js/jquery.min.js"></script>
       <script src = "./js/bootstrap.bundle.min.js"></script>
