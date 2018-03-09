@@ -81,6 +81,16 @@ input[type=text] {
         }
 
         
+        .c8 {
+            
+                background: url('../images/profilebg.jpg') no-repeat;
+                background-size: cover;
+                background-position: center;
+                height: 350px;
+                width: 100%;
+                margin:0 auto;
+                
+            }
 .review {
 
     font-family: Arial, Helvetica, sans-serif;
@@ -213,3 +223,11 @@ input[type=text] {
 
     height: 220px;
 }
+
+
+#location3, #category3 {
+
+    display: none;
+    height: 50px;
+}
+
