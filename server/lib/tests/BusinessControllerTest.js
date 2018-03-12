@@ -22,34 +22,81 @@ _chai2.default.use(_chaiHttp2.default);
 
 process.env.NODE_ENV = 'test';
 
+describe('Testing /GET businesses', function () {
+
+        it('it should GET all business in the array', function (done) {
+
+                _chai2.default.request(_app2.default).get('/api/v1/businesses').end(function (err, res) {
+
+                        res.should.have.status(200);
+
+                        res.body.should.be.a('object');
+
+                        res.body.should.have.property('message').eql('business list loaded successfully');
+
+                        res.body.should.have.property('businesses');
+
+                        res.body.businesses.should.be.a('array');
+
+                        res.body.businesses.length.should.be.eql(1);
+
+                        res.body.businesses[0].should.have.property('businessId').eql(3);
+
+                        res.body.businesses[0].should.have.property('businessName').eql('Shoprite');
+
+                        res.body.businesses[0].should.have.property('businessAddress').eql('no 5 washington road');
+
+                        res.body.businesses[0].should.have.property('location').eql('USA');
+
+                        res.body.businesses[0].should.have.property('category').eql('supermarket');
+
+                        res.body.businesses[0].should.have.property('userId').eql(1);
+
+                        res.body.businesses[0].businessId.should.be.a('number');
+
+                        res.body.businesses[0].businessName.should.be.a('string');
+
+                        res.body.businesses[0].businessAddress.should.be.a('string');
+
+                        res.body.businesses[0].location.should.be.a('string');
+
+                        res.body.businesses[0].category.should.be.a('string');
+
+                        res.body.businesses[0].userId.should.be.a('number');
+
+                        done();
+                });
+        });
+});
+
 describe('Testing API endpoints', function () {
 
-          beforeEach(function (done) {
+        beforeEach(function (done) {
 
-                    _db.businesses.splice(0, _db.businesses.length);
-                    done();
-          });
+                _db.businesses.splice(0, _db.businesses.length);
+                done();
+        });
 
-          describe('Testing /GET businesses', function () {
+        describe('Testing /GET businesses', function () {
 
-                    it('it should GET all the businesses', function (done) {
+                it('it should RETURN no businesses if no business is present in database', function (done) {
 
-                              _chai2.default.request(_app2.default).get('/api/v1/businesses').end(function (err, res) {
+                        _chai2.default.request(_app2.default).get('/api/v1/businesses').end(function (err, res) {
 
-                                        res.should.have.status(404);
+                                res.should.have.status(404);
 
-                                        res.body.should.be.a('object');
+                                res.body.should.be.a('object');
 
-                                        res.body.should.have.property('message').eql('No business available at this time');
+                                res.body.should.have.property('message').eql('No business available at this time');
 
-                                        res.body.should.have.property('businesses').eql([]);
+                                res.body.should.have.property('businesses').eql([]);
 
-                                        res.body.businesses.should.be.a('array');
+                                res.body.businesses.should.be.a('array');
 
-                                        res.body.businesses.length.should.be.eql(0);
+                                res.body.businesses.length.should.be.eql(0);
 
-                                        done();
-                              });
-                    });
-          });
+                                done();
+                        });
+                });
+        });
 });
