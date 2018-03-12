@@ -1,0 +1,37 @@
+{
+  "name": "weconnect-backend",
+  "version": "1.0.0",
+  "description": "This folder contains the technologies neccesary for the backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel server/src -d server/lib",
+    "start": "server/lib/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/augustineezinwa/WEConnect.git"
+  },
+  "author": "Augustine Ezinwa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/augustineezinwa/WEConnect/issues"
+  },
+  "homepage": "https://github.com/augustineezinwa/WEConnect#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "express": "^4.16.2",
+    "mocha": "^5.0.4"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0"
+  }
+}
