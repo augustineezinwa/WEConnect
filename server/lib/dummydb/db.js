@@ -1,0 +1,42 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+
+var users = [{
+
+  userId: 1,
+  firstName: 'augustine',
+  lastName: 'ezinwa',
+  email: 'augustineezinwa@gmail.com',
+  password: '34343434',
+  address: 'no 5 babaewe off agopalace way okota',
+  phoneNumber: '07034629228'
+
+}];
+
+var reviews = [{
+
+  reviewId: 1,
+  reviewContent: 'I love this place, its awesome',
+  userId: 1,
+  businessId: 3
+
+}];
+
+var businesses = [{
+
+  businessId: 3,
+  businessName: 'Shoprite',
+  businessAddress: 'no 5 washington road',
+  location: 'USA',
+  category: 'supermarket',
+  userId: 1,
+  reviews: []
+}];
+
+exports.businesses = businesses;
+exports.reviews = reviews;
+exports.users = users;
