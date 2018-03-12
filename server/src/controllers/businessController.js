@@ -70,7 +70,7 @@ class BusinessController {
      * @param {object} req - The request payload sent to the router
      * @param {object} res - The response payload sent back from the controller
      *
-     * @returns {object} - status Message and the particul businesses by id.
+     * @returns {object} - status Message and the particular businesses created.
      *
      * @memberOf BusinessController
      */
@@ -111,6 +111,12 @@ class BusinessController {
       reviews: []
 
     };
+
+    businesses.push(newBusiness);
+
+    res.status(201).send({ message: 'business successfully added', newBusiness });
+
+
   }
 }
 
