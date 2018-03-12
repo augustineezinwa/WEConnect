@@ -4,9 +4,9 @@
   "description": "This folder contains the technologies neccesary for the backend",
   "main": "app.js",
   "scripts": {
-    "test": "mocha server/lib/tests/BusinessControllerTest.js",
-    "build": "babel server/src -d server/lib && nodemon server/lib/app.js",
-    "start": ""
+    "test": "",
+    "build": "babel server/src -d server/lib && mocha server/lib/tests/BusinessControllerTest.js",
+    "start": "nodemon server/lib/app.js"
   },
   "repository": {
     "type": "git",

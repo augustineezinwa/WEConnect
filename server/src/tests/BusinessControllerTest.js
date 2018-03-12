@@ -33,9 +33,15 @@ describe('Testing API endpoints', () => {
 
           res.should.have.status(404);
 
-          res.body.should.be.a('array');
+          res.body.should.be.a('object');
 
-          res.body.length.should.be.eql(0);
+          res.body.should.have.property('message').eql('No business available at this time');
+
+          res.body.should.have.property('businesses').eql([]);
+
+          res.body.businesses.should.be.a('array');
+
+          res.body.businesses.length.should.be.eql(0);
 
           done();
 

@@ -25,11 +25,11 @@ class BusinessController {
 
     if (businesses.length === 0) {
 
-      return res.status(404).json(businesses);
+      return res.status(404).json({ message: 'No business available at this time', businesses });
 
     }
 
-    return res.json(businesses);
+    return res.json({ message: 'business list loaded successfully', businesses });
 
   }
 

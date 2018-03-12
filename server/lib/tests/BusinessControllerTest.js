@@ -24,26 +24,32 @@ process.env.NODE_ENV = 'test';
 
 describe('Testing API endpoints', function () {
 
-  beforeEach(function (done) {
+          beforeEach(function (done) {
 
-    _db.businesses.splice(0, _db.businesses.length);
-    done();
-  });
+                    _db.businesses.splice(0, _db.businesses.length);
+                    done();
+          });
 
-  describe('Testing /GET businesses', function () {
+          describe('Testing /GET businesses', function () {
 
-    it('it should GET all the businesses', function (done) {
+                    it('it should GET all the businesses', function (done) {
 
-      _chai2.default.request(_app2.default).get('/api/v1/businesses').end(function (err, res) {
+                              _chai2.default.request(_app2.default).get('/api/v1/businesses').end(function (err, res) {
 
-        res.should.have.status(404);
+                                        res.should.have.status(404);
 
-        res.body.should.be.a('array');
+                                        res.body.should.be.a('object');
 
-        res.body.length.should.be.eql(0);
+                                        res.body.should.have.property('message').eql('No business available at this time');
 
-        done();
-      });
-    });
-  });
+                                        res.body.should.have.property('businesses').eql([]);
+
+                                        res.body.businesses.should.be.a('array');
+
+                                        res.body.businesses.length.should.be.eql(0);
+
+                                        done();
+                              });
+                    });
+          });
 });

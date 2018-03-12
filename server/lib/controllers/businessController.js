@@ -40,10 +40,10 @@ var BusinessController = function () {
 
             if (_db.businesses.length === 0) {
 
-                return res.status(404).json(_db.businesses);
+                return res.status(404).json({ message: 'No business available at this time', businesses: _db.businesses });
             }
 
-            return res.json(_db.businesses);
+            return res.json({ message: 'business list loaded successfully', businesses: _db.businesses });
         }
     }]);
 
