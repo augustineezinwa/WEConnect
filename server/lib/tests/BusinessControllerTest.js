@@ -163,4 +163,55 @@ describe('Testing API endpoints', function () {
                         });
                 });
         });
+
+        describe('Testing /POST businesses', function () {
+
+                var business = {
+
+                        businessName: 'Madison Park',
+
+                        businessAddress: 'No 10 New jersey street USA',
+
+                        location: 'USA',
+
+                        category: 'recreation',
+
+                        userId: 1,
+
+                        reviews: []
+
+                };
+
+                it('it should add a new business to the database and return the new business', function (done) {
+
+                        _chai2.default.request(_app2.default).post('/api/v1/businesses').send(business).end(function (err, res) {
+
+                                res.should.have.status(201);
+
+                                res.body.should.be.a('object');
+
+                                res.body.should.have.property('message').eql('business successfully added');
+
+                                res.body.newBusiness.should.have.property('businessName').eql('Madison Park');
+
+                                res.body.newBusiness.should.have.property('businessAddress').eql('No 10 New jersey street USA');
+
+                                res.body.newBusiness.should.have.property('location').eql('USA');
+
+                                res.body.newBusiness.should.have.property('category').eql('recreation');
+
+                                res.body.message.should.be.a('string');
+
+                                res.body.newBusiness.businessName.should.be.a('string');
+
+                                res.body.newBusiness.businessAddress.should.be.a('string');
+
+                                res.body.newBusiness.location.should.be.a('string');
+
+                                res.body.newBusiness.category.should.be.a('string');
+
+                                done();
+                        });
+                });
+        });
 });
