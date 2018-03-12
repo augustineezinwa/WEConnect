@@ -45,6 +45,37 @@ var BusinessController = function () {
 
             return res.json({ message: 'business list loaded successfully', businesses: _db.businesses });
         }
+
+        /**
+           * @static
+           *
+           *
+           * @param {object} req - The request payload sent to the router
+           * @param {object} res - The response payload sent back from the controller
+           *
+           * @returns {object} - status Message and the particul businesses by id.
+           *
+           * @memberOf BusinessController
+           */
+
+    }, {
+        key: 'getBusinessById',
+        value: function getBusinessById(req, res) {
+
+            var id = req.params.businessId;
+
+            var business = _db.businesses.find(function (businessItem) {
+                return +businessItem.businessId === +id;
+            });
+
+            if (!business) {
+
+                res.status(404).json({ message: 'Business with businessId ' + id + ' does not exist' });
+            } else {
+
+                res.json({ message: 'business search was successful', businesses: _db.businesses });
+            }
+        }
     }]);
 
     return BusinessController;
