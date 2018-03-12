@@ -4,7 +4,7 @@
   "description": "This folder contains the technologies neccesary for the backend",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha server/lib/tests/BusinessControllerTest.js",
     "build": "babel server/src -d server/lib && nodemon server/lib/app.js",
     "start": ""
   },

@@ -1,4 +1,4 @@
-import express from 'express';
+
 
 import { businesses } from '../dummydb/db';
 
@@ -25,7 +25,7 @@ class BusinessController {
 
     if (businesses.length === 0) {
 
-      return res.status(404).json('No business found at this time');
+      return res.status(404).json(businesses);
 
     }
 

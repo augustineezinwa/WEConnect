@@ -27,11 +27,11 @@ describe('Testing API endpoints', () => {
 
     it('it should GET all the businesses', (done) => {
 
-      chai.request(app).get('/businesses')
+      chai.request(app).get('/api/v1/businesses')
 
         .end((err, res) => {
 
-          res.should.have.status(200);
+          res.should.have.status(404);
 
           res.body.should.be.a('array');
 
@@ -45,35 +45,6 @@ describe('Testing API endpoints', () => {
 
   });
 
-  describe('/POST businesses', () => {
-
-    it('it should not post a buisness without businessName field', (done) => {
-
-      const business = {
-
-        businessAddress: 'no 5 washington road',
-        location: 'turkey',
-        category: 'istanbul',
-        userId: 1,
-        reviews: []
-
-      };
-
-      chai.request(app).post('/businesses')
-
-        .send(business).end((err, res) => {
-
-          res.should.have.status(201);
-
-          res.body.should.be.a('Object');
-
-          res.body.should.have.property('businessId');
-          res.body.should.have.property('category').eql('istanbul');
-          done();
-
-
-        });
-    });
-  });
 
 });
+
