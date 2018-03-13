@@ -21,5 +21,6 @@ Router.post('/businesses', createBusiness);
 
 Router.put('/businesses/:businessId', updateBusiness);
 
+Router.delete('/businesses/:businessId', removeBusiness);
 
 export default Router;
