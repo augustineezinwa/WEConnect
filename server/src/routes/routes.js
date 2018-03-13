@@ -12,7 +12,7 @@ const {
 
 } = BusinessController;
 
-const { addReview } = ReviewController;
+const { addReview, getAllReviews } = ReviewController;
 
 const Router = express.Router();
 
@@ -28,5 +28,7 @@ Router.put('/businesses/:businessId', updateBusiness);
 Router.delete('/businesses/:businessId', removeBusiness);
 
 Router.post('/businesses/:businessId/reviews', addReview);
+
+Router.get('/businesses/:businessId/reviews', getAllReviews);
 
 export default Router;

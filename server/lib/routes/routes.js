@@ -23,7 +23,8 @@ var getAllBusinesses = _BusinessController2.default.getAllBusinesses,
     createBusiness = _BusinessController2.default.createBusiness,
     updateBusiness = _BusinessController2.default.updateBusiness,
     removeBusiness = _BusinessController2.default.removeBusiness;
-var addReview = _ReviewController2.default.addReview;
+var addReview = _ReviewController2.default.addReview,
+    getAllReviews = _ReviewController2.default.getAllReviews;
 
 
 var Router = _express2.default.Router();
@@ -39,5 +40,7 @@ Router.put('/businesses/:businessId', updateBusiness);
 Router.delete('/businesses/:businessId', removeBusiness);
 
 Router.post('/businesses/:businessId/reviews', addReview);
+
+Router.get('/businesses/:businessId/reviews', getAllReviews);
 
 exports.default = Router;
