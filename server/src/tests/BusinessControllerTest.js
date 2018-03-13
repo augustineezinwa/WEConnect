@@ -310,5 +310,109 @@ describe('Testing API endpoints', () => {
     });
 
   });
+
+  describe('Testing /PUT businesses/:businessId', () => {
+
+    it('it should update a business in the database if it exists', (done) => {
+
+      const business = {
+
+        businessId: 2,
+
+        businessName: 'japanAir',
+
+        businessAddress: 'mugochikunu japan',
+
+        location: 'japan',
+
+        category: 'Flight',
+
+        userId: 2,
+
+        reviews: []
+
+      };
+
+      businesses.push(business);
+
+      chai.request(app).put('/api/v1/businesses/2')
+
+        .send({
+
+          businessAddress: 'No 10 new jersey street, japan',
+
+          location: 'Hiroshima',
+
+        }).end((err, res) => {
+
+          res.should.have.status(200);
+
+          res.body.should.have.a('object');
+
+          res.body.should.have.property('message').eql('business updated successfully');
+
+          res.body.should.have.property('business');
+
+          res.body.business.should.be.a('object');
+
+          res.body.business.should.have.property('businessId').eql(2);
+
+          res.body.business.should.have.property('businessName').eql('japanAir');
+
+          res.body.business.should.have.property('businessAddress').eql('No 10 new jersey street, japan');
+
+          res.body.business.should.have.property('location').eql('Hiroshima');
+
+          res.body.business.should.have.property('category').eql('Flight');
+
+          res.body.business.should.have.property('userId').eql(2);
+
+          res.body.business.should.have.property('reviews').eql([]);
+
+          res.body.business.reviews.should.be.a('array');
+
+          res.body.business.userId.should.be.a('number');
+
+          res.body.business.category.should.be.a('string');
+
+          res.body.business.location.should.be.a('string');
+
+          res.body.business.businessAddress.should.be.a('string');
+
+          res.body.business.businessName.should.be.a('string');
+
+          res.body.business.businessId.should.be.a('number');
+
+          done();
+
+        });
+    });
+
+    it('it should return error message if business does not exist in database', (done) => {
+
+      chai.request(app).put('/api/v1/businesses/3')
+
+        .send({
+
+          businessName: 'celler de Noma',
+
+          location: 'spain'
+
+        }).end((err, res) => {
+
+          res.body.should.be.a('object');
+
+          res.body.should.have.property('message');
+
+          res.body.message.should.be.eql('Business with businessId 3 does not exist!');
+
+          done();
+
+        });
+
+    });
+  });
+
+
 });
 
