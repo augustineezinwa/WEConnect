@@ -198,6 +198,37 @@ class BusinessController {
 
   }
 
+  /**
+     * @static
+     *
+     *
+     * @param {object} req - The request payload sent to the router
+     * @param {object} res - The response payload sent back from the controller
+     *
+     * @returns {object} - status Message showing that business has been deleted.
+     *
+     * @memberOf BusinessController
+     */
+  static removeBusiness(req, res) {
+
+    const id = req.params.businessId;
+
+    const business = businesses.find(businessItem => +businessItem.businessId === +id);
+
+    if (!business) {
+
+      res.status(404).json({ message: `business with businessId ${id} does not exist` });
+
+    } else {
+
+
+      businesses.splice(businesses.indexOf(business), 1);
+
+      res.status(204).json({ message: `business with businessId ${id} was deleted successfully` });
+
+    }
+
+  }
 }
 
 

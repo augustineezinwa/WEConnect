@@ -193,6 +193,39 @@ var BusinessController = function () {
                         res.json({ message: 'business updated successfully', business: business });
                   }
             }
+
+            /**
+               * @static
+               *
+               *
+               * @param {object} req - The request payload sent to the router
+               * @param {object} res - The response payload sent back from the controller
+               *
+               * @returns {object} - status Message showing that business has been deleted.
+               *
+               * @memberOf BusinessController
+               */
+
+      }, {
+            key: 'removeBusiness',
+            value: function removeBusiness(req, res) {
+
+                  var id = req.params.businessId;
+
+                  var business = _db.businesses.find(function (businessItem) {
+                        return +businessItem.businessId === +id;
+                  });
+
+                  if (!business) {
+
+                        res.status(404).json({ message: 'business with businessId ' + id + ' does not exist' });
+                  } else {
+
+                        _db.businesses.splice(_db.businesses.indexOf(business), 1);
+
+                        res.status(204).json({ message: 'business with businessId ' + id + ' was deleted successfully' });
+                  }
+            }
       }]);
 
       return BusinessController;
