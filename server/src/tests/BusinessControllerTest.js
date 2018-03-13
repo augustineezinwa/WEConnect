@@ -413,6 +413,63 @@ describe('Testing API endpoints', () => {
     });
   });
 
+  describe('Testing /DELETE businesses/:businessId', () => {
+
+    it('it should delete a business by Id if it exists', (done) => {
+
+      const business = {
+
+        businessId: 5,
+
+        businessName: 'Shoprite',
+
+        businessAddress: 'no 9 lane str. lagos',
+
+        location: 'Nigeria',
+
+        category: 'supermarket',
+
+        userId: 5,
+
+        reviews: []
+
+      };
+
+      businesses.push(business);
+
+      chai.request(app).delete('/api/v1/businesses/5')
+
+        .end((err, res) => {
+
+          res.should.have.status(204);
+
+          res.body.should.be.a('object');
+
+          done();
+
+        });
+    });
+
+    it('it should not return a message that business does not exist', (done) => {
+
+      chai.request(app).delete('/api/v1/businesses/2')
+
+        .end((err, res) => {
+
+          res.should.have.status(404);
+
+          res.body.should.be.a('object');
+
+          res.body.should.have.property('message');
+
+          res.body.message.should.be.eql('business with businessId 2 does not exist');
+
+          done();
+
+        });
+    });
+  });
+
 
 });
 
