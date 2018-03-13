@@ -16,7 +16,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var getAllBusinesses = _BusinessController2.default.getAllBusinesses,
     getBusinessById = _BusinessController2.default.getBusinessById,
-    createBusiness = _BusinessController2.default.createBusiness;
+    createBusiness = _BusinessController2.default.createBusiness,
+    updateBusiness = _BusinessController2.default.updateBusiness,
+    removeBusiness = _BusinessController2.default.removeBusiness;
 
 
 var Router = _express2.default.Router();
@@ -26,5 +28,7 @@ Router.get('/businesses', getAllBusinesses);
 Router.get('/businesses/:businessId', getBusinessById);
 
 Router.post('/businesses', createBusiness);
+
+Router.put('/businesses/:businessId', updateBusiness);
 
 exports.default = Router;
