@@ -125,6 +125,74 @@ var BusinessController = function () {
 
                   res.status(201).send({ message: 'business successfully added', newBusiness: newBusiness });
             }
+
+            /**
+               * @static
+               *
+               *
+               * @param {object} req - The request payload sent to the router
+               * @param {object} res - The response payload sent back from the controller
+               *
+               * @returns {object} - status Message and the particular updated businesses created.
+               *
+               * @memberOf BusinessController
+               */
+
+      }, {
+            key: 'updateBusiness',
+            value: function updateBusiness(req, res) {
+
+                  var id = req.params.businessId;
+
+                  var business = _db.businesses.find(function (businessItem) {
+                        return +businessItem.businessId === +id;
+                  });
+
+                  if (!business) {
+
+                        res.status(404).json({ message: 'Business with businessId ' + id + ' does not exist!' });
+                  } else {
+
+                        var businessIndex = _db.businesses.indexOf(business);
+
+                        var _req$body2 = req.body,
+                            businessName = _req$body2.businessName,
+                            businessAddress = _req$body2.businessAddress,
+                            location = _req$body2.location,
+                            category = _req$body2.category,
+                            userId = _req$body2.userId;
+
+
+                        if (businessName) {
+
+                              business.businessName = businessName;
+                        }
+
+                        if (businessAddress) {
+
+                              business.businessAddress = businessAddress;
+                        }
+
+                        if (location) {
+
+                              business.location = location;
+                        }
+
+                        if (category) {
+
+                              business.category = category;
+                        }
+
+                        if (userId) {
+
+                              business.userId = userId;
+                        }
+
+                        _db.businesses[businessIndex] = business;
+
+                        res.json({ message: 'business updated successfully', business: business });
+                  }
+            }
       }]);
 
       return BusinessController;
