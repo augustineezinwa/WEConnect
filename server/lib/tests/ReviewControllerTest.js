@@ -24,6 +24,33 @@ process.env.NODE_ENV = 'test';
 
 describe('Testing /POST reviews', function () {
 
+        it('it should return an error message if a business doesnt exist', function (done) {
+
+                var review = {
+
+                        reviewContent: 'i love this park',
+
+                        userId: 34
+
+                };
+
+                _chai2.default.request(_app2.default).post('/api/v1/businesses/4/reviews').send(review).end(function (err, res) {
+
+                        res.should.be.status(404);
+
+                        res.body.should.be.a('object');
+
+                        res.body.should.have.property('message');
+
+                        res.body.message.should.be.eql('Cannot add Review!, Business with businessId 4 does not exist');
+
+                        done();
+                });
+        });
+});
+
+describe('Testing /POST reviews', function () {
+
         it('it should add reviews to a particular business by Id', function (done) {
 
                 var business1 = {
@@ -77,6 +104,19 @@ describe('Testing /POST reviews', function () {
                         res.body.review.reviewId.should.be.a('number');
 
                         res.body.message.should.be.a('string');
+
+                        done();
+                });
+        });
+});
+
+describe('Testing /GET reviews for a particular business', function () {
+
+        it('it should get all reviews attached to a particular business', function (done) {
+
+                _chai2.default.request(_app2.default).get('/api/v1/businesses/3/reviews').end(function (err, res) {
+
+                        res.should.be.status(200);
 
                         done();
                 });

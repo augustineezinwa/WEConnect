@@ -14,6 +14,37 @@ process.env.NODE_ENV = 'test';
 
 describe('Testing /POST reviews', () => {
 
+  it('it should return an error message if a business doesnt exist', (done) => {
+
+    const review = {
+
+      reviewContent: 'i love this park',
+
+      userId: 34
+
+    };
+
+    chai.request(app).post('/api/v1/businesses/4/reviews')
+
+      .send(review).end((err, res) => {
+
+        res.should.be.status(404);
+
+        res.body.should.be.a('object');
+
+        res.body.should.have.property('message');
+
+        res.body.message.should.be.eql('Cannot add Review!, Business with businessId 4 does not exist');
+
+        done();
+
+      });
+
+  });
+});
+
+describe('Testing /POST reviews', () => {
+
   it('it should add reviews to a particular business by Id', (done) => {
 
     const business1 = {
@@ -74,5 +105,20 @@ describe('Testing /POST reviews', () => {
 
       });
 
+  });
+});
+
+describe('Testing /GET reviews for a particular business', () => {
+
+  it('it should get all reviews attached to a particular business', (done) => {
+
+    chai.request(app).get('/api/v1/businesses/3/reviews')
+
+      .end((err, res) => {
+
+        res.should.be.status(200);
+
+        done();
+      });
   });
 });
