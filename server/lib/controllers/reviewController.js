@@ -51,7 +51,7 @@ var ReviewController = function () {
 
                         var businessIndex = _db.businesses.indexOf(business);
 
-                        var reviewId = _db.businesses[businessIndex].reviews.length === 0 ? 1 : _db.businesses[businessIndex].reviews[_db.reviews.length - 1].reviewId + 1;
+                        var reviewId = _db.businesses[businessIndex].reviews.length === 0 ? 1 : _db.businesses[businessIndex].reviews[_db.businesses[businessIndex].reviews.length - 1].reviewId + 1;
 
                         var _req$body = req.body,
                             reviewContent = _req$body.reviewContent,
@@ -73,6 +73,41 @@ var ReviewController = function () {
                         _db.businesses[businessIndex].reviews.push(review);
 
                         res.status(201).json({ message: 'review was added successfully', review: review });
+                  }
+            }
+
+            /**
+               * @static
+               *
+               *
+               * @param {object} req - The request payload sent to the router
+               * @param {object} res - The response payload sent back from the controller
+               *
+               * @returns {object} - status Message and gets all reviews for a businesses
+               *
+               * @memberOf ReviewController
+               */
+
+      }, {
+            key: 'getAllReviews',
+            value: function getAllReviews(req, res) {
+
+                  var id = req.params.businessId;
+
+                  var business = _db.businesses.find(function (businessItem) {
+                        return +businessItem.businessId === +id;
+                  });
+
+                  if (!business) {
+
+                        res.status(404).json({ message: 'Cannot get Review! Business with businessId ' + id + ' does not exist' });
+                  } else {
+
+                        var businessIndex = _db.businesses.indexOf(business);
+
+                        var allReviews = _db.businesses[businessIndex].reviews;
+
+                        res.json({ message: 'reviews loaded successfully', allReviews: allReviews });
                   }
             }
       }]);
