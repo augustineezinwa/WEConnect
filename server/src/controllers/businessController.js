@@ -268,6 +268,8 @@ class BusinessController {
      * @static
      *
      *
+     * @description - This method filters search results by category.
+     *
      * @param {object} req - The request payload sent to the router
      * @param {object} res - The response payload sent back from the controller
      * @param {object} next - This forwards request to the next controller in the stack
@@ -288,11 +290,11 @@ class BusinessController {
 
       if (searchBusinessResults.length === 0) {
 
-        res.status(404).json(`Business under category ${category} not found!`);
+        return res.status(404).json({ message: `Business under category ${category} not found!` });
 
       } else {
 
-        res.status(200).json(searchBusinessResults);
+        return res.status(200).json({ message: 'Search was successful', searchBusinessResults });
 
       }
 
