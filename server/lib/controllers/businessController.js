@@ -223,6 +223,79 @@ var BusinessController = function () {
 
             return res.status(204).json({ message: 'business with businessId ' + id + ' was deleted successfully' });
         }
+
+        /**
+           * @static
+           *
+           *
+           * @param {object} req - The request payload sent to the router
+           * @param {object} res - The response payload sent back from the controller
+           * @param {object} next - This forwards request to the next controller in the stack
+           *
+           * @returns {object} - status Message showing that business has been deleted.
+           *
+           * @memberOf BusinessController
+           */
+
+    }, {
+        key: 'filterSearchByLocation',
+        value: function filterSearchByLocation(req, res, next) {
+            var location = req.query.location;
+
+
+            if (location) {
+
+                var searchBusinessResults = _db.businesses.filter(function (businessItem) {
+                    return businessItem.location === location;
+                });
+
+                if (searchBusinessResults.length === 0) {
+
+                    return res.status(404).json('Business under location ' + location + ' not found');
+                }
+
+                return res.status(200).json(searchBusinessResults);
+            }
+
+            return next();
+        }
+
+        /**
+           * @static
+           *
+           *
+           * @param {object} req - The request payload sent to the router
+           * @param {object} res - The response payload sent back from the controller
+           * @param {object} next - This forwards request to the next controller in the stack
+           *
+           * @returns {object} - status Message showing that business has been deleted.
+           *
+           * @memberOf BusinessController
+           */
+
+    }, {
+        key: 'filterSearchByCategory',
+        value: function filterSearchByCategory(req, res, next) {
+            var category = req.query.category;
+
+
+            if (category) {
+
+                var searchBusinessResults = _db.businesses.filter(function (businessItem) {
+                    return businessItem.category === category;
+                });
+
+                if (searchBusinessResults.length === 0) {
+
+                    res.status(404).json('Business under category ' + category + ' not found!');
+                } else {
+
+                    res.status(200).json(searchBusinessResults);
+                }
+            }
+
+            next();
+        }
     }]);
 
     return BusinessController;

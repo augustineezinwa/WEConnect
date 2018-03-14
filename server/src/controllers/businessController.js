@@ -226,6 +226,82 @@ class BusinessController {
 
 
   }
+
+  /**
+     * @static
+     *
+     *
+     * @param {object} req - The request payload sent to the router
+     * @param {object} res - The response payload sent back from the controller
+     * @param {object} next - This forwards request to the next controller in the stack
+     *
+     * @returns {object} - status Message showing that business has been deleted.
+     *
+     * @memberOf BusinessController
+     */
+  static filterSearchByLocation(req, res, next) {
+
+    const { location } = req.query;
+
+    if (location) {
+
+      const searchBusinessResults = businesses.filter(businessItem =>
+
+        businessItem.location === location);
+
+      if (searchBusinessResults.length === 0) {
+
+        return res.status(404).json(`Business under location ${location} not found`);
+
+      }
+
+      return res.status(200).json(searchBusinessResults);
+
+
+    }
+
+    return next();
+
+  }
+
+  /**
+     * @static
+     *
+     *
+     * @param {object} req - The request payload sent to the router
+     * @param {object} res - The response payload sent back from the controller
+     * @param {object} next - This forwards request to the next controller in the stack
+     *
+     * @returns {object} - status Message showing that business has been deleted.
+     *
+     * @memberOf BusinessController
+     */
+  static filterSearchByCategory(req, res, next) {
+
+    const { category } = req.query;
+
+    if (category) {
+
+      const searchBusinessResults = businesses.filter(businessItem =>
+
+        businessItem.category === category);
+
+      if (searchBusinessResults.length === 0) {
+
+        res.status(404).json(`Business under category ${category} not found!`);
+
+      } else {
+
+        res.status(200).json(searchBusinessResults);
+
+      }
+
+    }
+
+    next();
+
+  }
+
 }
 
 
