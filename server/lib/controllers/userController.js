@@ -28,7 +28,7 @@ var UserController = function () {
             /**
                * @static
                *
-               *@description -This method logins users into users into WEConnect
+               *@description -This method logins users into WEConnect
                *
                * @param {object} req - The request payload sent to the router
                * @param {object} res - The response payload sent back from the controller
@@ -69,7 +69,7 @@ var UserController = function () {
             /**
                * @static
                *
-               *@description -This method signs users into users into WEConnect
+               *@description -This method signs up users into WEConnect
                *
                * @param {object} req - The request payload sent to the router
                * @param {object} res - The response payload sent back from the controller

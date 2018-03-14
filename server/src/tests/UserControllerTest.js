@@ -95,3 +95,73 @@ describe('Testing /POST user login', () => {
       });
   });
 });
+
+describe('Testing /POST signup', () => {
+
+  it('it should successfully sign up a user if his/her details is new to the database', (done) => {
+
+    const newUser = {
+
+      firstName: 'augustine',
+
+      lastName: 'ezinwa',
+
+      email: 'jet55591@gmail.com',
+
+      password: '434323',
+
+      address: 'no 54 dffdfb str ..',
+
+      phoneNumber: '0934343434344'
+
+    };
+
+    chai.request(app).post('/api/v1/auth/signup')
+
+      .send(newUser).end((err, res) => {
+
+        res.should.have.status(201);
+
+        res.body.should.be.a('object');
+
+        done();
+
+      });
+  });
+
+  it('it should return an error message if email is already in use', (done) => {
+
+    const newUser1 = {
+
+      firstName: 'augustine',
+
+      lastName: 'ezinwa',
+
+      email: 'jet55591@gmail.com',
+
+      password: '434323',
+
+      address: 'no 54 dffdfb str ..',
+
+      phoneNumber: '0934343434344'
+
+    };
+
+    chai.request(app).post('/api/v1/auth/signup')
+
+      .send(newUser1).end((err, res) => {
+
+        res.should.have.status(400);
+
+        res.body.should.be.a('object');
+
+        res.body.should.have.property('message');
+
+        res.body.message.should.be.eql('email has been used');
+
+        done();
+
+
+      });
+  });
+});
