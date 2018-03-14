@@ -22,14 +22,16 @@ var getAllBusinesses = _BusinessController2.default.getAllBusinesses,
     getBusinessById = _BusinessController2.default.getBusinessById,
     createBusiness = _BusinessController2.default.createBusiness,
     updateBusiness = _BusinessController2.default.updateBusiness,
-    removeBusiness = _BusinessController2.default.removeBusiness;
+    removeBusiness = _BusinessController2.default.removeBusiness,
+    filterSearchByCategory = _BusinessController2.default.filterSearchByCategory,
+    filterSearchByLocation = _BusinessController2.default.filterSearchByLocation;
 var addReview = _ReviewController2.default.addReview,
     getAllReviews = _ReviewController2.default.getAllReviews;
 
 
 var Router = _express2.default.Router();
 
-Router.get('/businesses', getAllBusinesses);
+Router.get('/businesses', filterSearchByLocation, filterSearchByCategory, getAllBusinesses);
 
 Router.get('/businesses/:businessId', getBusinessById);
 

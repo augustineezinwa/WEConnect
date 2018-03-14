@@ -8,7 +8,9 @@ const {
 
   getAllBusinesses, getBusinessById, createBusiness,
 
-  updateBusiness, removeBusiness
+  updateBusiness, removeBusiness, filterSearchByCategory,
+
+  filterSearchByLocation
 
 } = BusinessController;
 
@@ -17,7 +19,7 @@ const { addReview, getAllReviews } = ReviewController;
 const Router = express.Router();
 
 
-Router.get('/businesses', getAllBusinesses);
+Router.get('/businesses', filterSearchByLocation, filterSearchByCategory, getAllBusinesses);
 
 Router.get('/businesses/:businessId', getBusinessById);
 
