@@ -290,10 +290,9 @@ var BusinessController = function () {
                 if (searchBusinessResults.length === 0) {
 
                     return res.status(404).json({ message: 'Business under category ' + category + ' not found!' });
-                } else {
-
-                    return res.status(200).json({ message: 'Search was successful', searchBusinessResults: searchBusinessResults });
                 }
+
+                return res.status(200).json({ message: 'Search was successful', searchBusinessResults: searchBusinessResults });
             }
 
             next();

@@ -122,7 +122,6 @@ describe('Testing /GET businesses/:businessId', () => {
 });
 
 
-
 describe('Testing /POST businesses', () => {
 
 
@@ -272,8 +271,8 @@ describe('Testing /FILTER by category endpoint', () => {
   it('it should filter business search by a particular category', (done) => {
 
 
-      chai.request(app).get('/api/v1/businesses/?category=Flight')
-      
+    chai.request(app).get('/api/v1/businesses/?category=Flight')
+
       .end((err, res) => {
 
         res.body.searchBusinessResults[0].should.have.property('businessId').eql(4);
@@ -281,8 +280,8 @@ describe('Testing /FILTER by category endpoint', () => {
         res.body.searchBusinessResults[0].should.have.property('businessName').eql('Virgin Austrailia');
 
         res.body.searchBusinessResults[0].should.have.property('businessAddress')
-        
-        .eql('No 10 New kingston road new zealand');
+
+          .eql('No 10 New kingston road new zealand');
 
         res.body.searchBusinessResults[0].should.have.property('location').eql('Austrailia');
 
@@ -303,8 +302,8 @@ describe('Testing /FILTER by category endpoint', () => {
         res.body.searchBusinessResults[0].userId.should.be.a('number');
 
         done();
-    });
-    
+      });
+
   });
 
 });
@@ -314,8 +313,8 @@ describe('Testing /FILTER by location endpoint', () => {
   it('it should filter business search by a particular location', (done) => {
 
 
-      chai.request(app).get('/api/v1/businesses/?location=Austrailia')
-      
+    chai.request(app).get('/api/v1/businesses/?location=Austrailia')
+
       .end((err, res) => {
 
         res.body.searchBusinessResults[0].should.have.property('businessId').eql(4);
@@ -323,8 +322,8 @@ describe('Testing /FILTER by location endpoint', () => {
         res.body.searchBusinessResults[0].should.have.property('businessName').eql('Virgin Austrailia');
 
         res.body.searchBusinessResults[0].should.have.property('businessAddress')
-        
-        .eql('No 10 New kingston road new zealand');
+
+          .eql('No 10 New kingston road new zealand');
 
         res.body.searchBusinessResults[0].should.have.property('location').eql('Austrailia');
 
@@ -345,10 +344,35 @@ describe('Testing /FILTER by location endpoint', () => {
         res.body.searchBusinessResults[0].userId.should.be.a('number');
 
         done();
-    });
-    
+      });
+
   });
 
+});
+
+describe('Testing /FILTER by location endpoint', () => {
+
+  it('it should return an error message if business under location doesnt exist', (done) => {
+
+    chai.request(app).get('/api/v1/businesses/?location=london')
+
+      .end((err, res) => {
+
+        res.should.have.status(404);
+
+        res.body.should.be.a('object');
+
+        res.body.should.have.property('message');
+
+        res.body.message.should.be.a('string');
+
+        res.body.message.should.eql('Business under location london not found');
+
+
+        done();
+
+      });
+  });
 });
 
 describe('Testing API endpoints', () => {

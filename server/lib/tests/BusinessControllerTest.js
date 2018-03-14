@@ -323,6 +323,27 @@ describe('Testing /FILTER by location endpoint', function () {
         });
 });
 
+describe('Testing /FILTER by location endpoint', function () {
+
+        it('it should return an error message if business under location doesnt exist', function (done) {
+
+                _chai2.default.request(_app2.default).get('/api/v1/businesses/?location=london').end(function (err, res) {
+
+                        res.should.have.status(404);
+
+                        res.body.should.be.a('object');
+
+                        res.body.should.have.property('message');
+
+                        res.body.message.should.be.a('string');
+
+                        res.body.message.should.eql('Business under location london not found');
+
+                        done();
+                });
+        });
+});
+
 describe('Testing API endpoints', function () {
 
         beforeEach(function (done) {
