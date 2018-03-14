@@ -251,11 +251,11 @@ class BusinessController {
 
       if (searchBusinessResults.length === 0) {
 
-        return res.status(404).json(`Business under location ${location} not found`);
+        return res.status(404).json({message :`Business under location ${location} not found`});
 
       }
 
-      return res.status(200).json(searchBusinessResults);
+      return res.status(200).json({message : 'Search was successful', searchBusinessResults});
 
 
     }
