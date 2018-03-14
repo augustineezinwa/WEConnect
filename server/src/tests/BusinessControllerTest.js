@@ -121,6 +121,8 @@ describe('Testing /GET businesses/:businessId', () => {
 
 });
 
+
+
 describe('Testing /POST businesses', () => {
 
 
@@ -265,6 +267,47 @@ describe('Testing /POST businesses', () => {
 
 });
 
+describe('Testing /FILTER by category endpoint', () => {
+
+  it('it should filter business search by a particular category', (done) => {
+
+
+      chai.request(app).get('/api/v1/businesses/?category=Flight')
+      
+      .end((err, res) => {
+
+        res.body.searchBusinessResults[0].should.have.property('businessId').eql(4);
+
+        res.body.searchBusinessResults[0].should.have.property('businessName').eql('Virgin Austrailia');
+
+        res.body.searchBusinessResults[0].should.have.property('businessAddress')
+        
+        .eql('No 10 New kingston road new zealand');
+
+        res.body.searchBusinessResults[0].should.have.property('location').eql('Austrailia');
+
+        res.body.searchBusinessResults[0].should.have.property('category').eql('Flight');
+
+        res.body.searchBusinessResults[0].should.have.property('userId').eql(2);
+
+        res.body.searchBusinessResults[0].businessId.should.be.a('number');
+
+        res.body.searchBusinessResults[0].should.be.a('object');
+
+        res.body.searchBusinessResults[0].businessAddress.should.be.a('string');
+
+        res.body.searchBusinessResults[0].location.should.be.a('string');
+
+        res.body.searchBusinessResults[0].category.should.be.a('string');
+
+        res.body.searchBusinessResults[0].userId.should.be.a('number');
+
+        done();
+    });
+    
+  });
+
+});
 
 describe('Testing API endpoints', () => {
 
@@ -531,7 +574,7 @@ describe('Testing API endpoints', () => {
         });
     });
 
-    it('it should not return a message that business does not exist', (done) => {
+    it('it should  return a message that business does not exist', (done) => {
 
       chai.request(app).delete('/api/v1/businesses/2')
 
