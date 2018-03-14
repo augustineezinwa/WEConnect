@@ -18,7 +18,7 @@ const {
 
 const { addReview, getAllReviews } = ReviewController;
 
-const { loginUser } = UserController;
+const { loginUser, signupUser } = UserController;
 
 const Router = express.Router();
 
@@ -38,5 +38,7 @@ Router.post('/businesses/:businessId/reviews', addReview);
 Router.get('/businesses/:businessId/reviews', getAllReviews);
 
 Router.post('/auth/login', loginUser);
+
+Router.post('/auth/signup', signupUser);
 
 export default Router;

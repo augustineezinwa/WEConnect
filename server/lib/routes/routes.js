@@ -31,7 +31,8 @@ var getAllBusinesses = _BusinessController2.default.getAllBusinesses,
     filterSearchByLocation = _BusinessController2.default.filterSearchByLocation;
 var addReview = _ReviewController2.default.addReview,
     getAllReviews = _ReviewController2.default.getAllReviews;
-var loginUser = _UserController2.default.loginUser;
+var loginUser = _UserController2.default.loginUser,
+    signupUser = _UserController2.default.signupUser;
 
 
 var Router = _express2.default.Router();
@@ -51,5 +52,7 @@ Router.post('/businesses/:businessId/reviews', addReview);
 Router.get('/businesses/:businessId/reviews', getAllReviews);
 
 Router.post('/auth/login', loginUser);
+
+Router.post('/auth/signup', signupUser);
 
 exports.default = Router;
