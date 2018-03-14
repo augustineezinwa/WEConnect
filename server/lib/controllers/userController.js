@@ -53,14 +53,14 @@ var UserController = function () {
 
                               if (user.password === password && user.email === email) {
 
-                                    res.json('you successfully logged in');
+                                    res.json({ message: 'you successfully logged in' });
                               } else {
 
-                                    res.status(400).json('login failed');
+                                    res.status(400).json({ message: 'login failed! Incorrect password' });
                               }
                         } else {
 
-                              res.status(401).json('your email was not found, sign up!');
+                              res.status(401).json({ message: 'your email was not found, sign up!' });
                         }
                   }
             }
