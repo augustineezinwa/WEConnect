@@ -1,4 +1,4 @@
-import { businesses, reviews } from '../dummydb/db';
+import { businesses } from '../dummydb/db';
 
 /**
  * @class ReviewController

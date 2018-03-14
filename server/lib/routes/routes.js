@@ -16,6 +16,10 @@ var _ReviewController = require('../controllers/ReviewController');
 
 var _ReviewController2 = _interopRequireDefault(_ReviewController);
 
+var _UserController = require('../controllers/UserController');
+
+var _UserController2 = _interopRequireDefault(_UserController);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var getAllBusinesses = _BusinessController2.default.getAllBusinesses,
@@ -27,6 +31,7 @@ var getAllBusinesses = _BusinessController2.default.getAllBusinesses,
     filterSearchByLocation = _BusinessController2.default.filterSearchByLocation;
 var addReview = _ReviewController2.default.addReview,
     getAllReviews = _ReviewController2.default.getAllReviews;
+var loginUser = _UserController2.default.loginUser;
 
 
 var Router = _express2.default.Router();
@@ -44,5 +49,7 @@ Router.delete('/businesses/:businessId', removeBusiness);
 Router.post('/businesses/:businessId/reviews', addReview);
 
 Router.get('/businesses/:businessId/reviews', getAllReviews);
+
+Router.post('/auth/login', loginUser);
 
 exports.default = Router;
