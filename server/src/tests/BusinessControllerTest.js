@@ -67,7 +67,7 @@ describe('Testing /GET businesses', () => {
 
 describe('Testing /GET businesses/:businessId', () => {
 
-  it('it should GET all business in the array', (done) => {
+  it('it should GET a business in the array by businessId.', (done) => {
 
     chai.request(app).get('/api/v1/businesses/3')
 
@@ -79,35 +79,39 @@ describe('Testing /GET businesses/:businessId', () => {
 
         res.body.should.have.property('message').eql('business search was successful');
 
-        res.body.should.have.property('businesses');
+        res.body.should.have.property('business');
 
-        res.body.businesses.should.be.a('array');
+        res.body.business.should.be.a('object');
 
-        res.body.businesses.length.should.be.eql(1);
+        res.body.business.should.have.property('businessId').eql(3);
 
-        res.body.businesses[0].should.have.property('businessId').eql(3);
+        res.body.business.should.have.property('businessName').eql('Shoprite');
 
-        res.body.businesses[0].should.have.property('businessName').eql('Shoprite');
+        res.body.business.should.have.property('businessAddress').eql('no 5 washington road');
 
-        res.body.businesses[0].should.have.property('businessAddress').eql('no 5 washington road');
+        res.body.business.should.have.property('location').eql('USA');
 
-        res.body.businesses[0].should.have.property('location').eql('USA');
+        res.body.business.should.have.property('category').eql('supermarket');
 
-        res.body.businesses[0].should.have.property('category').eql('supermarket');
+        res.body.business.should.have.property('userId').eql(1);
 
-        res.body.businesses[0].should.have.property('userId').eql(1);
+        res.body.business.businessId.should.be.a('number');
 
-        res.body.businesses[0].businessId.should.be.a('number');
+        res.body.business.businessName.should.be.a('string');
 
-        res.body.businesses[0].businessName.should.be.a('string');
+        res.body.business.businessAddress.should.be.a('string');
 
-        res.body.businesses[0].businessAddress.should.be.a('string');
+        res.body.business.location.should.be.a('string');
 
-        res.body.businesses[0].location.should.be.a('string');
+        res.body.business.category.should.be.a('string');
 
-        res.body.businesses[0].category.should.be.a('string');
+        res.body.business.userId.should.be.a('number');
 
-        res.body.businesses[0].userId.should.be.a('number');
+        res.body.business.should.have.property('reviews');
+
+        res.body.business.reviews.should.be.a('array');
+
+        res.body.business.reviews.length.should.eql(0);
 
         done();
 
@@ -148,6 +152,8 @@ describe('Testing /POST businesses', () => {
 
         res.body.should.have.property('message').eql('business successfully added');
 
+        res.body.newBusiness.should.have.property('businessId').eql(4);
+
         res.body.newBusiness.should.have.property('businessName').eql('Virgin Austrailia');
 
         res.body.newBusiness.should.have.property('businessAddress').eql('No 10 New kingston road new zealand');
@@ -183,7 +189,82 @@ describe('Testing /POST businesses', () => {
 
       });
   });
+
+  it('checking to see if two businesses are available in the database', (done) => {
+
+    chai.request(app).get('/api/v1/businesses')
+
+      .end((err, res) => {
+
+        res.should.have.status(200);
+
+        res.body.should.be.a('object');
+
+        res.body.should.have.property('message').eql('business list loaded successfully');
+
+        res.body.should.have.property('businesses');
+
+        res.body.businesses.should.be.a('array');
+
+        res.body.businesses.length.should.be.eql(2);
+
+        res.body.businesses[0].should.have.property('businessId').eql(3);
+
+        res.body.businesses[0].should.have.property('businessName').eql('Shoprite');
+
+        res.body.businesses[0].should.have.property('businessAddress').eql('no 5 washington road');
+
+        res.body.businesses[0].should.have.property('location').eql('USA');
+
+        res.body.businesses[0].should.have.property('category').eql('supermarket');
+
+        res.body.businesses[0].should.have.property('userId').eql(1);
+
+        res.body.businesses[0].businessId.should.be.a('number');
+
+        res.body.businesses[0].businessName.should.be.a('string');
+
+        res.body.businesses[0].businessAddress.should.be.a('string');
+
+        res.body.businesses[0].location.should.be.a('string');
+
+        res.body.businesses[0].category.should.be.a('string');
+
+        res.body.businesses[0].userId.should.be.a('number');
+
+        res.body.businesses[1].should.have.property('businessId').eql(4);
+
+        res.body.businesses[1].should.have.property('businessName').eql('Virgin Austrailia');
+
+        res.body.businesses[1].should.have.property('businessAddress').eql('No 10 New kingston road new zealand');
+
+        res.body.businesses[1].should.have.property('location').eql('Austrailia');
+
+        res.body.businesses[1].should.have.property('category').eql('Flight');
+
+        res.body.businesses[1].should.have.property('userId').eql(2);
+
+        res.body.businesses[1].businessId.should.be.a('number');
+
+        res.body.businesses[1].businessName.should.be.a('string');
+
+        res.body.businesses[1].businessAddress.should.be.a('string');
+
+        res.body.businesses[1].location.should.be.a('string');
+
+        res.body.businesses[1].category.should.be.a('string');
+
+        res.body.businesses[1].userId.should.be.a('number');
+
+
+        done();
+
+      });
+
+  });
+
 });
+
 
 describe('Testing API endpoints', () => {
 

@@ -52,13 +52,12 @@ class BusinessController {
 
     if (!business) {
 
-      res.status(404).json({ message: `Business with businessId ${id} does not exist` });
-
-    } else {
-
-      res.json({ message: 'business search was successful', businesses });
+      return res.status(404).json({ message: `Business with businessId ${id} does not exist` });
 
     }
+
+    return res.json({ message: 'business search was successful', business });
+
 
   }
 
@@ -114,7 +113,7 @@ class BusinessController {
 
     businesses.push(newBusiness);
 
-    res.status(201).send({ message: 'business successfully added', newBusiness });
+    return res.status(201).send({ message: 'business successfully added', newBusiness });
 
 
   }
@@ -138,63 +137,62 @@ class BusinessController {
 
     if (!business) {
 
-      res.status(404).json({ message: `Business with businessId ${id} does not exist!` });
-
-    } else {
-
-      const businessIndex = businesses.indexOf(business);
-
-      const {
-
-        businessName,
-
-        businessAddress,
-
-        location,
-
-        category,
-
-        userId
-
-      } = req.body;
-
-      if (businessName) {
-
-        business.businessName = businessName;
-
-      }
-
-
-      if (businessAddress) {
-
-        business.businessAddress = businessAddress;
-
-      }
-
-      if (location) {
-
-        business.location = location;
-
-      }
-
-      if (category) {
-
-        business.category = category;
-
-      }
-
-      if (userId) {
-
-        business.userId = userId;
-
-      }
-
-
-      businesses[businessIndex] = business;
-
-      res.json({ message: 'business updated successfully', business });
+      return res.status(404).json({ message: `Business with businessId ${id} does not exist!` });
 
     }
+
+    const businessIndex = businesses.indexOf(business);
+
+    const {
+
+      businessName,
+
+      businessAddress,
+
+      location,
+
+      category,
+
+      userId
+
+    } = req.body;
+
+    if (businessName) {
+
+      business.businessName = businessName;
+
+    }
+
+
+    if (businessAddress) {
+
+      business.businessAddress = businessAddress;
+
+    }
+
+    if (location) {
+
+      business.location = location;
+
+    }
+
+    if (category) {
+
+      business.category = category;
+
+    }
+
+    if (userId) {
+
+      business.userId = userId;
+
+    }
+
+
+    businesses[businessIndex] = business;
+
+    return res.json({ message: 'business updated successfully', business });
+
 
   }
 
@@ -217,16 +215,15 @@ class BusinessController {
 
     if (!business) {
 
-      res.status(404).json({ message: `business with businessId ${id} does not exist` });
-
-    } else {
-
-
-      businesses.splice(businesses.indexOf(business), 1);
-
-      res.status(204).json({ message: `business with businessId ${id} was deleted successfully` });
+      return res.status(404).json({ message: `business with businessId ${id} does not exist` });
 
     }
+
+
+    businesses.splice(businesses.indexOf(business), 1);
+
+    return res.status(204).json({ message: `business with businessId ${id} was deleted successfully` });
+
 
   }
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-      value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -17,218 +17,215 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  *
  */
 var BusinessController = function () {
-      function BusinessController() {
-            _classCallCheck(this, BusinessController);
-      }
+    function BusinessController() {
+        _classCallCheck(this, BusinessController);
+    }
 
-      _createClass(BusinessController, null, [{
-            key: 'getAllBusinesses',
+    _createClass(BusinessController, null, [{
+        key: 'getAllBusinesses',
 
 
-            /**
-               * @static
-               *
-               *
-               * @param {object} req - The request payload sent to the router
-               * @param {object} res - The response payload sent back from the controller
-               *
-               * @returns {object} - status Message and list of all businesses
-               *
-               * @memberOf BusinessController
-               */
-            value: function getAllBusinesses(req, res) {
+        /**
+           * @static
+           *
+           *
+           * @param {object} req - The request payload sent to the router
+           * @param {object} res - The response payload sent back from the controller
+           *
+           * @returns {object} - status Message and list of all businesses
+           *
+           * @memberOf BusinessController
+           */
+        value: function getAllBusinesses(req, res) {
 
-                  if (_db.businesses.length === 0) {
+            if (_db.businesses.length === 0) {
 
-                        return res.status(404).json({ message: 'No business available at this time', businesses: _db.businesses });
-                  }
-
-                  return res.json({ message: 'business list loaded successfully', businesses: _db.businesses });
+                return res.status(404).json({ message: 'No business available at this time', businesses: _db.businesses });
             }
 
-            /**
-               * @static
-               *
-               *
-               * @param {object} req - The request payload sent to the router
-               * @param {object} res - The response payload sent back from the controller
-               *
-               * @returns {object} - status Message and the particul businesses by id.
-               *
-               * @memberOf BusinessController
-               */
+            return res.json({ message: 'business list loaded successfully', businesses: _db.businesses });
+        }
 
-      }, {
-            key: 'getBusinessById',
-            value: function getBusinessById(req, res) {
+        /**
+           * @static
+           *
+           *
+           * @param {object} req - The request payload sent to the router
+           * @param {object} res - The response payload sent back from the controller
+           *
+           * @returns {object} - status Message and the particul businesses by id.
+           *
+           * @memberOf BusinessController
+           */
 
-                  var id = req.params.businessId;
+    }, {
+        key: 'getBusinessById',
+        value: function getBusinessById(req, res) {
 
-                  var business = _db.businesses.find(function (businessItem) {
-                        return +businessItem.businessId === +id;
-                  });
+            var id = req.params.businessId;
 
-                  if (!business) {
+            var business = _db.businesses.find(function (businessItem) {
+                return +businessItem.businessId === +id;
+            });
 
-                        res.status(404).json({ message: 'Business with businessId ' + id + ' does not exist' });
-                  } else {
+            if (!business) {
 
-                        res.json({ message: 'business search was successful', businesses: _db.businesses });
-                  }
+                return res.status(404).json({ message: 'Business with businessId ' + id + ' does not exist' });
             }
 
-            /**
-               * @static
-               *
-               *
-               * @param {object} req - The request payload sent to the router
-               * @param {object} res - The response payload sent back from the controller
-               *
-               * @returns {object} - status Message and the particular businesses created.
-               *
-               * @memberOf BusinessController
-               */
+            return res.json({ message: 'business search was successful', business: business });
+        }
 
-      }, {
-            key: 'createBusiness',
-            value: function createBusiness(req, res) {
+        /**
+           * @static
+           *
+           *
+           * @param {object} req - The request payload sent to the router
+           * @param {object} res - The response payload sent back from the controller
+           *
+           * @returns {object} - status Message and the particular businesses created.
+           *
+           * @memberOf BusinessController
+           */
 
-                  var businessId = _db.businesses.length === 0 ? 1 : _db.businesses[_db.businesses.length - 1].businessId + 1;
+    }, {
+        key: 'createBusiness',
+        value: function createBusiness(req, res) {
 
-                  var _req$body = req.body,
-                      businessName = _req$body.businessName,
-                      businessAddress = _req$body.businessAddress,
-                      location = _req$body.location,
-                      category = _req$body.category,
-                      userId = _req$body.userId;
+            var businessId = _db.businesses.length === 0 ? 1 : _db.businesses[_db.businesses.length - 1].businessId + 1;
+
+            var _req$body = req.body,
+                businessName = _req$body.businessName,
+                businessAddress = _req$body.businessAddress,
+                location = _req$body.location,
+                category = _req$body.category,
+                userId = _req$body.userId;
 
 
-                  var newBusiness = {
+            var newBusiness = {
 
-                        businessId: businessId,
+                businessId: businessId,
 
-                        businessName: businessName,
+                businessName: businessName,
 
-                        businessAddress: businessAddress,
+                businessAddress: businessAddress,
 
-                        location: location,
+                location: location,
 
-                        category: category,
+                category: category,
 
-                        userId: userId,
+                userId: userId,
 
-                        reviews: []
+                reviews: []
 
-                  };
+            };
 
-                  _db.businesses.push(newBusiness);
+            _db.businesses.push(newBusiness);
 
-                  res.status(201).send({ message: 'business successfully added', newBusiness: newBusiness });
+            return res.status(201).send({ message: 'business successfully added', newBusiness: newBusiness });
+        }
+
+        /**
+           * @static
+           *
+           *
+           * @param {object} req - The request payload sent to the router
+           * @param {object} res - The response payload sent back from the controller
+           *
+           * @returns {object} - status Message and the particular updated businesses created.
+           *
+           * @memberOf BusinessController
+           */
+
+    }, {
+        key: 'updateBusiness',
+        value: function updateBusiness(req, res) {
+
+            var id = req.params.businessId;
+
+            var business = _db.businesses.find(function (businessItem) {
+                return +businessItem.businessId === +id;
+            });
+
+            if (!business) {
+
+                return res.status(404).json({ message: 'Business with businessId ' + id + ' does not exist!' });
             }
 
-            /**
-               * @static
-               *
-               *
-               * @param {object} req - The request payload sent to the router
-               * @param {object} res - The response payload sent back from the controller
-               *
-               * @returns {object} - status Message and the particular updated businesses created.
-               *
-               * @memberOf BusinessController
-               */
+            var businessIndex = _db.businesses.indexOf(business);
 
-      }, {
-            key: 'updateBusiness',
-            value: function updateBusiness(req, res) {
-
-                  var id = req.params.businessId;
-
-                  var business = _db.businesses.find(function (businessItem) {
-                        return +businessItem.businessId === +id;
-                  });
-
-                  if (!business) {
-
-                        res.status(404).json({ message: 'Business with businessId ' + id + ' does not exist!' });
-                  } else {
-
-                        var businessIndex = _db.businesses.indexOf(business);
-
-                        var _req$body2 = req.body,
-                            businessName = _req$body2.businessName,
-                            businessAddress = _req$body2.businessAddress,
-                            location = _req$body2.location,
-                            category = _req$body2.category,
-                            userId = _req$body2.userId;
+            var _req$body2 = req.body,
+                businessName = _req$body2.businessName,
+                businessAddress = _req$body2.businessAddress,
+                location = _req$body2.location,
+                category = _req$body2.category,
+                userId = _req$body2.userId;
 
 
-                        if (businessName) {
+            if (businessName) {
 
-                              business.businessName = businessName;
-                        }
-
-                        if (businessAddress) {
-
-                              business.businessAddress = businessAddress;
-                        }
-
-                        if (location) {
-
-                              business.location = location;
-                        }
-
-                        if (category) {
-
-                              business.category = category;
-                        }
-
-                        if (userId) {
-
-                              business.userId = userId;
-                        }
-
-                        _db.businesses[businessIndex] = business;
-
-                        res.json({ message: 'business updated successfully', business: business });
-                  }
+                business.businessName = businessName;
             }
 
-            /**
-               * @static
-               *
-               *
-               * @param {object} req - The request payload sent to the router
-               * @param {object} res - The response payload sent back from the controller
-               *
-               * @returns {object} - status Message showing that business has been deleted.
-               *
-               * @memberOf BusinessController
-               */
+            if (businessAddress) {
 
-      }, {
-            key: 'removeBusiness',
-            value: function removeBusiness(req, res) {
-
-                  var id = req.params.businessId;
-
-                  var business = _db.businesses.find(function (businessItem) {
-                        return +businessItem.businessId === +id;
-                  });
-
-                  if (!business) {
-
-                        res.status(404).json({ message: 'business with businessId ' + id + ' does not exist' });
-                  } else {
-
-                        _db.businesses.splice(_db.businesses.indexOf(business), 1);
-
-                        res.status(204).json({ message: 'business with businessId ' + id + ' was deleted successfully' });
-                  }
+                business.businessAddress = businessAddress;
             }
-      }]);
 
-      return BusinessController;
+            if (location) {
+
+                business.location = location;
+            }
+
+            if (category) {
+
+                business.category = category;
+            }
+
+            if (userId) {
+
+                business.userId = userId;
+            }
+
+            _db.businesses[businessIndex] = business;
+
+            return res.json({ message: 'business updated successfully', business: business });
+        }
+
+        /**
+           * @static
+           *
+           *
+           * @param {object} req - The request payload sent to the router
+           * @param {object} res - The response payload sent back from the controller
+           *
+           * @returns {object} - status Message showing that business has been deleted.
+           *
+           * @memberOf BusinessController
+           */
+
+    }, {
+        key: 'removeBusiness',
+        value: function removeBusiness(req, res) {
+
+            var id = req.params.businessId;
+
+            var business = _db.businesses.find(function (businessItem) {
+                return +businessItem.businessId === +id;
+            });
+
+            if (!business) {
+
+                return res.status(404).json({ message: 'business with businessId ' + id + ' does not exist' });
+            }
+
+            _db.businesses.splice(_db.businesses.indexOf(business), 1);
+
+            return res.status(204).json({ message: 'business with businessId ' + id + ' was deleted successfully' });
+        }
+    }]);
+
+    return BusinessController;
 }();
 
 exports.default = BusinessController;

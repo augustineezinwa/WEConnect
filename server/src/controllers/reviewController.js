@@ -27,43 +27,43 @@ class ReviewController {
 
     if (!business) {
 
-      res.status(404).json({ message: `Cannot add Review!, Business with businessId ${id} does not exist` });
-
-    } else {
-
-      const businessIndex = businesses.indexOf(business);
-
-      const reviewId = businesses[businessIndex].reviews.length === 0 ? 1 :
-
-        businesses[businessIndex].reviews[businesses[businessIndex]
-
-          .reviews.length - 1].reviewId + 1;
-
-      const {
-
-        reviewContent,
-
-        userId
-
-      } = req.body;
-
-      const review = {
-
-        reviewId,
-
-        reviewContent,
-
-        userId,
-
-        businessId: id,
-
-      };
-
-      businesses[businessIndex].reviews.push(review);
-
-      res.status(201).json({ message: 'review was added successfully', review });
+      return res.status(404).json({ message: `Cannot add Review!, Business with businessId ${id} does not exist` });
 
     }
+
+    const businessIndex = businesses.indexOf(business);
+
+    const reviewId = businesses[businessIndex].reviews.length === 0 ? 1 :
+
+      businesses[businessIndex].reviews[businesses[businessIndex]
+
+        .reviews.length - 1].reviewId + 1;
+
+    const {
+
+      reviewContent,
+
+      userId
+
+    } = req.body;
+
+    const review = {
+
+      reviewId,
+
+      reviewContent,
+
+      userId,
+
+      businessId: id,
+
+    };
+
+    businesses[businessIndex].reviews.push(review);
+
+    return res.status(201).json({ message: 'review was added successfully', review });
+
+
   }
 
   /**
@@ -85,17 +85,24 @@ class ReviewController {
 
     if (!business) {
 
-      res.status(404).json({ message: `Cannot get Review! Business with businessId ${id} does not exist` });
-
-    } else {
-
-      const businessIndex = businesses.indexOf(business);
-
-      const allReviews = businesses[businessIndex].reviews;
-
-      res.json({ message: 'reviews loaded successfully', allReviews });
+      return res.status(404).json({ message: `Cannot get Review! Business with businessId ${id} does not exist` });
 
     }
+
+    const businessIndex = businesses.indexOf(business);
+
+    const allReviews = businesses[businessIndex].reviews;
+
+    if (allReviews.length === 0) {
+
+      return res.status(404)
+
+        .json({ message: `reviews not available at this time for business with businessId ${id}` });
+
+    }
+
+    return res.json({ message: 'reviews loaded successfully', allReviews });
+
 
   }
 }

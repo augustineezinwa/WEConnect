@@ -118,7 +118,75 @@ describe('Testing /GET reviews for a particular business', () => {
 
         res.should.be.status(200);
 
+        res.body.should.be.a('object');
+
+        res.body.should.have.property('message').eql('reviews loaded successfully');
+
+        res.body.should.have.property('allReviews');
+
+        res.body.allReviews[0].should.have.property('reviewId').eql(1);
+
+        res.body.allReviews[0].should.have.property('reviewContent').eql('I love this place, its awesome!');
+
+        res.body.allReviews[0].should.have.property('userId').eql(60);
+
+        res.body.allReviews[0].userId.should.be.a('number');
+
+        res.body.allReviews[0].reviewContent.should.be.a('string');
+
+        res.body.allReviews[0].reviewId.should.be.a('number');
+
+        res.body.message.should.be.a('string');
+
+        res.body.allReviews.should.be.a('array');
+
+        res.body.allReviews.length.should.be.eql(1);
+
         done();
       });
   });
+});
+
+describe('Testing /GET reviews for a existing business that has no review', () => {
+
+  it('it should return an error message if a business exists and has no review', (done) => {
+
+    const business2 = {
+
+      businessId: 4,
+
+      businessName: 'celler de noma',
+
+      businessAddress: 'No 10 New jersey street ',
+
+      location: 'New York City',
+
+      category: 'Hotels',
+
+      userId: 2,
+
+      reviews: []
+
+    };
+
+    businesses.push(business2);
+
+    chai.request(app).get('/api/v1/businesses/4/reviews')
+
+      .end((err, res) => {
+
+        res.should.be.status(404);
+
+        res.body.should.be.a('object');
+
+        res.body.should.have.property('message');
+
+        res.body.message.should.eql('reviews not available at this time for business with businessId 4');
+
+        done();
+
+      });
+
+  });
+
 });
