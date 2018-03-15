@@ -11,7 +11,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /**
  * @class InputFieldsValidaton
  *
- * @description Validation operations on Input fields
+ * @description Validates Input fields
  *
  */
 var InputFieldsValidation = function () {
@@ -54,10 +54,10 @@ var InputFieldsValidation = function () {
         /**
                * @static
                *
-               *@description -This method logins users into WEConnect
+               *@description -This method validates user passwords awaiting signUp in WEConnect
                *
-               * @param {object} password - The request payload sent to the router
-               * @param {object}  - The response payload sent back from the controller
+               * @param {object} password - The request payload sent from the router
+               * @param {object}  - The response payload sent back from the validator
                *
                * @returns {object} - status Message and logins user into WEConnect
                *
@@ -91,7 +91,7 @@ var InputFieldsValidation = function () {
         /**
                * @static
                *
-               *@description -This method logins users into WEConnect
+               *@description -This method validates users email awaiting signup in WEConnect
                *
                * @param {object} email - The request payload sent to the router
                * @param {object} - The response payload sent back from the controller
@@ -148,6 +148,105 @@ var InputFieldsValidation = function () {
             }
 
             return phone;
+        }
+
+        /**
+               * @static
+               *
+               *@description -This method validates categories of business in WEConnect
+               *
+               * @param {object} category - The request payload sent to the router
+               * @param {object} - The response payload sent back from the controller
+               *
+               * @returns {object} - status Message and logins user into WEConnect
+               *
+               * @memberOf UserController
+               *
+               */
+
+    }, {
+        key: 'validateCategory',
+        value: function validateCategory(category) {
+
+            var categories = ['flight', 'supermarket', 'restaurant', 'recreation', 'hotel'];
+
+            category = category.trim();
+
+            var isValidcategory = categories.find(function (categoryItem) {
+                return categoryItem === category.toLowerCase();
+            });
+
+            if (!isValidcategory) {
+
+                return { message: 'Invalid category' };
+            }
+
+            return category;
+        }
+
+        /**
+               * @static
+               *
+               *@description -This method validates categories of business in WEConnect
+               *
+               * @param {object} location - The request payload sent from the router
+               * @param {object}  - The response payload sent back from the validator
+               *
+               * @returns {object}  - status Message and logins user into WEConnect
+               *
+               * @memberOf UserController
+               *
+               */
+
+    }, {
+        key: 'validateLocation',
+        value: function validateLocation(location) {
+
+            var locationList = ['Nigeria', 'USA', 'Netherland', 'Paris', 'SouthAfrica'];
+
+            location = location.trim();
+
+            var isValidLocation = locationList.find(function (locationSite) {
+                return locationSite.toLowerCase() === location.toLowerCase();
+            });
+
+            if (!isValidLocation) {
+
+                return { message: 'Location is not a valid! or supported' };
+            }
+        }
+
+        /**
+               * @static
+               *
+               *@description -This method validates categories of business in WEConnect
+               *
+               * @param {object} businessTextField - The request payload sent to the router
+               * @param {object} - The response payload sent back from the controller
+               *
+               * @returns {object} - status Message and logins user into WEConnect
+               *
+               * @memberOf UserController
+               *
+               */
+
+    }, {
+        key: 'validateBusinessTextFields',
+        value: function validateBusinessTextFields(businessTextField) {
+
+            businessTextField = businessTextField.trim();
+
+            if (businessTextField.length === 0) {
+
+                return { message: 'Field cant be empty' };
+            }
+
+            if (!(businessTextField.length > 3)) {
+
+                return { message: 'Field cant be too short!' };
+            }
+
+            return businessTextField;
         }
     }]);
 

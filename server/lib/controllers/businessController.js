@@ -97,6 +97,8 @@ var BusinessController = function () {
             var _req$body = req.body,
                 businessName = _req$body.businessName,
                 businessAddress = _req$body.businessAddress,
+                businessDescription = _req$body.businessDescription,
+                businessImage = _req$body.businessImage,
                 location = _req$body.location,
                 category = _req$body.category,
                 userId = _req$body.userId;
@@ -109,6 +111,10 @@ var BusinessController = function () {
                 businessName: businessName,
 
                 businessAddress: businessAddress,
+
+                businessDescription: businessDescription,
+
+                businessImage: businessImage,
 
                 location: location,
 

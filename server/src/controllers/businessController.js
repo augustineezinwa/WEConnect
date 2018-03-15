@@ -85,6 +85,10 @@ class BusinessController {
 
       businessAddress,
 
+      businessDescription,
+
+      businessImage,
+
       location,
 
       category,
@@ -100,6 +104,10 @@ class BusinessController {
       businessName,
 
       businessAddress,
+
+      businessDescription,
+
+      businessImage,
 
       location,
 
