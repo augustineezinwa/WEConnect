@@ -147,7 +147,7 @@ class InputFieldsValidation {
   /**
          * @static
          *
-         *@description -This method logins users into WEConnect
+         *@description -This method validates categories of business in WEConnect
          *
          * @param {object} category - The request payload sent to the router
          * @param {object} - The response payload sent back from the controller
@@ -163,7 +163,9 @@ class InputFieldsValidation {
 
     category = category.trim();
 
-    const isValidcategory = categories.find(categoryItem => categoryItem === category);
+    const isValidcategory = categories.find(categoryItem => categoryItem ===
+
+      category.toLowerCase());
 
     if (!isValidcategory) {
 
