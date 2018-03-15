@@ -6,6 +6,8 @@ import ReviewController from '../controllers/ReviewController';
 
 import UserController from '../controllers/UserController';
 
+import UserValidation from '../middlewares/UserValidation';
+
 const {
 
   getAllBusinesses, getBusinessById, createBusiness,
@@ -20,8 +22,9 @@ const { addReview, getAllReviews } = ReviewController;
 
 const { loginUser, signupUser } = UserController;
 
-const Router = express.Router();
+const { validatesignUp } = UserValidation;
 
+const Router = express.Router();
 
 Router.get('/businesses', filterSearchByLocation, filterSearchByCategory, getAllBusinesses);
 
@@ -39,6 +42,6 @@ Router.get('/businesses/:businessId/reviews', getAllReviews);
 
 Router.post('/auth/login', loginUser);
 
-Router.post('/auth/signup', signupUser);
+Router.post('/auth/signup', validatesignUp, signupUser);
 
 export default Router;

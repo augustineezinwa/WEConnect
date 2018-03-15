@@ -20,6 +20,10 @@ var _UserController = require('../controllers/UserController');
 
 var _UserController2 = _interopRequireDefault(_UserController);
 
+var _UserValidation = require('../middlewares/UserValidation');
+
+var _UserValidation2 = _interopRequireDefault(_UserValidation);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var getAllBusinesses = _BusinessController2.default.getAllBusinesses,
@@ -33,6 +37,7 @@ var addReview = _ReviewController2.default.addReview,
     getAllReviews = _ReviewController2.default.getAllReviews;
 var loginUser = _UserController2.default.loginUser,
     signupUser = _UserController2.default.signupUser;
+var validatesignUp = _UserValidation2.default.validatesignUp;
 
 
 var Router = _express2.default.Router();
@@ -53,6 +58,6 @@ Router.get('/businesses/:businessId/reviews', getAllReviews);
 
 Router.post('/auth/login', loginUser);
 
-Router.post('/auth/signup', signupUser);
+Router.post('/auth/signup', validatesignUp, signupUser);
 
 exports.default = Router;

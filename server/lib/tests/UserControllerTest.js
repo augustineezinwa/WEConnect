@@ -126,9 +126,9 @@ describe('Testing /POST signup', function () {
 
                         res.body.user.should.be.a('object');
 
-                        res.body.user.should.have.property('firstName').eql('augustine');
+                        res.body.user.should.have.property('firstName').eql('Augustine');
 
-                        res.body.user.should.have.property('lastName').eql('ezinwa');
+                        res.body.user.should.have.property('lastName').eql('Ezinwa');
 
                         res.body.user.should.have.property('email').eql('jet55591@gmail.com');
 
