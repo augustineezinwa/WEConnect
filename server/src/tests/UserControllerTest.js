@@ -124,6 +124,26 @@ describe('Testing /POST signup', () => {
 
         res.body.should.be.a('object');
 
+        res.body.should.have.property('message').eql('You successfully signed up');
+
+        res.body.user.should.be.a('object');
+
+        res.body.user.should.have.property('firstName').eql('augustine');
+
+        res.body.user.should.have.property('lastName').eql('ezinwa');
+
+        res.body.user.should.have.property('email').eql('jet55591@gmail.com');
+
+        res.body.user.should.have.property('address').eql('no 54 dffdfb str ..');
+
+        res.body.user.should.have.property('phoneNumber').eql('0934343434344');
+
+        res.body.user.should.have.property('userId').eql(2);
+
+        res.body.user.businesses.should.be.a('array');
+
+        res.body.user.businesses.length.should.be.eql(0);
+
         done();
 
       });
