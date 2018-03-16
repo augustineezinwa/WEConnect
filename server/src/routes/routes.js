@@ -1,10 +1,10 @@
 import express from 'express';
 
-import BusinessController from '../controllers/BusinessController';
+import BusinessController from '../controllers/businessController';
 
-import ReviewController from '../controllers/ReviewController';
+import ReviewController from '../controllers/reviewController';
 
-import UserController from '../controllers/UserController';
+import UserController from '../controllers/userController';
 
 import UserValidation from '../middlewares/UserValidation';
 
