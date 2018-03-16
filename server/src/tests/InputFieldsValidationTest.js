@@ -299,7 +299,7 @@ describe('Testing method validateLocation()', () => {
 
 describe('Testing method validateBusinessTextFields()', () => {
 
-  it('it should return the same Text if the parameter is without error.', () => {
+  it('it should return the same Text if the parameter is without error', () => {
 
     const output = validateBusinessTextFields('newJersey');
 
