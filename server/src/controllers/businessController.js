@@ -87,8 +87,6 @@ class BusinessController {
 
       businessDescription,
 
-      businessImage,
-
       location,
 
       category,
@@ -106,8 +104,6 @@ class BusinessController {
       businessAddress,
 
       businessDescription,
-
-      businessImage,
 
       location,
 
@@ -157,6 +153,8 @@ class BusinessController {
 
       businessAddress,
 
+      businessDescription,
+
       location,
 
       category,
@@ -177,6 +175,13 @@ class BusinessController {
       business.businessAddress = businessAddress;
 
     }
+
+    if (businessDescription) {
+
+      business.businessDescription = businessDescription;
+
+    }
+
 
     if (location) {
 

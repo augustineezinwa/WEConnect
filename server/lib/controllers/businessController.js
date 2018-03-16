@@ -98,7 +98,6 @@ var BusinessController = function () {
                 businessName = _req$body.businessName,
                 businessAddress = _req$body.businessAddress,
                 businessDescription = _req$body.businessDescription,
-                businessImage = _req$body.businessImage,
                 location = _req$body.location,
                 category = _req$body.category,
                 userId = _req$body.userId;
@@ -113,8 +112,6 @@ var BusinessController = function () {
                 businessAddress: businessAddress,
 
                 businessDescription: businessDescription,
-
-                businessImage: businessImage,
 
                 location: location,
 
@@ -163,6 +160,7 @@ var BusinessController = function () {
             var _req$body2 = req.body,
                 businessName = _req$body2.businessName,
                 businessAddress = _req$body2.businessAddress,
+                businessDescription = _req$body2.businessDescription,
                 location = _req$body2.location,
                 category = _req$body2.category,
                 userId = _req$body2.userId;
@@ -176,6 +174,11 @@ var BusinessController = function () {
             if (businessAddress) {
 
                 business.businessAddress = businessAddress;
+            }
+
+            if (businessDescription) {
+
+                business.businessDescription = businessDescription;
             }
 
             if (location) {
