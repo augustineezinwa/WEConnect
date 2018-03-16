@@ -131,6 +131,8 @@ describe('Testing /POST businesses', () => {
 
     businessAddress: 'No 10 New kingston road new zealand',
 
+    businessDescription: 'This airline is awesome',
+
     location: 'Austrailia',
 
     category: 'Flight',
@@ -466,6 +468,8 @@ describe('Testing API endpoints', () => {
       businessName: 'Madison Park',
 
       businessAddress: 'No 10 New jersey street USA',
+
+      businessDescription: 'This park gives you the best experience',
 
       location: 'USA',
 
