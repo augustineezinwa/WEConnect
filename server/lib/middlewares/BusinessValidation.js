@@ -48,6 +48,24 @@ var BusinessValidation = function () {
             *
             */
         value: function validateBusiness(req, res, next) {
+            var _req$body = req.body,
+                businessName = _req$body.businessName,
+                businessAddress = _req$body.businessAddress,
+                businessDescription = _req$body.businessDescription,
+                location = _req$body.location,
+                category = _req$body.category;
+
+
+            var shouldValidate = businessName && businessAddress && businessDescription && location && category;
+
+            if (!shouldValidate) {
+
+                return res.status(400).json({
+
+                    message: 'businessName,businessAddress,businessDescription,' + 'location or category is missing'
+
+                });
+            }
 
             var business = {
 
@@ -96,12 +114,12 @@ var BusinessValidation = function () {
     }, {
         key: 'validateBusinessUpdate',
         value: function validateBusinessUpdate(req, res, next) {
-            var _req$body = req.body,
-                businessName = _req$body.businessName,
-                businessAddress = _req$body.businessAddress,
-                businessDescription = _req$body.businessDescription,
-                location = _req$body.location,
-                category = _req$body.category;
+            var _req$body2 = req.body,
+                businessName = _req$body2.businessName,
+                businessAddress = _req$body2.businessAddress,
+                businessDescription = _req$body2.businessDescription,
+                location = _req$body2.location,
+                category = _req$body2.category;
 
 
             var businessUpdate = {};

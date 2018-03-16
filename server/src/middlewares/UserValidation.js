@@ -29,6 +29,31 @@ class UserValidation {
     */
   static validatesignUp(req, res, next) {
 
+    const {
+
+      firstName,
+
+      lastName,
+
+      email,
+
+      password,
+
+      phoneNumber
+
+    } = req.body;
+
+    const shouldValidate = firstName && email && lastName && password && phoneNumber;
+
+    if (!shouldValidate) {
+
+      return res.status(400).json({
+
+        message: 'firstName, email, lastName, password or phoneNumber is missing'
+
+      });
+    }
+
     const user = {
 
       firstName: validateName(req.body.firstName),

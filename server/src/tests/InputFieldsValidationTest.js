@@ -296,3 +296,35 @@ describe('Testing method validateLocation()', () => {
   });
 });
 
+
+describe('Testing method validateBusinessTextFields()', () => {
+
+  it('it should return the same Text if the parameter is without error.', () => {
+
+    const output = validateBusinessTextFields('newJersey');
+
+    output.should.be.eql('newJersey');
+
+
+  });
+
+  it('it should return an an error object with message property', () => {
+
+    const output = validateBusinessTextFields('A.B');
+
+    output.should.have.property('message');
+
+    output.message.should.be.eql('Field cant be too short!');
+
+  });
+
+
+  it('it should return the location if location is valid', () => {
+
+    const output = validateBusinessTextFields('');
+
+    output.message.should.be.eql('Field cant be empty');
+
+  });
+});
+

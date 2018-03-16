@@ -25,6 +25,35 @@ class BusinessValidation {
     */
   static validateBusiness(req, res, next) {
 
+    const {
+
+      businessName,
+
+      businessAddress,
+
+      businessDescription,
+
+      location,
+
+      category
+
+    } = req.body;
+
+    const shouldValidate = businessName && businessAddress && businessDescription && location
+
+    && category;
+
+    if (!shouldValidate) {
+
+      return res.status(400).json({
+
+        message: 'businessName,businessAddress,businessDescription,' +
+
+        'location or category is missing'
+
+      });
+    }
+
     const business = {
 
       businessName: validateBusinessTextFields(req.body.businessName),
