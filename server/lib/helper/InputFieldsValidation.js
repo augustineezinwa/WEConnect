@@ -202,18 +202,20 @@ var InputFieldsValidation = function () {
         key: 'validateLocation',
         value: function validateLocation(location) {
 
-            var locationList = ['Nigeria', 'USA', 'Netherland', 'Paris', 'SouthAfrica'];
+            var locationList = ['nigeria', 'usa', 'netherland', 'paris', 'southafrica', 'austrailia', 'spain'];
 
             location = location.trim();
 
             var isValidLocation = locationList.find(function (locationSite) {
-                return locationSite.toLowerCase() === location.toLowerCase();
+                return locationSite === location.toLowerCase();
             });
 
             if (!isValidLocation) {
 
                 return { message: 'Location is not a valid! or supported' };
             }
+
+            return location;
         }
 
         /**

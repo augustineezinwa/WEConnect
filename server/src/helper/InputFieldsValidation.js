@@ -192,19 +192,21 @@ class InputFieldsValidation {
          */
   static validateLocation(location) {
 
-    const locationList = ['Nigeria', 'USA', 'Netherland', 'Paris', 'SouthAfrica'];
+    const locationList = ['nigeria', 'usa', 'netherland', 'paris', 'southafrica', 'austrailia', 'spain'];
 
     location = location.trim();
 
     const isValidLocation = locationList.find(locationSite =>
 
-      locationSite.toLowerCase() === location.toLowerCase());
+      locationSite === location.toLowerCase());
 
     if (!isValidLocation) {
 
       return { message: 'Location is not a valid! or supported' };
 
     }
+
+    return location;
 
   }
 
