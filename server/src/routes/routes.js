@@ -8,6 +8,8 @@ import UserController from '../controllers/UserController';
 
 import UserValidation from '../middlewares/UserValidation';
 
+import BusinessValidation from '../middlewares/BusinessValidation';
+
 const {
 
   getAllBusinesses, getBusinessById, createBusiness,
@@ -24,15 +26,17 @@ const { loginUser, signupUser } = UserController;
 
 const { validatesignUp } = UserValidation;
 
+const { validateBusiness, validateBusinessUpdate } = BusinessValidation;
+
 const Router = express.Router();
 
 Router.get('/businesses', filterSearchByLocation, filterSearchByCategory, getAllBusinesses);
 
 Router.get('/businesses/:businessId', getBusinessById);
 
-Router.post('/businesses', createBusiness);
+Router.post('/businesses', validateBusiness, createBusiness);
 
-Router.put('/businesses/:businessId', updateBusiness);
+Router.put('/businesses/:businessId', validateBusinessUpdate, updateBusiness);
 
 Router.delete('/businesses/:businessId', removeBusiness);
 

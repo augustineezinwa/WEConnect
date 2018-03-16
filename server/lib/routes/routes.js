@@ -24,6 +24,10 @@ var _UserValidation = require('../middlewares/UserValidation');
 
 var _UserValidation2 = _interopRequireDefault(_UserValidation);
 
+var _BusinessValidation = require('../middlewares/BusinessValidation');
+
+var _BusinessValidation2 = _interopRequireDefault(_BusinessValidation);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var getAllBusinesses = _BusinessController2.default.getAllBusinesses,
@@ -38,6 +42,8 @@ var addReview = _ReviewController2.default.addReview,
 var loginUser = _UserController2.default.loginUser,
     signupUser = _UserController2.default.signupUser;
 var validatesignUp = _UserValidation2.default.validatesignUp;
+var validateBusiness = _BusinessValidation2.default.validateBusiness,
+    validateBusinessUpdate = _BusinessValidation2.default.validateBusinessUpdate;
 
 
 var Router = _express2.default.Router();
@@ -46,9 +52,9 @@ Router.get('/businesses', filterSearchByLocation, filterSearchByCategory, getAll
 
 Router.get('/businesses/:businessId', getBusinessById);
 
-Router.post('/businesses', createBusiness);
+Router.post('/businesses', validateBusiness, createBusiness);
 
-Router.put('/businesses/:businessId', updateBusiness);
+Router.put('/businesses/:businessId', validateBusinessUpdate, updateBusiness);
 
 Router.delete('/businesses/:businessId', removeBusiness);
 
