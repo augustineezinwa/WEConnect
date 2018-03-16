@@ -4,8 +4,8 @@
   "description": "This folder contains the technologies neccesary for the backend",
   "main": "app.js",
   "scripts": {
-    "test": "mocha server/lib/tests/",
-    "build": "babel server/src -d server/lib && mocha server/lib/tests/",
+    "test": "mocha ./server/lib/tests/",
+    "build": "babel server/src -d ./server/lib && mocha ./server/lib/tests/",
     "start": "nodemon server/lib/app.js"
   },
   "repository": {
