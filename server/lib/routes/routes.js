@@ -1,52 +1,52 @@
-'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _express = require('express');
+let _express = require('express');
 
-var _express2 = _interopRequireDefault(_express);
+let _express2 = _interopRequireDefault(_express);
 
-var _BusinessController = require('../controllers/BusinessController');
+let _BusinessController = require('../controllers/businessController');
 
-var _BusinessController2 = _interopRequireDefault(_BusinessController);
+let _BusinessController2 = _interopRequireDefault(_BusinessController);
 
-var _ReviewController = require('../controllers/ReviewController');
+let _ReviewController = require('../controllers/reviewController');
 
-var _ReviewController2 = _interopRequireDefault(_ReviewController);
+let _ReviewController2 = _interopRequireDefault(_ReviewController);
 
-var _UserController = require('../controllers/UserController');
+let _UserController = require('../controllers/userController');
 
-var _UserController2 = _interopRequireDefault(_UserController);
+let _UserController2 = _interopRequireDefault(_UserController);
 
-var _UserValidation = require('../middlewares/UserValidation');
+let _UserValidation = require('../middlewares/UserValidation');
 
-var _UserValidation2 = _interopRequireDefault(_UserValidation);
+let _UserValidation2 = _interopRequireDefault(_UserValidation);
 
-var _BusinessValidation = require('../middlewares/BusinessValidation');
+let _BusinessValidation = require('../middlewares/BusinessValidation');
 
-var _BusinessValidation2 = _interopRequireDefault(_BusinessValidation);
+let _BusinessValidation2 = _interopRequireDefault(_BusinessValidation);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var getAllBusinesses = _BusinessController2.default.getAllBusinesses,
-    getBusinessById = _BusinessController2.default.getBusinessById,
-    createBusiness = _BusinessController2.default.createBusiness,
-    updateBusiness = _BusinessController2.default.updateBusiness,
-    removeBusiness = _BusinessController2.default.removeBusiness,
-    filterSearchByCategory = _BusinessController2.default.filterSearchByCategory,
-    filterSearchByLocation = _BusinessController2.default.filterSearchByLocation;
-var addReview = _ReviewController2.default.addReview,
-    getAllReviews = _ReviewController2.default.getAllReviews;
-var loginUser = _UserController2.default.loginUser,
-    signupUser = _UserController2.default.signupUser;
-var validatesignUp = _UserValidation2.default.validatesignUp;
-var validateBusiness = _BusinessValidation2.default.validateBusiness,
-    validateBusinessUpdate = _BusinessValidation2.default.validateBusinessUpdate;
+let getAllBusinesses = _BusinessController2.default.getAllBusinesses,
+  getBusinessById = _BusinessController2.default.getBusinessById,
+  createBusiness = _BusinessController2.default.createBusiness,
+  updateBusiness = _BusinessController2.default.updateBusiness,
+  removeBusiness = _BusinessController2.default.removeBusiness,
+  filterSearchByCategory = _BusinessController2.default.filterSearchByCategory,
+  filterSearchByLocation = _BusinessController2.default.filterSearchByLocation;
+let addReview = _ReviewController2.default.addReview,
+  getAllReviews = _ReviewController2.default.getAllReviews;
+let loginUser = _UserController2.default.loginUser,
+  signupUser = _UserController2.default.signupUser;
+let validatesignUp = _UserValidation2.default.validatesignUp;
+let validateBusiness = _BusinessValidation2.default.validateBusiness,
+  validateBusinessUpdate = _BusinessValidation2.default.validateBusinessUpdate;
 
 
-var Router = _express2.default.Router();
+let Router = _express2.default.Router();
 
 Router.get('/businesses', filterSearchByLocation, filterSearchByCategory, getAllBusinesses);
 
