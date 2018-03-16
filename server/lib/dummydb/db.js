@@ -31,6 +31,7 @@ var businesses = [{
   businessId: 3,
   businessName: 'Shoprite',
   businessAddress: 'no 5 washington road',
+  businessDescription: 'this business is amazing',
   location: 'USA',
   category: 'supermarket',
   userId: 1,
