@@ -190,3 +190,27 @@ describe('Testing /GET reviews for a existing business that has no review', () =
   });
 
 });
+
+describe('Testing /GET reviews for a business that doesnt exist', () => {
+
+  it('it should return an error message if a business doesnt exist', (done) => {
+
+    chai.request(app).get('/api/v1/businesses/10/reviews')
+
+      .end((err, res) => {
+
+        res.should.be.status(404);
+
+        res.body.should.be.a('object');
+
+        res.body.should.have.property('message');
+
+        res.body.message.should.eql('Cannot get Review! Business with businessId 10 does not exist');
+
+        done();
+
+      });
+
+  });
+
+});
