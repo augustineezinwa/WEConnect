@@ -77,7 +77,7 @@ describe('Testing /GET businesses/:businessId', () => {
 
         res.body.should.be.a('object');
 
-        res.body.should.have.property('message').eql('business search was uccessful');
+        res.body.should.have.property('message').eql('business search was successful');
 
         res.body.should.have.property('business');
 
