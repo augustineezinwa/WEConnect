@@ -1,7 +1,6 @@
 
 
 import { businesses } from '../dummydb/db';
-import { log } from 'util';
 
 /**
  * @class BusinessController
@@ -138,15 +137,13 @@ class BusinessController {
 
     const id = req.params.businessId;
 
-    const business = businesses.find(businessItem => +businessItem.businessId === +id);
+    let business = businesses.find(businessItem => +businessItem.businessId === +id);
 
     if (!business) {
 
       return res.status(404).json({ message: `Business with businessId ${id} does not exist!` });
 
     }
-
-    const businessIndex = businesses.indexOf(business);
 
     const {
 
@@ -164,46 +161,21 @@ class BusinessController {
 
     } = req.body;
 
-    if (businessName) {
+    business = {
 
-      business.businessName = businessName;
+      businessName: businessName || this.businessName,
 
-    }
+      businessAddress: businessAddress || this.businessAddres,
 
+      businessDescription: businessDescription || this.businessDescription,
 
-    if (businessAddress) {
+      location: location || this.location,
 
-      business.businessAddress = businessAddress;
+      category: category || this.category,
 
-    }
+      userId: userId || this.userId
 
-    if (businessDescription) {
-
-      business.businessDescription = businessDescription;
-
-    }
-
-
-    if (location) {
-
-      business.location = location;
-
-    }
-
-    if (category) {
-
-      business.category = category;
-
-    }
-
-    if (userId) {
-
-      business.userId = userId;
-
-    }
-
-
-    businesses[businessIndex] = business;
+    };
 
     return res.json({ message: 'business updated successfully', business });
 
