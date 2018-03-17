@@ -1,5 +1,7 @@
 import InputFieldsValidation from '../helper/InputFieldsValidation';
 
+import { businesses } from '../dummydb/db';
+
 const { validateLocation, validateCategory, validateBusinessTextFields } = InputFieldsValidation;
 
 /**
@@ -104,6 +106,16 @@ class BusinessValidation {
     */
   static validateBusinessUpdate(req, res, next) {
 
+    const id = req.params.businessId;
+
+    const business = businesses.find(businessItem => +businessItem.businessId === +id);
+
+    if (!business) {
+
+      return res.status(404).json({ message: `Business with businessId ${id} does not exist!` });
+
+    }
+
     const {
 
       businessName,
@@ -112,86 +124,32 @@ class BusinessValidation {
 
       businessDescription,
 
+      businessImage,
+
       location,
 
       category
 
-    } = req.body;
+    } = business;
 
-    const businessUpdate = {};
+    const businessUpdate = {
 
-    if (businessName) {
+      businessName: validateBusinessTextFields(req.body.businessName || businessName),
 
-      businessUpdate.businessName = validateBusinessTextFields(req.body.businessName);
+      businessAddress: validateBusinessTextFields(req.body.businessAddress || businessAddress),
 
-    }
+      businessDescription: validateBusinessTextFields(req.body.businessDescription || businessDescription),
 
-    if (businessAddress) {
+      location: validateLocation(req.body.location || location),
 
-      businessUpdate.businessAddress = validateBusinessTextFields(req.body.businessAddress);
+      category: validateCategory(req.body.category || category)
 
-    }
+    };
 
-    if (businessDescription) {
+    const errorFlag = businessUpdate.businessName.message || businessUpdate.businessAddress.message ||
 
-      businessUpdate.businessDescription = validateBusinessTextFields(req.body.businessDescription);
+    businessUpdate.businessDescription.message || businessUpdate.location.message || businessUpdate.category.message;
 
-    }
-
-    if (location) {
-
-      businessUpdate.location = validateBusinessTextFields(req.body.location);
-
-    }
-
-    if (category) {
-
-      businessUpdate.category = validateBusinessTextFields(req.body.category);
-
-    }
-
-    let errorFlag;
-
-    if (category) {
-
-      if (businessUpdate.category.message) {
-
-        errorFlag = 1;
-
-      }
-
-    } else if (location) {
-
-      if (businessUpdate.location.message) {
-
-        errorFlag = 1;
-
-      }
-
-    } else if (businessDescription) {
-
-      if (businessUpdate.businessDescription.message) {
-
-        errorFlag = 1;
-
-      }
-    } else if (businessAddress) {
-
-      if (businessUpdate.businessAddress.message) {
-
-        errorFlag = 1;
-
-      }
-
-    } else if (businessName) {
-
-      if (businessUpdate.businessName.message) {
-
-        errorFlag = 1;
-
-      }
-
-    }
 
     if (errorFlag) {
 

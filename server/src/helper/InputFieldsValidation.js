@@ -192,7 +192,7 @@ class InputFieldsValidation {
          */
   static validateLocation(location) {
 
-    const locationList = ['nigeria', 'usa', 'netherland', 'paris', 'southafrica', 'austrailia', 'spain'];
+    const locationList = ['nigeria', 'usa', 'netherland', 'paris', 'southafrica', 'austrailia', 'hiroshima'];
 
     location = location.trim();
 

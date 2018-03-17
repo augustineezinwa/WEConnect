@@ -139,39 +139,7 @@ class BusinessController {
 
     const business = businesses.find(businessItem => +businessItem.businessId === +id);
 
-    if (!business) {
-
-      return res.status(404).json({ message: `Business with businessId ${id} does not exist!` });
-
-    }
-
-    const {
-
-      businessName,
-
-      businessAddress,
-
-      businessDescription,
-
-      location,
-
-      category,
-
-      userId
-
-    } = req.body;
-
-    business.businessName = businessName || business.businessName;
-
-    business.businessAddress = businessAddress || business.businessAddress;
-
-    business.businessDescription = businessDescription || business.businessDescription;
-
-    business.location = location || business.location;
-
-    business.category = category || business.category;
-
-    business.userId = userId || business.userId;
+    Object.assign(business, req.body);
 
     return res.json({ message: 'business updated successfully', business });
 

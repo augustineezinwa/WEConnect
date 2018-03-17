@@ -403,6 +403,7 @@ describe('Testing /FILTER by Category endpoint', () => {
   });
 });
 
+
 describe('Testing API endpoints', () => {
 
   beforeEach((done) => {
@@ -543,6 +544,8 @@ describe('Testing API endpoints', () => {
 
         businessAddress: 'mugochikunu japan',
 
+        businessDescription: 'The best Airline in japan',
+
         location: 'japan',
 
         category: 'Flight',
@@ -580,6 +583,8 @@ describe('Testing API endpoints', () => {
           res.body.business.should.have.property('businessName').eql('japanAir');
 
           res.body.business.should.have.property('businessAddress').eql('No 10 new jersey street, japan');
+
+          res.body.business.should.have.property('businessDescription').eql('The best Airline in japan');
 
           res.body.business.should.have.property('location').eql('Hiroshima');
 
@@ -693,3 +698,49 @@ describe('Testing API endpoints', () => {
 
 });
 
+describe('Testing /PUT businesses/:businessId', () => {
+
+  it('it should update a business in the database if it exists', (done) => {
+
+    const business = {
+
+      businessId: 2,
+
+      businessName: 'japanAir',
+
+      businessAddress: 'mugochikunu japan',
+
+      businessDescription: 'The best Airline in japan',
+
+      location: 'japan',
+
+      category: 'Flight',
+
+      userId: 2,
+
+      reviews: []
+
+    };
+
+    businesses.push(business);
+
+    chai.request(app).put('/api/v1/businesses/2')
+
+      .send({
+
+        businessAddress: 'No 10 new jersey street, japan',
+
+        location: 'turkeyds',
+
+      }).end((err, res) => {
+
+        res.should.have.status(400);
+
+        res.body.should.be.a('object');
+
+        done();
+
+      });
+  });
+
+});
