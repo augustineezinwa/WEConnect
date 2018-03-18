@@ -31,17 +31,7 @@ class UserValidation {
 
     const {
 
-      firstName,
-
-      lastName,
-
-      email,
-
-      password,
-
-      address,
-
-      phoneNumber
+      firstName, lastName, email, password, address, phoneNumber
 
     } = req.body;
 

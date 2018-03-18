@@ -29,15 +29,7 @@ class BusinessValidation {
 
     const {
 
-      businessName,
-
-      businessAddress,
-
-      businessDescription,
-
-      location,
-
-      category
+      businessName, businessAddress, businessDescription, location, category
 
     } = req.body;
 
@@ -49,9 +41,7 @@ class BusinessValidation {
 
       return res.status(400).json({
 
-        message: 'businessName,businessAddress,businessDescription,' +
-
-        'location or category is missing'
+        message: 'businessName,businessAddress,businessDescription,location or category is missing'
 
       });
     }
@@ -118,17 +108,7 @@ class BusinessValidation {
 
     const {
 
-      businessName,
-
-      businessAddress,
-
-      businessDescription,
-
-      businessImage,
-
-      location,
-
-      category
+      businessName, businessAddress, businessDescription, businessImage, location, category
 
     } = business;
 
@@ -146,12 +126,12 @@ class BusinessValidation {
 
     };
 
-    const errorFlag = businessUpdate.businessName.message || businessUpdate.businessAddress.message ||
+    const errorFlag1 = businessUpdate.businessName.message || businessUpdate.businessAddress.message ||
 
     businessUpdate.businessDescription.message || businessUpdate.location.message || businessUpdate.category.message;
 
 
-    if (errorFlag) {
+    if (errorFlag1) {
 
       return res.status(400).json({ message: 'An error just occurred!', businessUpdate });
 
