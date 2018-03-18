@@ -39,6 +39,8 @@ class UserValidation {
 
       password,
 
+      address,
+
       phoneNumber
 
     } = req.body;
@@ -56,25 +58,25 @@ class UserValidation {
 
     const user = {
 
-      firstName: validateName(req.body.firstName),
+      firstName: validateName(firstName),
 
-      lastName: validateName(req.body.lastName),
+      lastName: validateName(lastName),
 
-      email: validateEmail(req.body.email),
+      email: validateEmail(email),
 
-      password: validatePassword(req.body.password),
+      password: validatePassword(password),
 
-      address: req.body.address,
+      address,
 
-      phoneNumber: validatePhoneNumber(req.body.phoneNumber)
+      phoneNumber: validatePhoneNumber(phoneNumber)
 
     };
 
-    const errorFlag = user.firstName.message || user.lastName.message || user.email.message ||
+    const validateFlag = user.firstName.message || user.lastName.message || user.email.message ||
 
         user.password.message || user.address.message || user.phoneNumber.message;
 
-    if (errorFlag) {
+    if (validateFlag) {
 
       return res.status(400).json({ message: 'An Error occured!', user });
 

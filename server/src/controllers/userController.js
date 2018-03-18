@@ -66,49 +66,17 @@ class UserController {
      */
   static signupUser(req, res) {
 
-    const userId = users.length === 0 ? 1 :
+    const user = req.body;
 
-      users[users.length - 1].userId + 1;
-
-    const {
-
-      firstName,
-
-      lastName,
-
-      email,
-
-      password,
-
-      address,
-
-      phoneNumber
-
-    } = req.body;
-
-    const emailUser = users.find(userItem => userItem.email === email);
+    const emailUser = users.find(userItem => userItem.email === user.email);
 
     if (!emailUser) {
 
-      const user = {
+      const userId = users.length === 0 ? 1 : users[users.length - 1].userId + 1;
 
-        userId,
+      user.userId = userId;
 
-        firstName,
-
-        lastName,
-
-        email,
-
-        password,
-
-        address,
-
-        phoneNumber,
-
-        businesses: []
-
-      };
+      user.businesses = [];
 
       users.push(user);
 

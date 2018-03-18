@@ -79,41 +79,47 @@ class BusinessController {
 
       businesses[businesses.length - 1].businessId + 1;
 
-    const {
+    const newBusiness = req.body;
 
-      businessName,
+    newBusiness.businessId = businessId;
 
-      businessAddress,
+    newBusiness.reviews = [];
 
-      businessDescription,
+    // const {
 
-      location,
+    //   businessName,
 
-      category,
+    //   businessAddress,
 
-      userId
+    //   businessDescription,
 
-    } = req.body;
+    //   location,
 
-    const newBusiness = {
+    //   category,
 
-      businessId,
+    //   userId
 
-      businessName,
+    // } = req.body;
 
-      businessAddress,
+    // const newBusiness = {
 
-      businessDescription,
+    //   businessId,
 
-      location,
+    //   businessName,
 
-      category,
+    //   businessAddress,
 
-      userId,
+    //   businessDescription,
 
-      reviews: []
+    //   location,
 
-    };
+    //   category,
+
+    //   userId,
+
+    //   reviews: []
+
+    // };
 
     businesses.push(newBusiness);
 
@@ -193,26 +199,23 @@ class BusinessController {
 
     const { location } = req.query;
 
-    if (location) {
+    if (!location) { return next(); }
 
-      const searchBusinessResults = businesses.filter(businessItem =>
+    const searchBusinessResults = businesses.filter(businessItem =>
 
-        businessItem.location === location);
+      businessItem.location === location);
 
-      if (searchBusinessResults.length === 0) {
+    if (searchBusinessResults.length === 0) {
 
-        return res.status(404).json({ message: `Business under location ${location} not found` });
-
-      }
-
-      return res.status(200).json({ message: 'Search was successful', searchBusinessResults });
-
+      return res.status(404).json({ message: `Business under location ${location} not found` });
 
     }
 
-    return next();
+    return res.status(200).json({ message: 'Search was successful', searchBusinessResults });
+
 
   }
+
 
   /**
      * @static
@@ -232,24 +235,20 @@ class BusinessController {
 
     const { category } = req.query;
 
-    if (category) {
+    if (!category) { return next(); }
 
-      const searchBusinessResults = businesses.filter(businessItem =>
+    const searchBusinessResults = businesses.filter(businessItem =>
 
-        businessItem.category === category);
+      businessItem.category === category);
 
-      if (searchBusinessResults.length === 0) {
+    if (searchBusinessResults.length === 0) {
 
-        return res.status(404).json({ message: `Business under category ${category} not found!` });
-
-      }
-
-      return res.status(200).json({ message: 'Search was successful', searchBusinessResults });
-
+      return res.status(404).json({ message: `Business under category ${category} not found!` });
 
     }
 
-    next();
+    return res.status(200).json({ message: 'Search was successful', searchBusinessResults });
+
 
   }
 
