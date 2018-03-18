@@ -197,17 +197,15 @@ class BusinessController {
      */
   static filterSearchByLocation(req, res, next) {
 
-    const { location } = req.query;
-
-    if (!location) { return next(); }
+    if (!req.query.location) { return next(); }
 
     const searchBusinessResults = businesses.filter(businessItem =>
 
-      businessItem.location === location);
+      businessItem.location === req.query.location);
 
     if (searchBusinessResults.length === 0) {
 
-      return res.status(404).json({ message: `Business under location ${location} not found` });
+      return res.status(404).json({ message: `Business under location ${req.query.location} not found` });
 
     }
 
@@ -233,17 +231,15 @@ class BusinessController {
      */
   static filterSearchByCategory(req, res, next) {
 
-    const { category } = req.query;
-
-    if (!category) { return next(); }
+    if (!req.query.category) { return next(); }
 
     const searchBusinessResults = businesses.filter(businessItem =>
 
-      businessItem.category === category);
+      businessItem.category === req.query.category);
 
     if (searchBusinessResults.length === 0) {
 
-      return res.status(404).json({ message: `Business under category ${category} not found!` });
+      return res.status(404).json({ message: `Business under category ${req.query.category} not found!` });
 
     }
 
