@@ -1,6 +1,9 @@
 {
   "name": "weconnect-backend",
   "version": "1.0.0",
+  "engines": {
+    "node" : "6.11.1"
+  },
   "description": "This folder contains the technologies neccesary for the backend",
   "main": "app.js",
   "scripts": {
