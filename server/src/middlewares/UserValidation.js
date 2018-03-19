@@ -31,11 +31,11 @@ class UserValidation {
 
     const {
 
-      firstName, lastName, email, password, address, phoneNumber
+      firstName, lastName, email, password, password2, address, phoneNumber
 
     } = req.body;
 
-    const shouldValidate = firstName && email && lastName && password && phoneNumber;
+    const shouldValidate = firstName && email && lastName && password && password2 && phoneNumber;
 
     if (!shouldValidate) {
 
@@ -56,19 +56,28 @@ class UserValidation {
 
       password: validatePassword(password),
 
+      password2: validatePassword(password2),
+
       address,
 
       phoneNumber: validatePhoneNumber(phoneNumber)
 
     };
 
+
     const validateFlag = user.firstName.message || user.lastName.message || user.email.message ||
 
-        user.password.message || user.address.message || user.phoneNumber.message;
+    user.password.message || user.password2.message || user.address.message || user.phoneNumber.message;
 
     if (validateFlag) {
 
       return res.status(400).json({ message: 'An Error occured!', user });
+
+    }
+    
+    if(user.password !== user.password2) {
+
+      return res.status(400).json({ message: 'An Error occured!, password doesnt match',  user});
 
     }
 

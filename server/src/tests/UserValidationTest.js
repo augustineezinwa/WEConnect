@@ -27,9 +27,12 @@ describe('Testing /POST auth/signup,', () => {
 
       password: '343435eref3',
 
+      password2: '343435eref3',
+
       phoneNumber: '07034629228'
 
     };
+
 
     chai.request(app).post('/api/v1/auth/signup').send(newUser)
 
@@ -50,6 +53,8 @@ describe('Testing /POST auth/signup,', () => {
         res.body.user.should.have.property('email').eql('augustineezinwa@gmail.com');
 
         res.body.user.should.have.property('password').eql('343435eref3');
+
+        res.body.user.should.have.property('password2').eql('343435eref3');
 
         res.body.user.should.have.property('phoneNumber').eql('07034629228');
 
@@ -72,6 +77,8 @@ describe('Testing /POST auth/signup,', () => {
       email: 'augustineezin@wa@gmail.com', // checks for valid email
 
       password: '343435eref3',
+
+      password2: '343435eref3',
 
       phoneNumber: '07034629228'
 
@@ -123,6 +130,8 @@ describe('Testing /POST auth/signup,', () => {
 
       password: '343435eref3',
 
+      password2: '343435eref3',
+
       phoneNumber: '07034629228'
 
     };
@@ -145,4 +154,7 @@ describe('Testing /POST auth/signup,', () => {
 
 
   });
+
+
 });
+

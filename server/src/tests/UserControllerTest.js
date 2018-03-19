@@ -110,6 +110,8 @@ describe('Testing /POST signup', () => {
 
       password: '434323',
 
+      password2: '434323',
+
       address: 'no 54 dffdfb str ..',
 
       phoneNumber: '0934343434344'
@@ -161,6 +163,8 @@ describe('Testing /POST signup', () => {
 
       password: '434323',
 
+      password2: '434323',
+
       address: 'no 54 dffdfb str ..',
 
       phoneNumber: '0934343434344'
@@ -181,6 +185,64 @@ describe('Testing /POST signup', () => {
 
         done();
 
+
+      });
+  });
+
+  it('it should return an error message if password doesnt match', (done) => {
+
+    const newUser2 = {
+
+      firstName: 'Emeka',
+
+      lastName: 'Ezinwa',
+
+      email: 'augustineezinwa@gmail.com',
+
+      password: '343435',
+
+      password2: '3434a35',
+
+      address: 'efdsf fdsf',
+
+      phoneNumber: '07034629228'
+
+    };
+
+    chai.request(app).post('/api/v1/auth/signup').send(newUser2)
+
+      .end((err, res) => {
+
+        res.should.have.status(400);
+
+        res.body.should.be.a('object');
+
+        res.body.should.have.property('message')
+
+          .eql('An Error occured!, password doesnt match');
+
+        done();
+
+
+      });
+
+  });
+
+  it('it should return  WEConnect welcome message', (done) => {
+
+    chai.request(app).get('/')
+
+      .end((err, res) => {
+
+        res.should.have.status(200);
+
+        res.body.should.be.a('object');
+
+        res.body.should.have.property('message')
+
+          .eql('Welcome to WEConnect!');
+
+        done();
 
       });
   });
