@@ -18,6 +18,15 @@ const PORT = process.env.PORT || 2020;
 
 app.use('/api/v1', Router);
 
+app.use('/', (req, res) => {
+
+    res.send({
+
+        message : 'Welcome to WEConnect!'
+        
+    });
+});
+
 app.listen(PORT, () => console.log('server listening on port 2020'));
 
 
