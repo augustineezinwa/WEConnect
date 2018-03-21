@@ -12,7 +12,7 @@ businesses they have interacted with.
 
 * [Features](#features)
 * [Technology](#technology)
-* [Installation](#Installation)
+* [Installation](#installation)
 * [Testing](#test)
 
 ## Features
@@ -73,7 +73,7 @@ npm start
 <tr> <td>DELETE</td><td> /businesses/:businessId </td><td> Deletes a business</td></tr>
 <tr><td> POST </td><td>/businesses/:businessId/review/</td><td>  Adds review for a particular business</td></tr>
 <tr> <td>GET </td><td>/businesses/:businessId/review/</td><td> Gets review for a particular business</td><tr>
-<tr><td>GET </td><td>/businesses </td><td>- Gets all businesses</td></tr>
+<tr><td>GET </td><td>/businesses </td><td> Gets all businesses</td></tr>
 <tr> <td>GET</td> <td>/businesses/:businessId</td><td> Gets details of a single business</td></tr>
 <tr><td> POST </td><td>/auth/signup </td><td> Creates a new user</td></tr>
 <tr><td> POST </td><td>/auth/login </td><td> Signs in a new user</td></tr>
