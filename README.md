@@ -14,7 +14,7 @@ businesses they have interacted with.
 * [Technology](#technology)
 * [Installation](#installation)
 * [Testing](#testing)
-* [API End Points](#api end points)
+* [API End Points](#api-end-points)
 
 ## Features
 WEConnect consist of the following features:
