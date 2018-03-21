@@ -12,7 +12,7 @@ businesses they have interacted with.
 
 * [Features](#features)
 * [Technology](#technology)
-* [Installation and Setup](#Installation-and-setup)
+* [Installation](#Installation)
 * [Testing](#test)
 
 ## Features
@@ -43,7 +43,7 @@ WEConnect consist of the following features:
 * Postgresql & Sequelize: Postgresql is an advanced open source Object-Relational Model (ORM) database.Sequelize is a promise-based ORM for Node.js v4 and up. It supports the dialects PostgreSQL, MySQL, SQLite and MSSQL and features solid transaction support, relations, read replication and more.
 * Major codes are written using the Airbnb javascript style guide, see [this link](https://github.com/airbnb/javascript) for details.
 
-## Installation and Setup
+## Installation
 1. Clone the repository:
 ```
 https://github.com/augustineezinwa/WEConnect
