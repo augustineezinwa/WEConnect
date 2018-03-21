@@ -7,7 +7,7 @@ WeConnect provides a platform that brings businesses and individuals together. T
 creates awareness for businesses and gives the users the ability to write reviews about the
 businesses they have interacted with.
 <b>Templates is hosted live on</b> https://augustineezinwa.github.io/WEConnect/template/index.html
-
+<b> API documentation is hosted live on <b> http://we--connect.herokuapp.com/api-docs/
 ## Table of Content
 
 * [Features](#features)
