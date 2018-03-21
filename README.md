@@ -18,18 +18,19 @@ businesses they have interacted with.
 ## Features
 WEConnect consist of the following features:
 ###  Users
--Users can register into WEConnect
--Users can log into WEConnect
--Users can view all businesses in WEConnect
--Users can search for any business in WEConnect
--User can choose to search for any business by category in WEConnect
--Users can choose to search for any business by location in WEConnect
--Users can choose to write a review for any business in WEConnect
--Users can register businesses in WEConnect
--Users can update their businesses in WEConnect
--Users can delete their businesses in WEConnect
+* Users can register into WEConnect
+* Users can log into WEConnect
+* Users can view all businesses in WEConnect
+* Users can search for any business in WEConnect
+* User can choose to search for any business by category in WEConnect
+* Users can choose to search for any business by location in WEConnect
+* Users can choose to write a review for any business in WEConnect
+* Users can register businesses in WEConnect
+* Users can update their businesses in WEConnect
+* Users can delete their businesses in WEConnect
 
 ## Technology
+
 **WEConnect** makes use of modern technologies. The core ones are:
 
 * ECMAScript 6: Also known as ES2015, this is a version of Javascript with
