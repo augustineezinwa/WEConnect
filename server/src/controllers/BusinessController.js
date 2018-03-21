@@ -61,7 +61,6 @@ class BusinessController {
     Object.assign(business, req.body);
     return res.json({ message: 'business updated successfully', business });
   }
-
   /**
   * @static
   * @param {object} req - The request payload sent to the router
