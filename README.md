@@ -13,7 +13,7 @@ businesses they have interacted with.
 * [Features](#features)
 * [Technology](#technology)
 * [Installation](#installation)
-* [Testing](#test)
+* [Testing](#testing)
 
 ## Features
 WEConnect consist of the following features:
