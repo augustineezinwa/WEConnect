@@ -1,4 +1,4 @@
-import { businesses } from '../dummydb/db';
+import { businesses } from '../dummydatabase/dummydatabase';
 /**
   * @class BusinessController
   * @description CRUD operations on Business

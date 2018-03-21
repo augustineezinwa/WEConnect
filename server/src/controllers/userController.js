@@ -1,4 +1,4 @@
-import { users } from '../dummydb/db';
+import { users } from '../dummydatabase/dummydatabase';
 /**
   * @class UserController
   * @description CRUD operations on Users

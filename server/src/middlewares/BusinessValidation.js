@@ -1,5 +1,5 @@
 import InputFieldsValidation from '../helper/InputFieldsValidation';
-import { businesses } from '../dummydb/db';
+import { businesses } from '../dummydatabase/dummydatabase';
 
 const { validateLocation, validateCategory, validateBusinessTextFields } = InputFieldsValidation;
 /**

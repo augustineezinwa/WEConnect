@@ -1,7 +1,8 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import InputFieldsValidation from '../helper/InputFieldsValidation';
+import InputFieldsValidation from '../../helper/InputFieldsValidation';
 
+const should = chai.should();
 const {
   validateName, validatePassword, validateLocation, validatePhoneNumber,
   validateBusinessTextFields, validateEmail, validateCategory
