@@ -124,5 +124,4 @@ class InputFieldsValidation {
   }
 }
 
-
 export default InputFieldsValidation;

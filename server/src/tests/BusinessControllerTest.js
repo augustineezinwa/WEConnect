@@ -3,7 +3,6 @@ import chaiHttp from 'chai-http';
 import app from '../app';
 import { businesses } from '../dummydb/db';
 
-const should = chai.should();
 chai.use(chaiHttp);
 process.env.NODE_ENV = 'test';
 describe('Testing /GET businesses', () => {

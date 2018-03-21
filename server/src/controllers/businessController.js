@@ -1,9 +1,7 @@
 import { businesses } from '../dummydb/db';
 /**
   * @class BusinessController
-  *
   * @description CRUD operations on Business
-  *
   */
 class BusinessController {
 /**

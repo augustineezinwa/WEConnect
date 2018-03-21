@@ -29,7 +29,6 @@ describe('Testing method validateName()', () => {
     output.should.be.eql('Emeka');
   });
 });
-
 describe('Testing method validatePassword()', () => {
   it('it should return an error object if supplied with empty string', () => {
     const output = validatePassword('');
