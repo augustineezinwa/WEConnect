@@ -27,17 +27,17 @@ businesses they have interacted with.
     <li>Server is running on port 2020</li>
 </ul>
 
-### Routes
+### API END POINTS
 <table>
-
-<tr> <td>**POST**</td> <td> /businesses </td> <td>- Registers a new Business </td></tr>
-<tr>- <td>**PUT**</td> <td>/businesses/:businessId </td><td>-Updates a business</td></tr>
-<tr>- <td>**DELETE**</td><td> /businesses/:businessId </td><td>- Deletes a business</td></tr>
-<tr>-<td> **POST** </td><td>/businesses/:businessId/review/</td><td> - Adds review for a particular business</td></tr>
-<tr>- <td>**GET** </td><td>/businesses/:businessId/review/</td><td> - Gets review for a particular business</td><tr>
-<tr>-<td> **GET** </td><td>/businesses </td><td>- Gets all businesses</td></tr>
-<tr>- <td>**GET**</td> <td>/businesses/:businessId</td><td> - Gets details of a single business</td></tr>
-<tr>-<td> **POST** </td><td>/auth/signup </td><td>- Creates a new user</td></tr>
-<tr>-<td> **POST** </td><td>/auth/login </td><td>- Signs in a new user</td></tr>
+<tr><th>Http verb</th><th>Endpoint</th><th>Action</th></tr>
+<tr> <td>POST</td> <td> /businesses </td> <td>- Registers a new Business </td></tr>
+<tr> <td>PUT</td> <td>/businesses/:businessId </td><td>-Updates a business</td></tr>
+<tr> <td>DELETE</td><td> /businesses/:businessId </td><td>- Deletes a business</td></tr>
+<tr><td> POST </td><td>/businesses/:businessId/review/</td><td> - Adds review for a particular business</td></tr>
+<tr> <td>GET </td><td>/businesses/:businessId/review/</td><td> - Gets review for a particular business</td><tr>
+<tr><td>GET </td><td>/businesses </td><td>- Gets all businesses</td></tr>
+<tr> <td>GET</td> <td>/businesses/:businessId</td><td> - Gets details of a single business</td></tr>
+<tr><td> POST </td><td>/auth/signup </td><td>- Creates a new user</td></tr>
+<tr><td> POST </td><td>/auth/login </td><td>- Signs in a new user</td></tr>
 </table>
 <i>Project still in progress</i>
