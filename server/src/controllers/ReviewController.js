@@ -12,26 +12,30 @@ class ReviewController {
  * @memberOf ReviewController
  */
   static addReview(req, res) {
-    const id = req.params.businessId;
-    const business = businesses.find(businessItem => +businessItem.businessId === +id);
-    if (!business) {
-      return res.status(404).json({ message: `Cannot add Review!, Business with businessId ${id} does not exist` });
+    try {
+      const id = req.params.businessId;
+      const business = businesses.find(businessItem => +businessItem.businessId === +id);
+      if (!business) {
+        return res.status(404).json({ message: `Cannot add Review!, Business with businessId ${id} does not exist` });
+      }
+      const businessIndex = businesses.indexOf(business);
+      const reviewId = businesses[businessIndex].reviews.length === 0 ? 1 :
+        businesses[businessIndex].reviews[businesses[businessIndex].reviews.length - 1].reviewId + 1;
+      const {
+        reviewContent,
+        userId
+      } = req.body;
+      const review = {
+        reviewId,
+        reviewContent,
+        userId,
+        businessId: id,
+      };
+      businesses[businessIndex].reviews.push(review);
+      return res.status(201).json({ message: 'review was added successfully', review });
+    } catch (err) {
+      res.status(500).json({ message: 'Internal server error' });
     }
-    const businessIndex = businesses.indexOf(business);
-    const reviewId = businesses[businessIndex].reviews.length === 0 ? 1 :
-      businesses[businessIndex].reviews[businesses[businessIndex].reviews.length - 1].reviewId + 1;
-    const {
-      reviewContent,
-      userId
-    } = req.body;
-    const review = {
-      reviewId,
-      reviewContent,
-      userId,
-      businessId: id,
-    };
-    businesses[businessIndex].reviews.push(review);
-    return res.status(201).json({ message: 'review was added successfully', review });
   }
   /**
   * @static
@@ -41,17 +45,21 @@ class ReviewController {
   * @memberOf ReviewController
   */
   static getAllReviews(req, res) {
-    const id = req.params.businessId;
-    const business = businesses.find(businessItem => +businessItem.businessId === +id);
-    if (!business) {
-      return res.status(404).json({ message: `Cannot get Review! Business with businessId ${id} does not exist` });
+    try {
+      const id = req.params.businessId;
+      const business = businesses.find(businessItem => +businessItem.businessId === +id);
+      if (!business) {
+        return res.status(404).json({ message: `Cannot get Review! Business with businessId ${id} does not exist` });
+      }
+      const businessIndex = businesses.indexOf(business);
+      const allReviews = businesses[businessIndex].reviews;
+      if (allReviews.length === 0) {
+        return res.status(404).json({ message: `reviews not available at this time for business with businessId ${id}` });
+      }
+      return res.status(200).json({ message: 'reviews loaded successfully', allReviews });
+    } catch (err) {
+      res.status(500).json({ message: 'Internal server error' });
     }
-    const businessIndex = businesses.indexOf(business);
-    const allReviews = businesses[businessIndex].reviews;
-    if (allReviews.length === 0) {
-      return res.status(404).json({ message: `reviews not available at this time for business with businessId ${id}` });
-    }
-    return res.status(200).json({ message: 'reviews loaded successfully', allReviews });
   }
 }
 

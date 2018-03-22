@@ -13,18 +13,22 @@ class UserController {
   * @static
   */
   static loginUser(req, res) {
-    const { email, password } = req.body;
-    if (email && password) {
-      const user = users.find(userItem => userItem.email === email);
-      if (user) {
-        if ((user.password === password) && (user.email === email)) {
-          res.status(200).json({ message: 'you successfully logged in' });
+    try {
+      const { email, password } = req.body;
+      if (email && password) {
+        const user = users.find(userItem => userItem.email === email);
+        if (user) {
+          if ((user.password === password) && (user.email === email)) {
+            res.status(200).json({ message: 'you successfully logged in' });
+          } else {
+            res.status(401).json({ message: 'login failed! Incorrect password' });
+          }
         } else {
-          res.status(401).json({ message: 'login failed! Incorrect password' });
+          res.status(404).json({ message: 'your email was not found, sign up!' });
         }
-      } else {
-        res.status(404).json({ message: 'your email was not found, sign up!' });
       }
+    } catch (err) {
+      res.status(500).json({ message: 'Internal server error' });
     }
   }
   /**
@@ -36,18 +40,21 @@ class UserController {
   * @static
   */
   static signupUser(req, res) {
-    const user = req.body;
-    const emailUser = users.find(userItem => userItem.email === user.email);
-    if (!emailUser) {
-      const userId = users.length === 0 ? 1 : users[users.length - 1].userId + 1;
-      user.userId = userId;
-      user.businesses = [];
-      users.push(user);
-      res.status(201).json({ message: 'You successfully signed up', user });
-    } else {
-      res.status(409).json({ message: 'email has been used' });
+    try {
+      const user = req.body;
+      const emailUser = users.find(userItem => userItem.email === user.email);
+      if (!emailUser) {
+        const userId = users.length === 0 ? 1 : users[users.length - 1].userId + 1;
+        user.userId = userId;
+        user.businesses = [];
+        users.push(user);
+        res.status(201).json({ message: 'You successfully signed up', user });
+      } else {
+        res.status(409).json({ message: 'email has been used' });
+      }
+    } catch (err) {
+      res.status(500).json({ message: 'Internal server error' });
     }
   }
 }
-
 export default UserController;
