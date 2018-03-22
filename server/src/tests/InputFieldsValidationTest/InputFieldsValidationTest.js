@@ -115,11 +115,9 @@ describe('Testing method validatephoneNumber()', () => {
 });
 describe('Testing method validateCategory()', () => {
   it('it should return an error object if supplied with an invalid categoryu', () => {
-    const output = validateCategory('fish');
+    let output = validateCategory('fish');
     output.should.be.a('object');
-  });
-  it('it should return an an error object with message property', () => {
-    const output = validateCategory('donkey');
+    output = validateCategory('donkey');
     output.should.have.property('message');
     output.message.should.be.eql('Invalid category');
   });
@@ -148,14 +146,16 @@ describe('Testing method validateBusinessTextFields()', () => {
     const output = validateBusinessTextFields('newJersey');
     output.should.be.eql('newJersey');
   });
-  it('it should return an an error object with message property', () => {
-    const output = validateBusinessTextFields('A.B');
+  it('it should return an an error object with message property if field is empty or short or long', () => {
+    let output = validateBusinessTextFields('A.B');
     output.should.have.property('message');
     output.message.should.be.eql('Field cant be too short!');
-  });
-  it('it should return the location if location is valid', () => {
-    const output = validateBusinessTextFields('');
+    output = validateBusinessTextFields('');
     output.message.should.be.eql('Field cant be empty');
+  });
+  it('it should return an error message if field is contains just numbers', () => {
+    const output = validateBusinessTextFields('4324393434934');
+    output.should.have.property('message').eql('Field cant contain just numbers');
   });
 });
 

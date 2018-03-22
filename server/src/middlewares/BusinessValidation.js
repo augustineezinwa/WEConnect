@@ -11,7 +11,7 @@ class BusinessValidation {
   * @description -This method validates businesses about to be registered in WEConnect
   * @param {object} req - The request payload sent to the router
   * @param {object} res - The response payload sent back from the controller
-  * @param {function} next - The call back function that calls the next middleware
+  * @param {fucntion} next - The call back function that calls the next middleware
   * @returns {object} - status message showing status of business validation
   * @memberOf UserController
   * @static
@@ -76,6 +76,7 @@ class BusinessValidation {
       return res.status(406).json({ message: 'An error just occurred!', businessUpdate });
     }
     req.body = businessUpdate;
+
     return next();
   }
 }

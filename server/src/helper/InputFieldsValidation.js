@@ -81,6 +81,9 @@ class InputFieldsValidation {
     if (!Number(phone)) {
       return { message: 'Phone number is not valid, must not contain - or _ or space' };
     }
+    if (phone.length > 15) {
+      return { message: 'Phone Number is too long.' };
+    }
     return phone;
   }
   /**
@@ -140,6 +143,12 @@ class InputFieldsValidation {
     }
     if (!(businessTextField.length > 3)) {
       return { message: 'Field cant be too short!' };
+    }
+    if (businessTextField.length > 150) {
+      return { message: 'Field is too long' };
+    }
+    if (/^[0-9]+$/.test(businessTextField)) {
+      return { message: 'Field cant contain just numbers' };
     }
     return businessTextField;
   }

@@ -1,9 +1,8 @@
 import InputFieldsValidation from '../helper/InputFieldsValidation';
 
 const {
-  validateEmail, validateName, validatePassword, validatePhoneNumber
+  validateEmail, validateName, validatePassword, validatePhoneNumber, validateBusinessTextFields
 } = InputFieldsValidation;
-
 /**
  * @class UserInputValidaton
  * @description Validation operations on Users.
@@ -13,7 +12,7 @@ class UserValidation {
   * @description -This method validates users in WEConnect
   * @param {object} req - The request payload sent to the router
   * @param {object} res - The response payload sent back from the controller
-  * @param {object} next
+  * @param {function} next
   * @returns {object} - status Message and logins user into WEConnect
   * @memberOf UserController
   * @static
@@ -34,7 +33,7 @@ class UserValidation {
       email: validateEmail(email),
       password: validatePassword(password),
       password2: validatePassword(password2),
-      address,
+      address: validateBusinessTextFields(address),
       phoneNumber: validatePhoneNumber(phoneNumber)
     };
     const validateFlag = user.firstName.message || user.lastName.message || user.email.message
