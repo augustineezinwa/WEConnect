@@ -1,10 +1,12 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var category = sequelize.define('category', {
-    title: DataTypes.STRING
-  }, {});
-  category.associate = function(models) {
-    // associations can be defined here
+  const category = sequelize.define('category', {
+    title: { type: DataTypes.STRING, allowNull: false, unique: { args: true, message: 'Category already exists' } },
+  });
+  category.associate = (models) => {
+    category.hasMany(models.business, {
+      foreignKey: 'categoryId',
+      as: 'cat',
+    });
   };
   return category;
 };
