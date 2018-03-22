@@ -1,411 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <script>window.currentUser = null;</script>
     <meta name="viewport" content="width=device-width,initial-scale = 1,user-scalable=no,minimum-scale =1.0" />
-
     <meta name="apple-mobile-web-app-capable" content="yes">
-
     <script>if (window.devicePixelRatio > 1) document.cookie = 'pixelRatio=' + window.devicePixelRatio + ';path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT';</script>
-
-
     <title>WEConnect</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" type="text/css" href="./styles/index.css" />
     <link rel="stylesheet" type="text/css" href="./styles/bootstrap.min.css" />
-
-
 </head>
-
 <body>
-
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-                <a class="navbar-brand review" href="#">WEConnect</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
+                  aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
-              
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <a class="navbar-brand text-white" href="#">WEConnect</a>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                   <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                      <a class="nav-link text-white" href="#">Home
+                        <span class="sr-only">(current)</span>
+                      </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
+                      <a class="nav-link text-white" href="#">Catalog</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
+                        <a class="nav-link text-white" href="#">Sign up</a>
+                      </li>
                   </ul>
                   <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                   </form>
                 </div>
               </nav>
-<!-- 
-    <div class="header">
-
-        <div class="container">
-
-            <div class="row">
-
-                <div class="col-sm-12">
-
-
-                    <h1>We
-                        <span>
-                            <img src="./images/w2.gif" alt="" />
-                        </span>Connect</h1>
-
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-sm">
-
-
-
-                    <button class="nav-item btn1 btn-success" data-toggle="modal" data-target="#exampleModalCenter">Login</button>
-
-                    <button class="nav-item btn2 btn-success" data-toggle="modal" data-target="#exampleModalCenter2">Register</button>
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div> -->
-    <div class="container-fluid">
-        <div class="c3" id="c4">
-            <div class="container">
-
-                <div class="row">
-
-                    <div class="col-sm">
-                        <svg width="100%" height="70">
-                            <rect x="0" y="10" width="100%" height="70" style="fill:black">
-                                <animate attributeType="CSS" attributeName="opacity" from="0.1" to="0.8" dur="2.5" repeatCount="indefinite" />
-
-                            </rect>
-                            <text x="20" y="20" class="review" style="width:100px;">Welcome to WeConnect! &nbsp&nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp &nbsp &nbsp
-                                &nbsp &nbsp &nbsp A platform where we connect businesses and people.&nbsp&nbsp&nbsp &nbsp
-                                &nbsp &nbsp &nbsp &nbsp We take your business to the world stage.
-                                <animateMotion path="M0,40 L-3000,40," dur="20s" repeatCount="indefinite" />
-                                <animate attributeName="fill" dur="2s" values="white;white" repeatCount="indefinite" />
-
-                            </text>
-                        </svg>
-                        <form class="form1">
-
-                            <input type="text" id="search" name="search" placeholder="Search business" />
-
-                            <span>
-                                <button class="btn btn-success btn2">Search</button>
-                            </span>
-
-
-                        </form>
-                        <a href="catalog.html" style=>
-                            <p class="text-center review font-italic" style="font-size:30px;border:none;">Visit Catalog</p>
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-
+    <div class="container-fluid image-background">
+        <div class = "row">
+            <div class = "col-md-6 offset-md-3 mt-5"> <h1 class= 'text-white'>Welcome to WEConnect</h1></div>
         </div>
     </div>
-
-
-
     <div class="container-fluid">
-        <p class=" text-center review">Top Reviews of the Day!</p>
-    </div>
-    <div class="container-fluid">
-
-        <div class="row">
-
-            <div class="col-sm-4">
-
+        <div class="row mt-5">
+            <div class="col-md-3 ">
                 <div class="card ">
-
                     <img class="card-img-top imgheight" src="./images/hotels/newyork/plaza1.jpg" alt="" />
-
-                    <div class="card-body">
-
-                        <h4 class="card-tite"> Plaza Hotel NewYork</h4>
-
+                    <div class="card-body card-body-scroll">
+                        <h5 class="card-tite"> Plaza Hotel NewYork</h5>
                         <p class="card-text">Plaza Hotel is ......</p>
-
-                        <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#demo">
-                            Read Review</button>
-
                         <div id="demo" class="collapse">
-
-                            <table class="table">
-
-                                <thead>
-                                    <tr>
-                                        <th>People</th>
-                                        <th>Reviews</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    <tr>
-                                        <td>
-                                            <img src="" alt="" />
-                                            <p>Augustine Ezinwa</p>
-                                        </td>
-                                        <td>I love this place,so awesome</td>
-
-                                    </tr>
-
-                                </tbody>
-
-                            </table>
-                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">
-                                close Review</button>
                         </div>
-
-
-
                     </div>
-
                 </div>
-
             </div>
-
-            <div class="col-sm-4">
-
+            <div class="col-md-3 ">
                 <div class="card ">
-
                     <img class="card-img-top imgheight" src="./images/recreation/arnold.jpg" alt="" />
-
                     <div class="card-body">
-
-                        <h4 class="card-tite"> Arnold Park, New Jersey</h4>
-
+                        <h5 class="card-tite"> Arnold Park, New Jersey</h5>
                         <p class="card-text">Some quick example text on card title</p>
-
-                        <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#demo1">
-                            Read Review</button>
-
-                        <div id="demo1" class="collapse">
-
-                            <table class="table">
-
-                                <thead>
-                                    <tr>
-                                        <th>People</th>
-                                        <th>Reviews</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    <tr>
-                                        <td>
-                                            <img src="" alt="" />
-                                            <p>Augustine Ezinwa</p>
-                                        </td>
-                                        <td>I love this place,so awesome</td>
-
-                                    </tr>
-
-                                </tbody>
-
-                            </table>
-                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo1">
-                                close Review</button>
-                        </div>
-
-
-
                     </div>
-
                 </div>
-
             </div>
-
-
-            <div class="col-sm-4">
-
+            <div class="col-md-3">
+                    <div class="card ">
+                        <img class="card-img-top imgheight" src="./images/recreation/arnold.jpg" alt="" />
+                        <div class="card-body">
+                            <h5 class="card-title"> Arnold Park, New Jersey</h5>
+                            <p class="card-text">Some quick example text on card title</p>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-sm-3">
                 <div class="card ">
-
                     <img class="card-img-top imgheight" ssrc="./images/hotels/arizona/boulders2.jpg" alt="" />
-
                     <div class="card-body">
-
-                        <h4 class="card-tite"> Company Name</h4>
-
+                        <h5 class="card-tite"> Company Name</h5>
                         <p class="card-text">Some quick example text on card title</p>
-
-                        <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#demo2">
-                            Read Review</button>
-
-                        <div id="demo2" class="collapse">
-
-                            <table class="table">
-
-                                <thead>
-                                    <tr>
-                                        <th>People</th>
-                                        <th>Reviews</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    <tr>
-                                        <td>
-                                            <img src="" alt="" />
-                                            <p>Augustine Ezinwa</p>
-                                        </td>
-                                        <td>I love this place,so awesome</td>
-
-                                    </tr>
-
-                                </tbody>
-
-                            </table>
-                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo2">
-                                close Review</button>
-                        </div>
-
-
-
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Login to WEConnect!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="userName">Enter User Name or Email</label>
-                                <input type="text1" class="form-control" placeholder="Enter Your UserName or Email to login.." required/>
-
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Enter Password</label>
-                                <input type="password" class="form-control" placeholder="Enter Your Password" required/>
-
-                            </div>
-                            <button type="submit" class="btn btn-success">Login</button>
-
-                            <button type="" style="float:right" class="btn btn-success" data-toggle="modal" data-dismiss="modal" data-target="#exampleModalCenter2">Sign up</button>
-                            <p style="float:right">Are you new here? &nbsp </p>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
                     </div>
                 </div>
             </div>
         </div>
-        <!--modal box for sign-up-->
-
-        <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Sign up to WEConnect!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        <form>
-                            <div class="form-group">
-                                <label for="fullName">Enter full name</label>
-                                <input type="text1" class="form-control" placeholder="Enter Your Full Name" required/>
-
-                                <label for="userName">Enter Username or Email</label>
-                                <input type="text1" class="form-control" placeholder="Enter Your username or email" required/>
-
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Enter Password</label>
-                                <input type="password" class="form-control" placeholder="Enter Your Password" required/>
-                                <div class="form-group">
-                                    <label for="password">Confirm Password</label>
-                                    <input type="password" class="form-control" placeholder="Enter Your Password" required/>
-
-                                </div>
-                                <div class="form-group">
-                                    <label for="profileImage">Upload Profile Image </label>
-                                    <input type="file" class="form-control-file" id="profileImage">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">Tell us a little about yourself
-                                    </label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-success">Sign up</button>
-                        </form>
-                        <button type="submit" style="float:right" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalCenter">login</button>
-                        <p style="float:right">Have an Account ? &nbsp</p>
-                        </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
+        <div class="row">
+            <div class="col-md-3 ">
+                <div class="card ">
+                    <img class="card-img-top imgheight" src="./images/hotels/newyork/plaza1.jpg" alt="" />
+                    <div class="card-body card-body-scroll">
+                        <h5 class="card-tite"> Plaza Hotel NewYork</h5>
+                        <p class="card-text">Plaza Hotel is ......</p>
+                        <div id="demo" class="collapse">
                         </div>
                     </div>
                 </div>
             </div>
-
+            <div class="col-md-3 ">
+                <div class="card ">
+                    <img class="card-img-top imgheight" src="./images/recreation/arnold.jpg" alt="" />
+                    <div class="card-body">
+                        <h5 class="card-tite"> Arnold Park, New Jersey</h5>
+                        <p class="card-text">Some quick example text on card title</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                    <div class="card ">
+                        <img class="card-img-top imgheight" src="./images/recreation/arnold.jpg" alt="" />
+                        <div class="card-body">
+                            <h5 class="card-title"> Arnold Park, New Jersey</h5>
+                            <p class="card-text">Some quick example text on card title</p>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-sm-3">
+                <div class="card ">
+                    <img class="card-img-top imgheight" ssrc="./images/hotels/arizona/boulders2.jpg" alt="" />
+                    <div class="card-body">
+                        <h5 class="card-tite"> Company Name</h5>
+                        <p class="card-text">Some quick example text on card title</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-3 ">
+                <div class="card ">
+                    <img class="card-img-top imgheight" src="./images/hotels/newyork/plaza1.jpg" alt="" />
+                    <div class="card-body card-body-scroll">
+                        <h5 class="card-tite"> Plaza Hotel NewYork</h5>
+                        <p class="card-text">Plaza Hotel is ......</p>
+                        <div id="demo" class="collapse">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 ">
+                <div class="card ">
+                    <img class="card-img-top imgheight" src="./images/recreation/arnold.jpg" alt="" />
+                    <div class="card-body">
+                        <h5 class="card-tite"> Arnold Park, New Jersey</h5>
+                        <p class="card-text">Some quick example text on card title</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                    <div class="card ">
+                        <img class="card-img-top imgheight" src="./images/recreation/arnold.jpg" alt="" />
+                        <div class="card-body">
+                            <h5 class="card-title"> Arnold Park, New Jersey</h5>
+                            <p class="card-text">Some quick example text on card title</p>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-sm-3">
+                <div class="card ">
+                    <img class="card-img-top imgheight" ssrc="./images/hotels/arizona/boulders2.jpg" alt="" />
+                    <div class="card-body">
+                        <h5 class="card-tite"> Company Name</h5>
+                        <p class="card-text">Some quick example text on card title</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </div>
         <div class="footer">
-
             <div class="container">
-
                 <div class="row">
-
                     <div class="col-sm-12">
-
                         &copy 2018 WeConnect
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
-
-
-
-
-
         <script src="./js/index.js"></script>
         <script src="./js/jquery.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 
