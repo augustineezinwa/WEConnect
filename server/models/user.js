@@ -3,18 +3,24 @@ module.exports = (sequelize, DataTypes) => {
     firstname: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: {
-        args: true,
-        message: 'Email already exist'
-      }
+      validate: {
+        is: /^[a-z0-9_-]+$/i,
+      },
     },
     lastname: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        is: /^[a-z0-9_-]+$/i,
+      },
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        args: true,
+        message: 'User with email exists'
+      }
     },
     password: {
       type: DataTypes.STRING,
@@ -34,7 +40,10 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   user.associate = (models) => {
-
+    user.hasMany(models.business, {
+      foreignKey: 'userId',
+      as: 'business',
+    });
   };
   return user;
 };
