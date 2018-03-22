@@ -11,7 +11,7 @@ class BusinessValidation {
   * @description -This method validates businesses about to be registered in WEConnect
   * @param {object} req - The request payload sent to the router
   * @param {object} res - The response payload sent back from the controller
-  * @param {fucntion} next - The call back function that calls the next middleware
+  * @param {function} next - The call back function that calls the next middleware
   * @returns {object} - status message showing status of business validation
   * @memberOf UserController
   * @static
@@ -60,19 +60,19 @@ class BusinessValidation {
       return res.status(404).json({ message: `Business with businessId ${id} does not exist!` });
     }
     const {
-      businessName, businessAddress, businessDescription, businessImage, location, category
+      businessName, businessAddress, businessDescription, location, category
     } = business;
     const businessUpdate = {
-      businessName: validateBusinessTextFields(req.body.businessName || businessName),
-      businessAddress: validateBusinessTextFields(req.body.businessAddress || businessAddress),
-      businessDescription: validateBusinessTextFields(req.body.businessDescription || businessDescription),
-      location: validateLocation(req.body.location || location),
-      category: validateCategory(req.body.category || category)
+      businessName: validateBusinessTextFields(req.body.businessName) || businessName,
+      businessAddress: validateBusinessTextFields(req.body.businessAddress) || businessAddress,
+      businessDescription: validateBusinessTextFields(req.body.businessDescription) || businessDescription,
+      location: validateLocation(req.body.location) || location,
+      category: validateCategory(req.body.category) || category
     };
-    const errorFlag1 = businessUpdate.businessName.message || businessUpdate.businessAddress.message
+    const errorFlag = businessUpdate.businessName.message || businessUpdate.businessAddress.message
    || businessUpdate.businessDescription.message || businessUpdate.location.message
     || businessUpdate.category.message;
-    if (errorFlag1) {
+    if (errorFlag) {
       return res.status(406).json({ message: 'An error just occurred!', businessUpdate });
     }
     req.body = businessUpdate;

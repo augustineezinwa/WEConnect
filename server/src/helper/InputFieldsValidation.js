@@ -11,6 +11,9 @@ class InputFieldsValidation {
   * @static
   */
   static validateName(name) {
+    if (name === undefined) {
+      return undefined;
+    }
     name = name.trim();
     if (name.length === 0) {
       return { message: ' field is Empty' };
@@ -27,6 +30,9 @@ class InputFieldsValidation {
     * @static
     */
   static validatePassword(password) {
+    if (password === undefined) {
+      return undefined;
+    }
     password = password.trim();
     if (password.length === 0) {
       return { message: 'password fields is empty!' };
@@ -47,6 +53,9 @@ class InputFieldsValidation {
   * @static
   */
   static validateEmail(email) {
+    if (email === undefined) {
+      return undefined;
+    }
     email = email.trim();
     if (email.length === 0) {
       return { message: 'email field cannot be empty' };
@@ -65,6 +74,9 @@ class InputFieldsValidation {
   * @static
   */
   static validatePhoneNumber(phone) {
+    if (phone === undefined) {
+      return undefined;
+    }
     phone = phone.trim();
     if (!Number(phone)) {
       return { message: 'Phone number is not valid, must not contain - or _ or space' };
@@ -79,6 +91,9 @@ class InputFieldsValidation {
   * @static
   */
   static validateCategory(category) {
+    if (category === undefined) {
+      return undefined;
+    }
     const categories = ['flight', 'supermarket', 'restaurant', 'recreation', 'hotel'];
     category = category.trim();
     const isValidcategory = categories.find(categoryItem => categoryItem ===
@@ -96,6 +111,9 @@ class InputFieldsValidation {
   * @static
   */
   static validateLocation(location) {
+    if (location === undefined) {
+      return undefined;
+    }
     const locationList = ['nigeria', 'usa', 'netherland', 'paris', 'southafrica', 'austrailia', 'hiroshima'];
     location = location.trim();
     const isValidLocation = locationList.find(locationSite =>
@@ -113,6 +131,9 @@ class InputFieldsValidation {
   * @static
   */
   static validateBusinessTextFields(businessTextField) {
+    if (businessTextField === undefined) {
+      return undefined;
+    }
     businessTextField = businessTextField.trim();
     if (businessTextField.length === 0) {
       return { message: 'Field cant be empty' };
