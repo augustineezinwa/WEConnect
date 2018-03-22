@@ -379,7 +379,6 @@ describe('Testing /PUT businesses/:businessId', () => {
 describe('Testing /PUT businesses/:businessId', () => {
   it('it should update a business in the database if it exists', (done) => {
     const business = {
-      businessId: 2,
       businessName: 'japanAir',
       businessAddress: 'mugochikunu japan',
       businessDescription: 'The best Airline in japan',
