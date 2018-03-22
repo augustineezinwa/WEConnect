@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     businessdescription: { type: DataTypes.STRING, allowNull: false },
     locationId: { type: DataTypes.STRING, allowNull: false },
     categoryId: { type: DataTypes.STRING, allowNull: false },
-    businessimage: { type: DataTypes.STRING, allowNull: false },
+    businessimage: { type: DataTypes.STRING, allowNull: true },
     userId: { type: DataTypes.STRING, allowNull: false, unique: { args: true, message: 'business has already be owned' }, }
   });
   business.associate = (models) => {
