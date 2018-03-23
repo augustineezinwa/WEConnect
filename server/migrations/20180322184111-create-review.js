@@ -1,5 +1,3 @@
-
-
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('reviews', {
     id: {
@@ -11,7 +9,10 @@ module.exports = {
     reviewcontent: {
       type: Sequelize.STRING
     },
-    businessId: { type: Sequelize.STRING, allowNull: false },
+    businessId: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE

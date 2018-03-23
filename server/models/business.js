@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     business.belongsTo(models.category, {
       foreignKey: 'categoryId',
-      as: 'cat',
+      as: 'categoryId',
     });
     business.belongsTo(models.location, {
       foreignKey: 'locationId',
