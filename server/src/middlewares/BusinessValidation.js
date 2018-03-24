@@ -76,7 +76,6 @@ class BusinessValidation {
       return res.status(406).json({ message: 'An error just occurred!', businessUpdate });
     }
     req.body = businessUpdate;
-
     return next();
   }
 }
