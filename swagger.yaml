@@ -18,6 +18,7 @@ tags:
   description: "API for businesses"
 schemes:
 - "https"
+- "http"
 paths:
   /auth/signup:
     post:
@@ -258,12 +259,12 @@ paths:
 definitions:
   UserSignUp:
     type: "object"
-    required: ["firstname","lastname", "email", "password", "password2"]
+    required: ["firstName","lastName", "email", "password", "password2", "phoneNumber"]
     properties:
-      firstname:
+      firstName:
         type: "string"
         uniqueItems: false
-      lastname:
+      lastName:
         type: "string"
         uniqueItems: false
       email:
@@ -273,6 +274,9 @@ definitions:
         type: "string"
         uniqueItems: true
       password2:
+        type: "string"
+        uniqueItems: true
+      phoneNumber:
         type: "string"
         uniqueItems: true
       
