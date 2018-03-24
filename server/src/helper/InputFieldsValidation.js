@@ -36,14 +36,17 @@ class InputFieldsValidation {
     password = password.trim();
     if (password.length === 0) {
       return { message: 'password fields is empty!' };
-    } else if (password.length < 6) {
+    }
+    if (password.length < 6) {
       return { message: 'password length must be at least 6 characters' };
-    } else if (password.includes(' ')) {
+    }
+    if (password.includes(' ')) {
       return { message: 'invalid password, it contains space' };
-    } else if (!/^(?=.*[0-9-\W]).+$/.test(password)) {
+    }
+    if (!/^(?=.*[0-9-\W]).+$/.test(password)) {
       return { message: 'password must contain at least a number, and any other special character' };
     }
-    return password;
+    return `${password  }`;
   }
   /**
   * @description -This method validates users email awaiting signup in WEConnect

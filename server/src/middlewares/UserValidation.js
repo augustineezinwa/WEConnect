@@ -33,7 +33,7 @@ class UserValidation {
       email: validateEmail(email),
       password: validatePassword(password),
       password2: validatePassword(password2),
-      address: validateBusinessTextFields(address),
+      address: validateBusinessTextFields(address) || 'Not avaliable yet',
       phoneNumber: validatePhoneNumber(phoneNumber)
     };
     const validateFlag = user.firstName.message || user.lastName.message || user.email.message
