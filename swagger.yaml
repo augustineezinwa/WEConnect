@@ -18,6 +18,7 @@ tags:
   description: "API for businesses"
 schemes:
 - "https"
+- "http"
 paths:
   /auth/signup:
     post:
