@@ -8,7 +8,12 @@ h1 {
 
     margin :4px;
 }
-
+.footer {
+    text-align :center;
+    background-color:black;
+    color:white;
+    height:100px;
+}
 .cardheight {
 
     height : 500px;
