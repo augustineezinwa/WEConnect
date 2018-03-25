@@ -1,9 +1,13 @@
-'use strict';
+
+
 module.exports = (sequelize, DataTypes) => {
-  var review = sequelize.define('review', {
-    reviewContent: DataTypes.STRING
+  const review = sequelize.define('review', {
+    reviewContent: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   }, {});
-  review.associate = function(models) {
+  review.associate = function (models) {
     // associations can be defined here
   };
   return review;

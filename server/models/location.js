@@ -1,9 +1,14 @@
-'use strict';
+
+
 module.exports = (sequelize, DataTypes) => {
-  var location = sequelize.define('location', {
-    locationContent: DataTypes.STRING
+  const location = sequelize.define('location', {
+    locationContent:
+    {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   }, {});
-  location.associate = function(models) {
+  location.associate = function (models) {
     // associations can be defined here
   };
   return location;
