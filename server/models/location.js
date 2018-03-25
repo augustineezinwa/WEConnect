@@ -1,6 +1,4 @@
-
-
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const location = sequelize.define('location', {
     locationContent:
     {
@@ -8,8 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
   }, {});
-  location.associate = function (models) {
-    // associations can be defined here
+  location.associate = (models) => {
+    location.hasMany(models.business, {
+      foreignKey: 'locationId'
+    });
   };
   return location;
 };

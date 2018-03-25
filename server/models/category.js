@@ -1,14 +1,14 @@
-
-
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const category = sequelize.define('category', {
     categoryContent: {
       type: DataTypes.STRING,
       allowNull: false
     },
-  }, {});
-  category.associate = function (models) {
-    // associations can be defined here
+  });
+  category.associate = (models) => {
+    category.hasMany(models.business, {
+      foreignKey: 'categoryId'
+    });
   };
   return category;
 };

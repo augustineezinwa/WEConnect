@@ -1,6 +1,4 @@
-
-
-module.exports = {
+export default {
   up: (queryInterface, Sequelize) => queryInterface.createTable('businesses', {
     id: {
       allowNull: false,
@@ -24,6 +22,33 @@ module.exports = {
     businessImage: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    userId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'users',
+        key: 'id'
+      }
+    },
+    locationId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'locations',
+        key: 'id',
+        as: 'locationId'
+      }
+    },
+    categoryId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'categories',
+        key: 'id',
+        as: 'categoryId'
+      }
     },
     createdAt: {
       allowNull: false,
