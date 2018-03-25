@@ -6,14 +6,14 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    firstname: {
+    firstName: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
         is: /^[a-z0-9_-]+$/i,
       },
     },
-    lastname: {
+    lastName: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
@@ -40,7 +40,7 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    phonenumber: {
+    phoneNumber: {
       type: Sequelize.STRING,
       allowNull: false,
     },

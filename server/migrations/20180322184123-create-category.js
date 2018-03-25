@@ -6,8 +6,9 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    title: {
+    categoryName: {
       type: Sequelize.STRING,
+      allowNull: false,
       unique: { args: true, message: 'Category already exists' },
     },
     createdAt: {
@@ -19,5 +20,5 @@ module.exports = {
       type: Sequelize.DATE
     }
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('categories')
+  down: queryInterface => queryInterface.dropTable('categories')
 };

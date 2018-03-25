@@ -1,11 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
   const location = sequelize.define('location', {
-    title: { type: DataTypes.STRING, allowNull: false },
+    locationName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   });
   location.associate = (models) => {
     location.hasMany(models.business, {
       foreignKey: 'locationId',
-      as: 'locationId'
+      as: 'businesses'
     });
   };
   return location;

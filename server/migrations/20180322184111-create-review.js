@@ -6,12 +6,28 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    reviewcontent: {
-      type: Sequelize.STRING
-    },
-    businessId: {
+    reviewContent: {
       type: Sequelize.STRING,
       allowNull: false,
+    },
+    businessId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'businesses',
+        key: 'id',
+        as: 'businessId'
+      }
+    },
+    userId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'users',
+        key: 'id',
+        as: 'userId'
+      }
     },
     createdAt: {
       allowNull: false,

@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
-    firstname: {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         is: /^[a-z0-9_-]+$/i,
       },
     },
-    lastname: {
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    phonenumber: {
+    phoneNumber: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -42,7 +42,11 @@ module.exports = (sequelize, DataTypes) => {
   user.associate = (models) => {
     user.hasMany(models.business, {
       foreignKey: 'userId',
-      as: 'userId',
+      as: 'businesses',
+    });
+    user.hasMany(models.review, {
+      foreignKey: 'userId',
+      as: 'reviews'
     });
   };
   return user;

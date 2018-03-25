@@ -6,7 +6,7 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    title: {
+    locationName: {
       type: Sequelize.STRING,
       allowNull: true,
     },
