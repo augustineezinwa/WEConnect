@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "inieef",
-    "database": "WEConnect",
+    "database": "weconnect",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
