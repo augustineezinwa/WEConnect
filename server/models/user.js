@@ -1,4 +1,4 @@
-export default (sequelize, DataTypes) => {
+const userDataModel = (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
     firstName: {
       type: DataTypes.STRING,
@@ -36,3 +36,5 @@ export default (sequelize, DataTypes) => {
   };
   return user;
 };
+
+export default userDataModel;

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('businesses', {
     id: {
       allowNull: false,
@@ -38,7 +38,6 @@ export default {
       references: {
         model: 'locations',
         key: 'id',
-        as: 'locationId'
       }
     },
     categoryId: {
@@ -47,7 +46,6 @@ export default {
       references: {
         model: 'categories',
         key: 'id',
-        as: 'categoryId'
       }
     },
     createdAt: {

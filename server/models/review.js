@@ -1,4 +1,4 @@
-export default (sequelize, DataTypes) => {
+const reviewDataModel = (sequelize, DataTypes) => {
   const review = sequelize.define('review', {
     reviewContent: {
       type: DataTypes.STRING,
@@ -17,3 +17,5 @@ export default (sequelize, DataTypes) => {
   };
   return review;
 };
+
+export default reviewDataModel;

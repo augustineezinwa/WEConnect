@@ -1,4 +1,4 @@
-export default (sequelize, DataTypes) => {
+const businessDataModel = (sequelize, DataTypes) => {
   const business = sequelize.define('business', {
     businessName: {
       type: DataTypes.STRING,
@@ -15,13 +15,21 @@ export default (sequelize, DataTypes) => {
     },
     businessImage: {
       type: DataTypes.STRING,
+      allowNull: true,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     locationId: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
-  }, {});
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    categoryId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  });
   business.associate = (models) => {
     business.hasMany(models.review, {
       foreignKey: 'businessId'
@@ -40,3 +48,5 @@ export default (sequelize, DataTypes) => {
   };
   return business;
 };
+
+export default businessDataModel;

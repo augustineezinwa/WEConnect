@@ -1,7 +1,6 @@
-export default (sequelize, DataTypes) => {
+const locationDataModel = (sequelize, DataTypes) => {
   const location = sequelize.define('location', {
-    locationContent:
-    {
+    locationContent: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -13,3 +12,5 @@ export default (sequelize, DataTypes) => {
   };
   return location;
 };
+
+export default locationDataModel;

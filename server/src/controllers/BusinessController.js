@@ -1,4 +1,7 @@
 import { businesses } from '../dummydatabase/dummydatabase';
+import models from '../../models/';
+
+const { business } = models;
 /**
   * @class BusinessController
   * @description CRUD operations on Business
@@ -29,16 +32,16 @@ class BusinessController {
     * @memberOf BusinessController
     */
   static getBusinessById(req, res) {
-    try {
-      const id = req.params.businessId;
-      const business = businesses.find(businessItem => +businessItem.businessId === +id);
-      if (!business) {
-        return res.status(404).json({ message: `Business with businessId ${id} does not exist` });
-      }
-      return res.json({ message: 'business search was successful', business });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    // try {
+    //   const id = req.params.businessId;
+    //   // const business = businesses.find(businessItem => +businessItem.businessId === +id);
+    //   if (!business) {
+    //     return res.status(404).json({ message: `Business with businessId ${id} does not exist` });
+    //   }
+    //   return res.json({ message: 'business search was successful', business });
+    // } catch (err) {
+    //   res.status(500).json({ message: 'Internal server error' });
+    // }
   }
   /**
    * @static
@@ -48,17 +51,16 @@ class BusinessController {
    * @memberOf BusinessController
    */
   static createBusiness(req, res) {
-    try {
-      const businessId = businesses.length === 0 ? 1 :
-        businesses[businesses.length - 1].businessId + 1;
-      const newBusiness = req.body;
-      newBusiness.businessId = businessId;
-      newBusiness.reviews = [];
-      businesses.push(newBusiness);
-      return res.status(201).send({ message: 'business successfully added', newBusiness });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    return business.create({
+      categoryId: req.body.categoryId,
+      locationId: req.body.locationId,
+      userId: req.body.userId,
+      businessName: req.body.businessName,
+      businessAddress: req.body.businessAddress,
+      businessDescription: req.body.businessDescription,
+      businessImage: req.body.businessImage || 'Not available yet',
+    }).then(businessItem => res.status(201).send(businessItem))
+      .catch(error => res.status(500).send(error));
   }
   /**
   * @static
