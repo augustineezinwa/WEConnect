@@ -25,13 +25,13 @@ const userDataModel = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-  }, {});
+  });
   user.associate = (models) => {
     user.hasMany(models.business, {
-      foreignKey: 'userId'
+      foreignKey: 'userId',
     });
     user.hasMany(models.review, {
-      foreignKey: 'userId'
+      foreignKey: 'userId',
     });
   };
   return user;

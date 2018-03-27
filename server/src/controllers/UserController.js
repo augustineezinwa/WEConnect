@@ -1,4 +1,7 @@
 import { users } from '../dummydatabase/dummydatabase';
+import models from '../../models/';
+
+const { user } = models;
 /**
   * @class UserController
   * @description CRUD operations on Users
@@ -16,9 +19,9 @@ class UserController {
     try {
       const { email, password } = req.body;
       if (email && password) {
-        const user = users.find(userItem => userItem.email === email);
-        if (user) {
-          if ((user.password === password) && (user.email === email)) {
+        const userlogin = users.find(userItem => userItem.email === email);
+        if (userlogin) {
+          if ((userlogin.password === password) && (userlogin.email === email)) {
             res.status(200).json({ message: 'you successfully logged in' });
           } else {
             res.status(401).json({ message: 'login failed! Incorrect password' });
@@ -40,21 +43,9 @@ class UserController {
   * @static
   */
   static signupUser(req, res) {
-    try {
-      const user = req.body;
-      const emailUser = users.find(userItem => userItem.email === user.email);
-      if (!emailUser) {
-        const userId = users.length === 0 ? 1 : users[users.length - 1].userId + 1;
-        user.userId = userId;
-        user.businesses = [];
-        users.push(user);
-        res.status(201).json({ message: 'You successfully signed up', user });
-      } else {
-        res.status(409).json({ message: 'email has been used' });
-      }
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    user.create(req.body)
+      .then(userItem => res.status(201).send(userItem))
+      .catch(err => res.status(500).send(err));
   }
 }
 export default UserController;

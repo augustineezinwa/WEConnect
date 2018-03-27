@@ -21,14 +21,6 @@ const businessDataModel = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    locationId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    categoryId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   });
   business.associate = (models) => {
     business.hasMany(models.review, {
@@ -37,13 +29,6 @@ const businessDataModel = (sequelize, DataTypes) => {
     business.belongsTo(models.user, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
-    });
-    business.belongsTo(models.category, {
-      foreignKey: 'categoryId'
-    });
-    business.belongsTo(models.location, {
-      foreignKey: 'locationId'
-
     });
   };
   return business;

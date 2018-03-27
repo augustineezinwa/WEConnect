@@ -32,22 +32,6 @@ module.exports = {
         key: 'id'
       }
     },
-    locationId: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'locations',
-        key: 'id',
-      }
-    },
-    categoryId: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'categories',
-        key: 'id',
-      }
-    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE

@@ -51,14 +51,13 @@ class BusinessController {
    * @memberOf BusinessController
    */
   static createBusiness(req, res) {
+    console.log(req.body);
     return business.create({
-      categoryId: req.body.categoryId,
-      locationId: req.body.locationId,
-      userId: req.body.userId,
       businessName: req.body.businessName,
       businessAddress: req.body.businessAddress,
       businessDescription: req.body.businessDescription,
       businessImage: req.body.businessImage || 'Not available yet',
+      userId: req.body.userId,
     }).then(businessItem => res.status(201).send(businessItem))
       .catch(error => res.status(500).send(error));
   }

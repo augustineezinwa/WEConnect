@@ -1,7 +1,9 @@
 import InputFieldsValidation from '../helper/InputFieldsValidation';
 import { businesses } from '../dummydatabase/dummydatabase';
 
-const { validateLocation, validateCategory, validateBusinessTextFields } = InputFieldsValidation;
+const {
+  validateLocation, validateCategory, validatePhoneNumber, validateBusinessTextFields
+} = InputFieldsValidation;
 /**
   * @class InputFieldsValidaton
   * @description Validation operations on Input fields
@@ -18,9 +20,9 @@ class BusinessValidation {
   */
   static validateBusiness(req, res, next) {
     const {
-      businessName, businessAddress, businessDescription, location, category
+      businessName, businessAddress, businessDescription, location, category, userId
     } = req.body;
-    const shouldValidate = businessName && businessAddress && businessDescription && location
+    const shouldValidate = businessName && businessAddress && businessDescription && location && userId
     && category;
     if (!shouldValidate) {
       return res.status(400).json({
@@ -32,12 +34,13 @@ class BusinessValidation {
       businessAddress: validateBusinessTextFields(req.body.businessAddress),
       businessDescription: validateBusinessTextFields(req.body.businessDescription),
       businessImage: req.body.businessImage,
-      location: validateLocation(req.body.location),
-      category: validateCategory(req.body.category),
-      userId: req.body.userId
+      location: validateBusinessTextFields(req.body.location),
+      category: validateBusinessTextFields(req.body.category),
+      userId: req.body.userId,
     };
     const errorFlag = business.businessName.message || business.businessDescription.message
-  || business.businessAddress.message || business.location.message || business.category.message;
+  || business.businessAddress.message || business.location.message || business.category.message
+  || business.userId.message;
     if (errorFlag) {
       return res.status(406).json({ message: 'An error just occurred!', business });
     }

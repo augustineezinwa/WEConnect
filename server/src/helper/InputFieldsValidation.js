@@ -46,7 +46,7 @@ class InputFieldsValidation {
     if (!/^(?=.*[0-9-\W]).+$/.test(password)) {
       return { message: 'password must contain at least a number, and any other special character' };
     }
-    return `${password }`;
+    return `${password}`;
   }
   /**
   * @description -This method validates users email awaiting signup in WEConnect
