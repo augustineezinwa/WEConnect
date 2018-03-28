@@ -70,7 +70,8 @@ class BusinessValidation {
       businessAddress: validateBusinessTextFields(req.body.businessAddress) || businessAddress,
       businessDescription: validateBusinessTextFields(req.body.businessDescription) || businessDescription,
       location: validateLocation(req.body.location) || location,
-      category: validateCategory(req.body.category) || category
+      category: validateCategory(req.body.category) || category,
+      userId: req.body.userId
     };
     const errorFlag = businessUpdate.businessName.message || businessUpdate.businessAddress.message
    || businessUpdate.businessDescription.message || businessUpdate.location.message

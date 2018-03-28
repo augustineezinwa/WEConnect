@@ -88,14 +88,29 @@ class BusinessController {
   * @memberOf BusinessController
   */
   static updateBusiness(req, res) {
-    try {
-      const id = req.params.businessId;
-      const business = businesses.find(businessItem => +businessItem.businessId === +id);
-      Object.assign(business, req.body);
-      return res.json({ message: 'business updated successfully', business });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    business.find({
+      where: {
+        id: req.params.businessId
+      }
+    }).then((businessItem) => {
+      if (!businessItem) {
+        return res.status(404).json({
+          message: `business with businessId ${req.params.businessId} does not exist`
+        });
+      }
+      return businessItem.update({
+        businessName: req.body.businessName || businessItem.businessName,
+        businessAddress: req.body.businessAddress || businessItem.businessAddress,
+        businessDescription: req.body.businessDescription || businessItem.businessDescription,
+        location: req.body.location || businessItem.location,
+        category: req.body.category || businessItem.category,
+        userId: req.body.userId || businessItem.userId
+      }).then(updatedBusinessItem => res.status(200).json({
+        message: 'business update successfully', updatedBusinessItem
+      })).catch(err => res.status(500).json({
+        message: 'Internal server error!', err
+      }));
+    }).catch(err => res.status(500).json({ message: 'Internal server error!', err }));
   }
   /**
   * @static
