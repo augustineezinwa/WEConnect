@@ -32,15 +32,6 @@ class BusinessController {
     }).catch(err => res.status(500).json({
       message: 'Internal server error', err
     }));
-
-    // try {
-    //   if (businesses.length === 0) {
-    //     return res.status(404).json({ message: 'No business available at this time', businesses });
-    //   }
-    //   return res.json({ message: 'business list loaded successfully', businesses });
-    // } catch (err) {
-    //   res.status(500).send({ message: 'Internal server error' });
-    // }
   }
   /**
     * @static
@@ -50,17 +41,24 @@ class BusinessController {
     * @memberOf BusinessController
     */
   static getBusinessById(req, res) {
-
-    // try {
-    //   const id = req.params.businessId;
-    //   // const business = businesses.find(businessItem => +businessItem.businessId === +id);
-    //   if (!business) {
-    //     return res.status(404).json({ message: `Business with businessId ${id} does not exist` });
-    //   }
-    //   return res.json({ message: 'business search was successful', business });
-    // } catch (err) {
-    //   res.status(500).json({ message: 'Internal server error' });
-    // }
+    business.find({
+      where: {
+        id: req.params.businessId
+      },
+      include: [{
+        model: review,
+        as: 'reviews'
+      }]
+    }).then((businessItem) => {
+      if (!businessItem) {
+        return res.status(404).json({ message: `Business with businessId ${req.params.businessId} does not exist` });
+      }
+      return res.status(200).json({
+        message: 'business search was successful', businessItem
+      });
+    }).catch(err => res.status(500).json({
+      message: 'A severe error just occured -Internal server error', err
+    }));
   }
   /**
    * @static
@@ -133,15 +131,6 @@ class BusinessController {
     business.findAll({
 
     });
-    //   const searchBusinessResults = businesses.filter(businessItem =>
-    //     businessItem.location === location);
-    //   if (searchBusinessResults.length === 0) {
-    //     return res.status(404).json({ message: `Business under location ${location} not found` });
-    //   }
-    //   return res.status(200).json({ message: 'Search was successful', searchBusinessResults });
-    // } catch (err) {
-    //   res.status(500).json({ message: 'Internal server error' });
-    // }
   }
   /**
   * @static
