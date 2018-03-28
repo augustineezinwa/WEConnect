@@ -1,4 +1,3 @@
-import { businesses } from '../dummydatabase/dummydatabase';
 import models from '../../models/';
 
 const { business, review } = models;
@@ -68,7 +67,6 @@ class BusinessController {
    * @memberOf BusinessController
    */
   static createBusiness(req, res) {
-    console.log(req.body);
     return business.create({
       businessName: req.body.businessName,
       businessAddress: req.body.businessAddress,
@@ -120,17 +118,25 @@ class BusinessController {
   * @memberOf BusinessController
   */
   static removeBusiness(req, res) {
-    try {
-      const id = req.params.businessId;
-      const business = businesses.find(businessItem => +businessItem.businessId === +id);
-      if (!business) {
-        return res.status(404).json({ message: `business with businessId ${id} does not exist` });
+    business.find({
+      where: {
+        id: req.params.businessId
       }
-      businesses.splice(businesses.indexOf(business), 1);
-      return res.status(204).json({ message: `business with businessId ${id} was deleted successfully` });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    }).then((businessItem) => {
+      if (!businessItem) {
+        return res.status(404).json({
+          message: `business with business ${req.params.businessId} does not exist`
+        });
+      }
+      return businessItem.destroy()
+        .then(() => res.status(206).json({
+          message: `business with businessId ${req.params.businessId} was deleted successfully`
+        })).catch(err => res.status(500).json({
+          message: 'Internal server error!', err
+        }));
+    }).catch(err => res.status(500).json({
+      message: 'Internal server error!', err
+    }));
   }
   /**
   * @static
@@ -144,8 +150,25 @@ class BusinessController {
     const { location } = req.query;
     if (!location) { return next(); }
     business.findAll({
-
-    });
+      where: {
+        location
+      },
+      include: [{
+        model: review,
+        as: 'reviews'
+      }]
+    }).then((businessItems) => {
+      if (businessItems.length < 1) {
+        return res.status(404).json({
+          message: `No business was found in this location -${location}`
+        });
+      }
+      return res.status(200).json({
+        message: 'Search was successful', businessItems
+      });
+    }).catch(err => res.status(500).json({
+      message: 'Internal server error', err
+    }));
   }
   /**
   * @static
@@ -157,18 +180,26 @@ class BusinessController {
   * @memberOf BusinessController
   */
   static filterSearchByCategory(req, res, next) {
-    try {
-      const { category } = req.query;
-      if (!category) { return next(); }
-      const searchBusinessResults = businesses.filter(businessItem =>
-        businessItem.category === category);
-      if (searchBusinessResults.length === 0) {
-        return res.status(404).json({ message: `Business under category ${category} not found!` });
+    const { category } = req.query;
+    if (!category) { return next(); }
+    business.findAll({
+      where: {
+        category
+      },
+      include: [{
+        model: review,
+        as: 'reviews'
+      }]
+    }).then((businessItems) => {
+      if (businessItems.length < 1) {
+        return res.status(404).json({
+          message: `Business under category ${category} not found!`
+        });
       }
-      return res.status(200).json({ message: 'Search was successful', searchBusinessResults });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+      return res.status(200).json({
+        message: 'Search was successful', businessItems
+      });
+    }).catch(err => res.status(500).json({ message: 'Internal server error', err }));
   }
 }
 
