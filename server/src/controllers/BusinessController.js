@@ -1,7 +1,7 @@
 import { businesses } from '../dummydatabase/dummydatabase';
 import models from '../../models/';
 
-const { business } = models;
+const { business, review } = models;
 /**
   * @class BusinessController
   * @description CRUD operations on Business
@@ -15,14 +15,32 @@ class BusinessController {
   * @memberOf BusinessController
   */
   static getAllBusinesses(req, res) {
-    try {
-      if (businesses.length === 0) {
-        return res.status(404).json({ message: 'No business available at this time', businesses });
+    business.findAll({
+      include: [{
+        model: review,
+        as: 'reviews'
+      }]
+    }).then((businessItems) => {
+      if (businessItems.length < 1) {
+        return res.status(404).json({
+          message: 'No business available at this time', businessItems
+        });
       }
-      return res.json({ message: 'business list loaded successfully', businesses });
-    } catch (err) {
-      res.status(500).send({ message: 'Internal server error' });
-    }
+      return res.status(200).json({
+        message: 'business list loaded successfully', businessItems
+      });
+    }).catch(err => res.status(500).json({
+      message: 'Internal server error', err
+    }));
+
+    // try {
+    //   if (businesses.length === 0) {
+    //     return res.status(404).json({ message: 'No business available at this time', businesses });
+    //   }
+    //   return res.json({ message: 'business list loaded successfully', businesses });
+    // } catch (err) {
+    //   res.status(500).send({ message: 'Internal server error' });
+    // }
   }
   /**
     * @static
@@ -32,6 +50,7 @@ class BusinessController {
     * @memberOf BusinessController
     */
   static getBusinessById(req, res) {
+
     // try {
     //   const id = req.params.businessId;
     //   // const business = businesses.find(businessItem => +businessItem.businessId === +id);
@@ -58,7 +77,9 @@ class BusinessController {
       businessDescription: req.body.businessDescription,
       businessImage: req.body.businessImage || 'Not available yet',
       userId: req.body.userId,
-    }).then(businessItem => res.status(201).send(businessItem))
+      location: req.body.location,
+      category: req.body.category
+    }).then(businessItem => res.status(201).json({ message: 'business registration was successful', businessItem }))
       .catch(error => res.status(500).send(error));
   }
   /**
@@ -107,18 +128,20 @@ class BusinessController {
   * @memberOf BusinessController
   */
   static filterSearchByLocation(req, res, next) {
-    try {
-      const { location } = req.query;
-      if (!location) { return next(); }
-      const searchBusinessResults = businesses.filter(businessItem =>
-        businessItem.location === location);
-      if (searchBusinessResults.length === 0) {
-        return res.status(404).json({ message: `Business under location ${location} not found` });
-      }
-      return res.status(200).json({ message: 'Search was successful', searchBusinessResults });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    const { location } = req.query;
+    if (!location) { return next(); }
+    business.findAll({
+
+    });
+    //   const searchBusinessResults = businesses.filter(businessItem =>
+    //     businessItem.location === location);
+    //   if (searchBusinessResults.length === 0) {
+    //     return res.status(404).json({ message: `Business under location ${location} not found` });
+    //   }
+    //   return res.status(200).json({ message: 'Search was successful', searchBusinessResults });
+    // } catch (err) {
+    //   res.status(500).json({ message: 'Internal server error' });
+    // }
   }
   /**
   * @static

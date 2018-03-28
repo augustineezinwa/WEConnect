@@ -21,6 +21,14 @@ const businessDataModel = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
   business.associate = (models) => {
     business.hasMany(models.review, {
