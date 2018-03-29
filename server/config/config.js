@@ -2,13 +2,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export default {
+module.exports = {
   development: {
-    username: 'process.env.DEV_USER',
-    password: 'process.env.DEV_PASS',
-    database: 'process.env.DEV_DB',
-    host: 'process.env.DEV_HOST',
-    dialect: 'postgres'
+    username: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+    host: process.env.HOST,
+    dialect: process.env.DIALECT
   },
   test: {
     username: 'postgres',
