@@ -1,12 +1,11 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 dotenv.config();
-
 module.exports = {
   development: {
-    username: process.env.USERNAME,
+    username: process.env.USERNAME_DB,
     password: process.env.PASSWORD,
-    database: process.env.DATABASE,
+    database: process.env.DATABASE_DB,
     host: process.env.HOST,
     dialect: process.env.DIALECT
   },
@@ -18,7 +17,7 @@ module.exports = {
     dialect: 'postgres'
   },
   production: {
-    database: process.env.DATABASE_URL,
-    dialect: 'postgres'
+    use_env_variable: 'DB_PROD_URL'
+
   }
 };
