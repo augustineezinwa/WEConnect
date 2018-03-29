@@ -14,19 +14,22 @@ class BusinessController {
   * @memberOf BusinessController
   */
   static getAllBusinesses(req, res) {
-    business.findAll({
-      include: [{
-        model: review,
-        as: 'reviews'
-      }]
-    }).then((businessItems) => {
-      if (businessItems.length < 1) {
+    business.findAll().then((businessList) => {
+      if (businessList.length < 1) {
         return res.status(404).json({
-          message: 'No business available at this time', businessItems
+          message: 'No business available at this time', businessList
         });
       }
+      const businessLists = {
+        businessName: businessList.businessName,
+        businessAddress: businessList.businessAddress,
+        businessImage: businessList.businessImage,
+        location: businessList.location,
+        category: businessList.category,
+        userId: req.body.userId
+      };
       return res.status(200).json({
-        message: 'business list loaded successfully', businessItems
+        message: 'business list loaded successfully', businessList
       });
     }).catch(err => res.status(500).json({
       message: 'Internal server error', err
@@ -43,17 +46,21 @@ class BusinessController {
     business.find({
       where: {
         id: req.params.businessId
-      },
-      include: [{
-        model: review,
-        as: 'reviews'
-      }]
-    }).then((businessItem) => {
-      if (!businessItem) {
+      }
+    }).then((businessObject) => {
+      if (!businessObject) {
         return res.status(404).json({ message: `Business with businessId ${req.params.businessId} does not exist` });
       }
+      const businessList = {
+        businessName: businessObject.businessName,
+        businessAddress: businessObject.businessAddress,
+        businessImage: businessObject.businessImage,
+        location: businessObject.location,
+        category: businessObject.category,
+        userId: req.body.userId
+      };
       return res.status(200).json({
-        message: 'business search was successful', businessItem
+        message: 'business search was successful', businessList
       });
     }).catch(err => res.status(500).json({
       message: 'A severe error just occured -Internal server error', err
@@ -75,8 +82,17 @@ class BusinessController {
       userId: req.body.userId,
       location: req.body.location,
       category: req.body.category
-    }).then(businessItem => res.status(201).json({ message: 'business registration was successful', businessItem }))
-      .catch(error => res.status(500).send(error));
+    }).then((businessObject) => {
+      const createdBusinessObject = {
+        businessName: businessObject.businessName,
+        businessAddress: businessObject.businessAddress,
+        businessImage: businessObject.businessImage,
+        location: businessObject.location,
+        category: businessObject.category,
+        userId: req.body.userId
+      };
+      res.status(201).json({ message: 'business registration was successful', createdBusinessObject });
+    }).catch(error => res.status(500).send(error));
   }
   /**
   * @static
@@ -90,21 +106,21 @@ class BusinessController {
       where: {
         id: req.params.businessId
       }
-    }).then((businessItem) => {
-      if (!businessItem) {
+    }).then((businessObject) => {
+      if (!businessObject) {
         return res.status(404).json({
           message: `business with businessId ${req.params.businessId} does not exist`
         });
       }
-      return businessItem.update({
-        businessName: req.body.businessName || businessItem.businessName,
-        businessAddress: req.body.businessAddress || businessItem.businessAddress,
-        businessDescription: req.body.businessDescription || businessItem.businessDescription,
-        location: req.body.location || businessItem.location,
-        category: req.body.category || businessItem.category,
-        userId: req.body.userId || businessItem.userId
-      }).then(updatedBusinessItem => res.status(200).json({
-        message: 'business update successfully', updatedBusinessItem
+      return businessObject.update({
+        businessName: req.body.businessName || businessObject.businessName,
+        businessAddress: req.body.businessAddress || businessObject.businessAddress,
+        businessDescription: req.body.businessDescription || businessObject.businessDescription,
+        location: req.body.location || businessObject.location,
+        category: req.body.category || businessObject.category,
+        userId: req.body.userId || businessObject.userId
+      }).then(updatedBusinessObject => res.status(200).json({
+        message: 'business update successfully', updatedBusinessObject
       })).catch(err => res.status(500).json({
         message: 'Internal server error!', err
       }));
@@ -153,10 +169,6 @@ class BusinessController {
       where: {
         location
       },
-      include: [{
-        model: review,
-        as: 'reviews'
-      }]
     }).then((businessItems) => {
       if (businessItems.length < 1) {
         return res.status(404).json({
@@ -186,10 +198,6 @@ class BusinessController {
       where: {
         category
       },
-      include: [{
-        model: review,
-        as: 'reviews'
-      }]
     }).then((businessItems) => {
       if (businessItems.length < 1) {
         return res.status(404).json({

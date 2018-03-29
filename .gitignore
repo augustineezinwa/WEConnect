@@ -3,3 +3,4 @@ node_modules/
 server/lib
 npm-debug.log.3334817354
 .nyc_output/
+.env

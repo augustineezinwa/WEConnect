@@ -1,5 +1,7 @@
 import InputFieldsValidation from '../helper/InputFieldsValidation';
-import { businesses } from '../dummydatabase/dummydatabase';
+import models from '../../models/';
+
+const { business } = models;
 
 const {
   validateLocation, validateCategory, validatePhoneNumber, validateBusinessTextFields
@@ -29,7 +31,7 @@ class BusinessValidation {
         message: 'businessName,businessAddress,businessDescription,location or category is missing'
       });
     }
-    const business = {
+    const businessObject = {
       businessName: validateBusinessTextFields(req.body.businessName),
       businessAddress: validateBusinessTextFields(req.body.businessAddress),
       businessDescription: validateBusinessTextFields(req.body.businessDescription),
@@ -38,13 +40,13 @@ class BusinessValidation {
       category: validateBusinessTextFields(req.body.category),
       userId: req.body.userId,
     };
-    const errorFlag = business.businessName.message || business.businessDescription.message
-  || business.businessAddress.message || business.location.message || business.category.message
-  || business.userId.message;
+    const errorFlag = businessObject.businessName.message || businessObject.businessDescription.message
+  || businessObject.businessAddress.message || businessObject.location.message || businessObject.category.message
+  || businessObject.userId.message;
     if (errorFlag) {
       return res.status(406).json({ message: 'An error just occurred!', business });
     }
-    req.body = business;
+    req.body = businessObject;
     return next();
   }
   /**
@@ -57,20 +59,12 @@ class BusinessValidation {
     * @static
     */
   static validateBusinessUpdate(req, res, next) {
-    const id = req.params.businessId;
-    const business = businesses.find(businessItem => +businessItem.businessId === +id);
-    if (!business) {
-      return res.status(404).json({ message: `Business with businessId ${id} does not exist!` });
-    }
-    const {
-      businessName, businessAddress, businessDescription, location, category
-    } = business;
     const businessUpdate = {
-      businessName: validateBusinessTextFields(req.body.businessName) || businessName,
-      businessAddress: validateBusinessTextFields(req.body.businessAddress) || businessAddress,
-      businessDescription: validateBusinessTextFields(req.body.businessDescription) || businessDescription,
-      location: validateLocation(req.body.location) || location,
-      category: validateCategory(req.body.category) || category,
+      businessName: validateBusinessTextFields(req.body.businessName) || business.businessName,
+      businessAddress: validateBusinessTextFields(req.body.businessAddress) || business.businessAddress,
+      businessDescription: validateBusinessTextFields(req.body.businessDescription) || business.businessDescription,
+      location: validateLocation(req.body.location) || business.location,
+      category: validateCategory(req.body.category) || business.category,
       userId: req.body.userId
     };
     const errorFlag = businessUpdate.businessName.message || businessUpdate.businessAddress.message
@@ -81,6 +75,55 @@ class BusinessValidation {
     }
     req.body = businessUpdate;
     return next();
+  }
+  /**
+    * @description -This method validates business Updates in WEConnect
+    * @param {object} req - The request payload sent to the router
+    * @param {object} res - The response payload sent to the client
+    * @param {object} next - The call back function that calls the next middleware
+    * @returns {object} - status Message and logins user into WEConnect
+    * @memberOf businessValidator class.
+    * @static
+    */
+  static checkBusinessName(req, res, next) {
+    business.find({
+      where: {
+        businessName: req.body.businessName
+      }
+    }).then((businessObject) => {
+      if (!businessObject) {
+        return next();
+      }
+      return res.status(409).json({
+        message: 'businessName already exists, choose another!'
+      });
+    });
+  }
+  /**
+    * @description -This method validates business Updates in WEConnect
+    * @param {object} req - The request payload sent to the router
+    * @param {object} res - The response payload sent to the client
+    * @param {object} next - The call back function that calls the next middleware
+    * @returns {object} - status Message and logins user into WEConnect
+    * @memberOf businessValidator class.
+    * @static
+    */
+  static verifyUserAction(req, res, next) {
+    const { id } = req.decoded;
+    business.find({
+      where: {
+        id: req.params.businessId
+      }
+    }).then((businessObject) => {
+      if (businessObject) {
+        if (id === businessObject.userId) {
+          return next();
+        }
+        return res.status(401).json({
+          message: 'you do not have access to this business'
+        });
+      }
+    }).catch(err => res.status(500).json({ message: 'Internal server error!', err }));
   }
 }
 
