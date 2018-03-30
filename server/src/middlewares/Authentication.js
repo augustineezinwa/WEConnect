@@ -18,7 +18,7 @@ class Authentication {
   * @static
   */
   static secureRoute(req, res, next) {
-    const token = req.body.token || req.query.token || req.header.Authorization;
+    const token = req.body.token || req.query.token || req.headers.Authorization;
     if (token) {
       jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded) => {
         if (err) {
@@ -26,8 +26,8 @@ class Authentication {
             message: 'You are not allowed to access this route, Failed to authenticate!'
           });
         }
-
         req.decoded = decoded;
+        console.log(req.decoded);
         return next();
       });
     }

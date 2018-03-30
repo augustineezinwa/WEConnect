@@ -24,29 +24,23 @@ class UserValidation {
     const {
       firstName, lastName, email, password, confirmpassword, address, phoneNumber
     } = req.body;
-    const shouldValidate = firstName && email && lastName && password && confirmpassword && phoneNumber;
-    if (!shouldValidate) {
-      return res.status(404).json({
-        message: 'firstName, email, lastName, password or phoneNumber is missing'
-      });
-    }
     const userSignup = {
       firstName: validateName(firstName),
       lastName: validateName(lastName),
       email: validateEmail(email),
-      password: validatePassword(bcrypt.hashSync(password, 10)),
-      confirmpassword: validatePassword(bcrypt.hashSync(confirmpassword, 10)),
-      address: validateBusinessTextFields(address) || 'Not available yet',
+      password: bcrypt.hashSync(validatePassword(password), 10),
+      confirmpassword: bcrypt.hashSync(validatePassword(confirmpassword), 10),
+      address: validateBusinessTextFields(address),
       phoneNumber: validatePhoneNumber(phoneNumber)
     };
     const validateFlag = userSignup.firstName.message || userSignup.lastName.message || userSignup.email.message
     || userSignup.password.message || userSignup.confirmpassword.message || userSignup.address.message
      || userSignup.phoneNumber.message;
     if (validateFlag) {
-      return res.status(406).json({ message: 'An Error occured!', user });
+      return res.status(406).json({ message: 'An Error occured!', userSignup });
     }
     if (req.body.password !== req.body.confirmpassword) {
-      return res.status(409).json({ message: 'An Error occured!, password doesnt match', user });
+      return res.status(409).json({ message: 'An Error occured!, password doesnt match', userSignup });
     }
     req.body = userSignup;
     return next();
@@ -66,16 +60,18 @@ class UserValidation {
       where: {
         email
       }
-    }).then((userItem) => {
-      if (userItem) {
+    }).then((userObject) => {
+      if (userObject) {
         return res.status(409).json({
           message: 'email is already in use'
         });
       }
+      if (!userObject) {
+        return next();
+      }
     }).catch(err => err.status(500).json({
       message: 'Internal server error', err
     }));
-    return next();
   }
 }
 export default UserValidation;

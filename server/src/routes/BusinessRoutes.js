@@ -21,10 +21,10 @@ businessRouter.route('/businesses')
   .post(secureRoute, validateBusiness, checkBusinessName, createBusiness);
 businessRouter.route('/businesses/:businessId')
   .get(getBusinessById)
-  .put(secureRoute, verifyUserAction, updateBusiness)
+  .put(secureRoute, verifyUserAction, validateBusinessUpdate, checkBusinessName, updateBusiness)
   .delete(secureRoute, verifyUserAction, removeBusiness);
 businessRouter.route('/businesses/:businessId/reviews')
-  .post(addReview)
+  .post(secureRoute, addReview)
   .get(getAllReviews);
 
 export default businessRouter;

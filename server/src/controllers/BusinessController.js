@@ -1,6 +1,6 @@
 import models from '../../models/';
 
-const { business, review } = models;
+const { business } = models;
 /**
   * @class BusinessController
   * @description CRUD operations on Business
@@ -20,14 +20,6 @@ class BusinessController {
           message: 'No business available at this time', businessList
         });
       }
-      const businessLists = {
-        businessName: businessList.businessName,
-        businessAddress: businessList.businessAddress,
-        businessImage: businessList.businessImage,
-        location: businessList.location,
-        category: businessList.category,
-        userId: req.body.userId
-      };
       return res.status(200).json({
         message: 'business list loaded successfully', businessList
       });
@@ -57,7 +49,7 @@ class BusinessController {
         businessImage: businessObject.businessImage,
         location: businessObject.location,
         category: businessObject.category,
-        userId: req.body.userId
+        userId: businessObject.userId
       };
       return res.status(200).json({
         message: 'business search was successful', businessList
@@ -118,7 +110,7 @@ class BusinessController {
         businessDescription: req.body.businessDescription || businessObject.businessDescription,
         location: req.body.location || businessObject.location,
         category: req.body.category || businessObject.category,
-        userId: req.body.userId || businessObject.userId
+        userId: businessObject.userId
       }).then(updatedBusinessObject => res.status(200).json({
         message: 'business update successfully', updatedBusinessObject
       })).catch(err => res.status(500).json({

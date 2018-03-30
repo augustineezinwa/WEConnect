@@ -14,22 +14,23 @@ class ReviewController {
  * @memberOf ReviewController
  */
   static addReview(req, res) {
+    const { payload } = req.decoded;
     return business.find({
       where: {
         id: req.params.businessId
       }
     })
-      .then((businessItem) => {
-        if (!businessItem) {
+      .then((businessObject) => {
+        if (!businessObject) {
           return res.status(404).json({ message: `Cannot add Review!, Business with businessId ${business.id} does not exist` });
         }
         return review.create({
           reviewContent: req.body.reviewContent,
-          userId: req.body.userId,
+          userId: payload.id,
           businessId: req.params.businessId
         })
-          .then(reviewItem => res.status(201).json({
-            message: 'review was added successfully', reviewItem
+          .then(reviews => res.status(201).json({
+            message: 'review was added successfully', reviews
           }))
           .catch(err => res.status(500).json({
             message: 'A severe error occurred :Internal server error!', err
@@ -49,8 +50,8 @@ class ReviewController {
         id: req.params.businessId,
       }
     })
-      .then((businessItem) => {
-        if (!businessItem) {
+      .then((businesses) => {
+        if (!businesses) {
           return res.status(404).json({
             message: `Cannot get Reviews!,business with id ${req.params.businessId} doesnt exist`
           });
@@ -60,14 +61,14 @@ class ReviewController {
             businessId: req.params.businessId
           }
         })
-          .then((reviewItem) => {
-            if (!reviewItem) {
+          .then((reviews) => {
+            if (reviews.length < 1) {
               return res.status(404).json({
-                message: `Review is not available at this time for business ${req.params.businessId}`
+                message: `Review is not available at this time for business with id ${req.params.businessId}`
               });
             }
             return res.status(200).json({
-              message: 'Review search was successful', reviewItem
+              message: 'Review search was successful', reviews
             });
           }).catch(error => res.status(500).json({
             message: 'Internal server error!', error

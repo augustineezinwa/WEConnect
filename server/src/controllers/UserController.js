@@ -25,11 +25,11 @@ class UserController {
       where: {
         email
       }
-    }).then((userItem) => {
-      if (userItem) {
-        if (bcrypt.compareSync(password, userItem.password)) {
+    }).then((userObject) => {
+      if (userObject) {
+        if (bcrypt.compareSync(password, userObject.password)) {
           const payload = {
-            id: userItem.id,
+            id: userObject.id,
             email,
           };
           const token = jwt.sign({ payload }, process.env.PRIVATE_KEY, {
@@ -67,7 +67,7 @@ class UserController {
         };
         const token = jwt.sign({ payload }, process.env.PRIVATE_KEY, { expiresIn: 60 * 60 });
         res.status(201).send({
-          message: `${usersignup.firstName}you have successfully signed up!`, token
+          message: 'you have successfully signed up!', token
         });
       }).catch(err => res.status(500).send(err));
   }

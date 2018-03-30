@@ -4,7 +4,7 @@ import models from '../../models/';
 const { business } = models;
 
 const {
-  validateLocation, validateCategory, validatePhoneNumber, validateBusinessTextFields
+  validateLocation, validateCategory, validateBusinessTextFields
 } = InputFieldsValidation;
 /**
   * @class InputFieldsValidaton
@@ -21,32 +21,27 @@ class BusinessValidation {
   * @static
   */
   static validateBusiness(req, res, next) {
+    const userId = req.decoded.payload.id;
     const {
-      businessName, businessAddress, businessDescription, location, category, userId
+      businessName, businessAddress, businessDescription, location, category
     } = req.body;
-    const shouldValidate = businessName && businessAddress && businessDescription && location && userId
-    && category;
-    if (!shouldValidate) {
-      return res.status(400).json({
-        message: 'businessName,businessAddress,businessDescription,location or category is missing'
-      });
-    }
-    const businessObject = {
-      businessName: validateBusinessTextFields(req.body.businessName),
-      businessAddress: validateBusinessTextFields(req.body.businessAddress),
-      businessDescription: validateBusinessTextFields(req.body.businessDescription),
+
+    const newBusiness = {
+      businessName: validateBusinessTextFields(businessName || { message: 'businessName is missing' }),
+      businessAddress: validateBusinessTextFields(businessAddress || { message: 'businessAddress is missing' }),
+      businessDescription: validateBusinessTextFields(businessDescription || { message: 'businessDescritpion is missing' }),
       businessImage: req.body.businessImage,
-      location: validateBusinessTextFields(req.body.location),
-      category: validateBusinessTextFields(req.body.category),
-      userId: req.body.userId,
+      location: validateBusinessTextFields(location || { message: 'location is missing' }),
+      category: validateBusinessTextFields(category || { message: 'category is missing' }),
+      userId
     };
-    const errorFlag = businessObject.businessName.message || businessObject.businessDescription.message
-  || businessObject.businessAddress.message || businessObject.location.message || businessObject.category.message
-  || businessObject.userId.message;
+    const errorFlag = newBusiness.businessName.message || newBusiness.businessDescription.message
+    || newBusiness.businessAddress.message || newBusiness.location.message
+    || newBusiness.category.message;
     if (errorFlag) {
-      return res.status(406).json({ message: 'An error just occurred!', business });
+      return res.status(406).json({ message: 'An error just occurred!', newBusiness });
     }
-    req.body = businessObject;
+    req.body = newBusiness;
     return next();
   }
   /**
@@ -65,7 +60,7 @@ class BusinessValidation {
       businessDescription: validateBusinessTextFields(req.body.businessDescription) || business.businessDescription,
       location: validateLocation(req.body.location) || business.location,
       category: validateCategory(req.body.category) || business.category,
-      userId: req.body.userId
+      userId: req.decoded.payload.id
     };
     const errorFlag = businessUpdate.businessName.message || businessUpdate.businessAddress.message
    || businessUpdate.businessDescription.message || businessUpdate.location.message
@@ -97,7 +92,9 @@ class BusinessValidation {
       return res.status(409).json({
         message: 'businessName already exists, choose another!'
       });
-    });
+    }).catch(err => res.status(500).json({
+      message: 'Internal server error', err
+    }));
   }
   /**
     * @description -This method validates business Updates in WEConnect
@@ -109,7 +106,8 @@ class BusinessValidation {
     * @static
     */
   static verifyUserAction(req, res, next) {
-    const { id } = req.decoded;
+    const { id } = req.decoded.payload;
+    console.log(`id - ${id}`);
     business.find({
       where: {
         id: req.params.businessId
@@ -122,6 +120,10 @@ class BusinessValidation {
         return res.status(401).json({
           message: 'you do not have access to this business'
         });
+      }
+      if (!businessObject) {
+        req.body.userId = id;
+        return next();
       }
     }).catch(err => res.status(500).json({ message: 'Internal server error!', err }));
   }
