@@ -12,13 +12,14 @@ businesses they have interacted with.
 
 * [Features](#features)
 * [Technology](#technology)
+* [Pre-installation](#pre-installation)
 * [Installation](#installation)
 * [Testing](#testing)
 * [API End Points](#api-end-points)
 
 ## Features
 WEConnect consist of the following features:
-###  Users
+###  Roles
 * Users can register into WEConnect
 * Users can log into WEConnect
 * Users can view all businesses in WEConnect
@@ -43,7 +44,11 @@ WEConnect consist of the following features:
     see [this link](https://en.wikipedia.org/wiki/Express.js).
 * Postgresql & Sequelize: Postgresql is an advanced open source Object-Relational Model (ORM) database.Sequelize is a promise-based ORM for Node.js v4 and up. It supports the dialects PostgreSQL, MySQL, SQLite and MSSQL and features solid transaction support, relations, read replication and more.
 * Major codes are written using the Airbnb javascript style guide, see [this link](https://github.com/airbnb/javascript) for details.
-
+## Pre-installation
+```
+1. Make sure you have nodeJs installed. Go to [this link](https://nodejs.org/en) to get the latest version of node
+2. Make sure you have postgres installed, an open source relational database, you can download and read more about it via [this link](https://https://www.postgresql.org/download/)
+```
 ## Installation
 1. Clone the repository:
 ```
