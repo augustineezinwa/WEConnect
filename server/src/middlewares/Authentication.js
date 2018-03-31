@@ -27,7 +27,6 @@ class Authentication {
           });
         }
         req.decoded = decoded;
-        console.log(req.decoded);
         return next();
       });
     }
