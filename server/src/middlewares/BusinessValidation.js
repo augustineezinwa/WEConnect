@@ -27,12 +27,12 @@ class BusinessValidation {
     } = req.body;
 
     const newBusiness = {
-      businessName: validateBusinessTextFields(businessName || { message: 'businessName is missing' }),
-      businessAddress: validateBusinessTextFields(businessAddress || { message: 'businessAddress is missing' }),
-      businessDescription: validateBusinessTextFields(businessDescription || { message: 'businessDescritpion is missing' }),
+      businessName: validateBusinessTextFields(businessName),
+      businessAddress: validateBusinessTextFields(businessAddress),
+      businessDescription: validateBusinessTextFields(businessDescription),
       businessImage: req.body.businessImage,
-      location: validateBusinessTextFields(location || { message: 'location is missing' }),
-      category: validateBusinessTextFields(category || { message: 'category is missing' }),
+      location: validateBusinessTextFields(location),
+      category: validateBusinessTextFields(category),
       userId
     };
     const errorFlag = newBusiness.businessName.message || newBusiness.businessDescription.message
