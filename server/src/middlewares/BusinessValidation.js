@@ -55,11 +55,11 @@ class BusinessValidation {
     */
   static validateBusinessUpdate(req, res, next) {
     const businessUpdate = {
-      businessName: validateBusinessTextFields(req.body.businessName) || business.businessName,
-      businessAddress: validateBusinessTextFields(req.body.businessAddress) || business.businessAddress,
-      businessDescription: validateBusinessTextFields(req.body.businessDescription) || business.businessDescription,
-      location: validateLocation(req.body.location) || business.location,
-      category: validateCategory(req.body.category) || business.category,
+      businessName: validateBusinessTextFields(req.body.businessName),
+      businessAddress: validateBusinessTextFields(req.body.businessAddress),
+      businessDescription: validateBusinessTextFields(req.body.businessDescription),
+      location: validateLocation(req.body.location),
+      category: validateCategory(req.body.category),
       userId: req.decoded.payload.id
     };
     const errorFlag = businessUpdate.businessName.message || businessUpdate.businessAddress.message
@@ -107,7 +107,6 @@ class BusinessValidation {
     */
   static verifyUserAction(req, res, next) {
     const { id } = req.decoded.payload;
-    console.log(`id - ${id}`);
     business.find({
       where: {
         id: req.params.businessId

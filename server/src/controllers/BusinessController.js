@@ -46,6 +46,7 @@ class BusinessController {
       const businessList = {
         businessName: businessObject.businessName,
         businessAddress: businessObject.businessAddress,
+        businessDescription: businessObject.businessDescription,
         businessImage: businessObject.businessImage,
         location: businessObject.location,
         category: businessObject.category,
@@ -78,6 +79,7 @@ class BusinessController {
       const createdBusinessObject = {
         businessName: businessObject.businessName,
         businessAddress: businessObject.businessAddress,
+        businessDescription: businessObject.businessDescription,
         businessImage: businessObject.businessImage,
         location: businessObject.location,
         category: businessObject.category,

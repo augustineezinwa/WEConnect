@@ -103,7 +103,7 @@ class InputFieldsValidation {
     if (category === undefined) {
       return { message: 'category field is missing!' };
     }
-    const categories = ['flight', 'supermarket', 'restaurant', 'recreation', 'hotel'];
+    const categories = ['flight', 'supermarket', 'restaurant', 'recreation', 'hotel', 'technology', 'education'];
     category = category.trim();
     const isValidcategory = categories.find(categoryItem => categoryItem ===
       category.toLowerCase());

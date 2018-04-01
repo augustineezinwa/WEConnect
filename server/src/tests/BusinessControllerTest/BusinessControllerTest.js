@@ -3,8 +3,6 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
 
-import { business, review, user } from '../../../models';
-
 dotenv.config();
 
 process.env.NODE_ENV = 'test';
@@ -15,7 +13,6 @@ describe('Testing /GET businesses', () => {
   it('it should GET all business in the database', (done) => {
     chai.request(app).get('/api/v1/businesses')
       .end((err, res) => {
-        console.log(res);
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('message').eql('business list loaded successfully');
@@ -38,9 +35,9 @@ describe('Testing /GET businesses', () => {
       });
   });
 });
-/* describe('Testing /GET businesses/:businessId', () => {
+describe('Testing /GET businesses/:businessId', () => {
   it('it should GET a business in the array by businessId.', (done) => {
-    chai.request(app).get('/api/v1/businesses/3')
+    chai.request(app).get('/api/v1/businesses/1')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('object');
@@ -404,4 +401,4 @@ describe('Testing /PUT businesses/:businessId', () => {
       });
   });
 });
- */
+
