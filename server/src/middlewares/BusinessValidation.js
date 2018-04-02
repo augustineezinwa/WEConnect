@@ -69,6 +69,7 @@ class BusinessValidation {
       return res.status(406).json({ message: 'An error just occurred!', businessUpdate });
     }
     req.body = businessUpdate;
+    req.id = req.id;
     return next();
   }
   /**
@@ -87,6 +88,9 @@ class BusinessValidation {
       }
     }).then((businessObject) => {
       if (!businessObject) {
+        return next();
+      }
+      if (+businessObject.id === +req.id) {
         return next();
       }
       return res.status(409).json({
@@ -122,6 +126,7 @@ class BusinessValidation {
       }
       if (!businessObject) {
         req.body.userId = id;
+        req.id = req.id;
         return next();
       }
     }).catch(err => res.status(500).json({ message: 'Internal server error!', err }));

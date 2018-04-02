@@ -21,6 +21,16 @@ class UserController {
   */
   static loginUser(req, res) {
     const { email, password } = req.body;
+    if (!email) {
+      return res.status(406).json({
+        message: 'email is missing!'
+      });
+    }
+    if (!password) {
+      return res.status(406).json({
+        message: 'password is missing!'
+      });
+    }
     user.find({
       where: {
         email

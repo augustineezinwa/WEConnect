@@ -28,11 +28,17 @@ class UserValidation {
       firstName: validateName(firstName),
       lastName: validateName(lastName),
       email: validateEmail(email),
-      password: bcrypt.hashSync(validatePassword(password), 10),
-      confirmpassword: bcrypt.hashSync(validatePassword(confirmpassword), 10),
+      password: validatePassword(password),
+      confirmpassword: validatePassword(confirmpassword),
       address: validateBusinessTextFields(address),
       phoneNumber: validatePhoneNumber(phoneNumber)
     };
+    if (!userSignup.password.message) {
+      userSignup.password = bcrypt.hashSync(userSignup.password, 10);
+    }
+    if (!userSignup.confirmpassword.message) {
+      userSignup.confirmpassword = bcrypt.hashSync(userSignup.confirmpassword, 10);
+    }
     const validateFlag = userSignup.firstName.message || userSignup.lastName.message || userSignup.email.message
     || userSignup.password.message || userSignup.confirmpassword.message || userSignup.address.message
      || userSignup.phoneNumber.message;

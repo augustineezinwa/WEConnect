@@ -27,6 +27,7 @@ class Authentication {
           });
         }
         req.decoded = decoded;
+        req.id = req.params.businessId;
         return next();
       });
     }
