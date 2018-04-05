@@ -10,10 +10,15 @@ module.exports = {
     dialect: process.env.DIALECT
   },
   test: {
-    use_env_variable: 'DB_TEST_URL'
+    username: process.env.USERNAME_DB_TEST,
+    password: process.env.PASSWORD_DB_TEST,
+    database: process.env.DATABASE_DB_TEST,
+    host: process.env.HOST_TEST,
+    dialect: process.env.DIALECT
   },
   production: {
-    use_env_variable: 'DB_PROD_URL'
+    use_env_variable: 'DB_PROD_URL',
+    dialect: process.env.DIALECT
 
   }
 };
