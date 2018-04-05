@@ -1,16 +1,18 @@
 import fs from 'fs';
-import Sequelize from 'sequelize';
 import path from 'path';
-import dbconfig from './../config/config';
+import Sequelize from 'sequelize';
+import dotenv from 'dotenv';
+import dbconfig from '../config/config';
 
+dotenv.config();
 const basename = path.basename(module.filename);
-const env = process.env.NODE_ENV || 'development';
-const config = dbconfig[env];
+process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV.trim() : '';
+const config = dbconfig[process.env.NODE_ENV || 'development'];
 const db = {};
 
 let sequelize;
-if (process.env.DATABASE_URL) {
-  sequelize = new Sequelize(process.env.DATABASE_URL);
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
