@@ -75,7 +75,7 @@ class UserValidation {
       if (!userObject) {
         return next();
       }
-    }).catch(err => err.status(500).json({
+    }).catch(err => res.status(500).json({
       message: 'Internal server error', err
     }));
   }

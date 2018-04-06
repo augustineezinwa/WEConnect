@@ -1,11 +1,7 @@
-import dotenv from 'dotenv';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
 
-dotenv.config();
-
-process.env.NODE_ENV = 'test';
 const should = chai.should();
 chai.use(chaiHttp);
 
@@ -70,8 +66,6 @@ describe('Testing /POST businesses', () => {
     businessDescription: 'This airline is awesome',
     location: 'Austrailia',
     category: 'Flight',
-    userId: 2,
-    reviews: []
   };
   it('it should post a particular business into database', (done) => {
     chai.request(app).post('/api/v1/businesses/')
