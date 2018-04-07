@@ -218,11 +218,16 @@ describe('Testing /POST signup', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('message').eql('you have successfully signed up!');
         res.body.should.have.property('token');
+
         done();
       });
   });
-  it('should throw an error if user fails to enter any field during signup', (done) => {
-    const newUser = {};
+  it('should throw an error if user fails to enter some fields during signup', (done) => {
+    const newUser = {
+      email: 'augustineezinwa@gmail.com',
+      password: 'er534434',
+      lastName: 'Ezinwa'
+    };
     chai.request(app).post('/api/v1/auth/signup')
       .send(newUser).end((err, res) => {
         res.should.have.status(406);
@@ -230,16 +235,16 @@ describe('Testing /POST signup', () => {
         res.body.should.have.property('message').eql('An Error occured!');
         res.body.userSignup.should.be.a('object');
         res.body.userSignup.firstName.should.have.property('message').eql('Name field is missing!');
-        res.body.userSignup.lastName.should.have.property('message').eql('Name field is missing!');
-        res.body.userSignup.email.should.have.property('message').eql('email field is missing!');
-        res.body.userSignup.password.should.have.property('message').eql('password is needed!');
+        res.body.userSignup.lastName.should.be.eql('Ezinwa');
+        res.body.userSignup.email.should.be.eql('augustineezinwa@gmail.com');
+        res.body.userSignup.password.should.be.a('string');
         res.body.userSignup.confirmpassword.should.have.property('message').eql('password is needed!');
         res.body.userSignup.phoneNumber.should.have.property('message').eql('phoneNumber field cant be empty!');
         res.body.userSignup.address.should.be.eql('Not Available yet!');
         done();
       });
   });
-  it('it should return an error message if email is already in use', (done) => {
+  it('should return an error message if email is already in use', (done) => {
     const newUser = {
       firstName: 'augustine',
       lastName: 'ezinwa',
@@ -254,11 +259,11 @@ describe('Testing /POST signup', () => {
         res.should.have.status(409);
         res.body.should.be.a('object');
         res.body.should.have.property('message');
-        res.body.message.should.be.eql('email has been used');
+        res.body.message.should.be.eql('email is already in use');
         done();
       });
   });
-  it('it should return an error message if password doesnt match', (done) => {
+  it('should return an error message if password doesnt match', (done) => {
     const newUser = {
       firstName: 'Emeka',
       lastName: 'Ezinwa',
@@ -277,7 +282,7 @@ describe('Testing /POST signup', () => {
         done();
       });
   });
-  it('it should return  WEConnect welcome message', (done) => {
+  it('should return  WEConnect welcome message', (done) => {
     chai.request(app).get('/')
       .end((err, res) => {
         res.should.have.status(200);
@@ -290,10 +295,10 @@ describe('Testing /POST signup', () => {
 });
 
 describe('Testing /POST user login', () => {
-  it('it should login user if user credentials matches the ones in database', (done) => {
+  it('should login user if user credentials matches the ones in database', (done) => {
     const unverifiedUser = {
-      email: 'augustineezinwa@gmail.com',
-      password: '34343434'
+      email: 'jet55591@gmail.com',
+      password: '5654545q'
     };
     chai.request(app).post('/api/v1/auth/login')
       .send(unverifiedUser).end((err, res) => {
@@ -304,7 +309,7 @@ describe('Testing /POST user login', () => {
         done();
       });
   });
-  it('it should return an error message if user-credentials mismatches the ones in database', (done) => {
+  it('should return an error message if user-credentials mismatches the ones in database', (done) => {
     const unverifiedUser = {
       email: 'jet5559q1@gmail.com',
       password: '4343i434'
@@ -318,9 +323,9 @@ describe('Testing /POST user login', () => {
         done();
       });
   });
-  it('it should return an unauthorized message if login was attempted with wrong password', (done) => {
+  it('should return an unauthorized message if login was attempted with wrong password', (done) => {
     const unverifiedUser = {
-      email: 'augustineezinwa@gmail.com',
+      email: 'jet55591@gmail.com',
       password: '4343434i'
     };
     chai.request(app).post('/api/v1/auth/login')
@@ -328,7 +333,7 @@ describe('Testing /POST user login', () => {
         res.should.have.status(401);
         res.body.should.be.a('object');
         res.body.should.have.property('message');
-        res.body.message.should.be.eql('login failed! Incorrect password');
+        res.body.message.should.be.eql('password is incorrect');
         done();
       });
   });
