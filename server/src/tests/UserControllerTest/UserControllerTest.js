@@ -159,6 +159,86 @@ describe('Testing /POST signup', () => {
         done();
       });
   });
+  it('should throw an error if user fails to provide phone number during signup', (done) => {
+    const newUser = {
+      firstName: 'Augustine',
+      lastName: 'ezinwa',
+      email: 'jet55591@gmail.com',
+      password: '5654545',
+      confirmpassword: '',
+      address: 'no 54 dffdfb str ..',
+      phoneNumber: ''
+    };
+    chai.request(app).post('/api/v1/auth/signup')
+      .send(newUser).end((err, res) => {
+        res.should.have.status(406);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('An Error occured!');
+        res.body.userSignup.should.be.a('object');
+        res.body.userSignup.should.have.property('firstName').eql('Augustine');
+        res.body.userSignup.should.have.property('lastName').eql('Ezinwa');
+        res.body.userSignup.should.have.property('confirmpassword').be.a('object');
+        res.body.userSignup.should.have.property('email').be.eql('jet55591@gmail.com');
+        res.body.userSignup.phoneNumber.should.have.property('message').eql('Phone number is not valid, must not contain - or _ or space');
+        res.body.userSignup.should.have.property('address').eql('no 54 dffdfb str ..');
+        done();
+      });
+  });
+  it('should throw an error if user fails to enter any field during signup', (done) => {
+    const newUser = {};
+    chai.request(app).post('/api/v1/auth/signup')
+      .send(newUser).end((err, res) => {
+        res.should.have.status(406);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('An Error occured!');
+        res.body.userSignup.should.be.a('object');
+        res.body.userSignup.firstName.should.have.property('message').eql('Name field is missing!');
+        res.body.userSignup.lastName.should.have.property('message').eql('Name field is missing!');
+        res.body.userSignup.email.should.have.property('message').eql('email field is missing!');
+        res.body.userSignup.password.should.have.property('message').eql('password is needed!');
+        res.body.userSignup.confirmpassword.should.have.property('message').eql('password is needed!');
+        res.body.userSignup.phoneNumber.should.have.property('message').eql('phoneNumber field cant be empty!');
+        res.body.userSignup.address.should.be.eql('Not Available yet!');
+        done();
+      });
+  });
+  it('should successfully signup a user that enters all required fields', (done) => {
+    const newUser = {
+      firstName: 'Augustine',
+      lastName: 'ezinwa',
+      email: 'jet55591@gmail.com',
+      password: '5654545q',
+      confirmpassword: '5654545q',
+      address: 'no 54 dffdfb str ..',
+      phoneNumber: '5656455454545'
+    };
+    chai.request(app).post('/api/v1/auth/signup')
+      .send(newUser).end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('you have successfully signed up!');
+        res.body.should.have.property('token');
+        done();
+      });
+  });
+  it('should throw an error if user fails to enter any field during signup', (done) => {
+    const newUser = {};
+    chai.request(app).post('/api/v1/auth/signup')
+      .send(newUser).end((err, res) => {
+        res.should.have.status(406);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('An Error occured!');
+        res.body.userSignup.should.be.a('object');
+        res.body.userSignup.firstName.should.have.property('message').eql('Name field is missing!');
+        res.body.userSignup.lastName.should.have.property('message').eql('Name field is missing!');
+        res.body.userSignup.email.should.have.property('message').eql('email field is missing!');
+        res.body.userSignup.password.should.have.property('message').eql('password is needed!');
+        res.body.userSignup.confirmpassword.should.have.property('message').eql('password is needed!');
+        res.body.userSignup.phoneNumber.should.have.property('message').eql('phoneNumber field cant be empty!');
+        res.body.userSignup.address.should.be.eql('Not Available yet!');
+        done();
+      });
+  });
   it('it should return an error message if email is already in use', (done) => {
     const newUser = {
       firstName: 'augustine',
@@ -178,14 +258,13 @@ describe('Testing /POST signup', () => {
         done();
       });
   });
-
   it('it should return an error message if password doesnt match', (done) => {
     const newUser = {
       firstName: 'Emeka',
       lastName: 'Ezinwa',
       email: 'augustineezinwa@gmail.com',
       password: '343435',
-      password2: '3434a35',
+      confirmpassword: '3434a35',
       address: 'efdsf fdsf',
       phoneNumber: '07034629228'
     };
