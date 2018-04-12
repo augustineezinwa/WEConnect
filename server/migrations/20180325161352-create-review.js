@@ -4,7 +4,8 @@ module.exports = {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
+      unique: true
     },
     reviewContent: {
       type: Sequelize.STRING,
