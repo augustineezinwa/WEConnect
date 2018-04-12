@@ -1,32 +1,34 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 import app from '../../app';
 
+
+dotenv.config();
 const should = chai.should();
 chai.use(chaiHttp);
 
+console.log(process.env.TRUE_TOKEN);
+console.log(process.env.FAKE_TOKEN);
 describe('Testing /GET businesses', () => {
-  it('it should GET all business in the database', (done) => {
+  it('should GET all business in the database when initialized', (done) => {
     chai.request(app).get('/api/v1/businesses')
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(404);
         res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('business list loaded successfully');
-        res.body.should.have.property('businessList');
-        res.body.businessList.should.be.a('array');
-        res.body.businessList.length.should.be.eql(1);
-        res.body.businessList[0].should.have.property('id').eql(1);
-        res.body.businessList[0].should.have.property('businessName').eql('Mandilas Cinema');
-        res.body.businessList[0].should.have.property('businessAddress').eql('mugochikunu japan');
-        res.body.businessList[0].should.have.property('location').eql('nigeria');
-        res.body.businessList[0].should.have.property('category').eql('restaurant');
-        res.body.businessList[0].should.have.property('userId').eql(1);
-        res.body.businessList[0].id.should.be.a('number');
-        res.body.businessList[0].businessName.should.be.a('string');
-        res.body.businessList[0].businessAddress.should.be.a('string');
-        res.body.businessList[0].location.should.be.a('string');
-        res.body.businessList[0].category.should.be.a('string');
-        res.body.businessList[0].userId.should.be.a('number');
+        res.body.should.have.property('message').eql('No business available at this time');
+        done();
+      });
+  });
+});
+describe('Testing /GET businesses/:businessId', () => {
+  it('should GET a business by id, in the database when initialized', (done) => {
+    chai.request(app).get('/api/v1/businesses/4')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('Business with businessId 4 does not exist');
         done();
       });
   });
@@ -59,7 +61,7 @@ describe('Testing /GET businesses/:businessId', () => {
       });
   });
 });
-describe('Testing /POST businesses', () => {
+describe('Testing /POST businesses using token authentication', () => {
   const business1 = {
     businessName: 'Virgin Austrailia',
     businessAddress: 'No 10 New kingston road new zealand',
@@ -67,28 +69,126 @@ describe('Testing /POST businesses', () => {
     location: 'Austrailia',
     category: 'Flight',
   };
-  it('it should post a particular business into database', (done) => {
+  const business2 = {
+    businessName: 'Madison Park',
+    businessAddress: 'No 10 Washington Road Netherland',
+    businessDescription: 'Madison park is a park situated at the heart of Netherland',
+    location: 'Netherland',
+    category: 'recreation',
+  };
+  const newUser = {
+    firstName: 'charles',
+    lastName: 'ezinwa',
+    email: 'testerone@gmail.com',
+    password: '5654545q',
+    confirmpassword: '5654545q',
+    address: 'no 54 dffdfb str ..',
+    phoneNumber: '5656455454545'
+  };
+  const newSecondUser = {
+    firstName: 'Jane',
+    lastName: 'Ezinwa',
+    email: 'JaneEzinwa@gmail.com',
+    password: '5654q45q',
+    confirmpassword: '5654q45q',
+    address: 'no 54 dffdfb str ..',
+    phoneNumber: '5656455454545'
+  };
+  chai.request(app).post('/api/v1/auth/signup')
+    .send(newUser)
+    .end((err, res) => {
+      res.body.should.have.property('token');
+      process.env.TRUE_TOKEN = res.body.token;
+      jwt.verify(process.env.TRUE_TOKEN, process.env.PRIVATE_KEY, (err, decoded) => {
+        if (!err) {
+          process.env.USER_ID = decoded.payload.id;
+        }
+      });
+    });
+  chai.request(app).post('/api/v1/auth/signup')
+    .send(newSecondUser)
+    .end(() =>
+      chai.request(app).post('/api/v1/auth/login')
+        .send({
+          email: 'JaneEzinwa@gmail.com',
+          password: '5654q45q'
+        })
+        .end((err, res) => {
+          res.body.should.have.property('token');
+          process.env.SECOND_TRUE_TOKEN = res.body.token;
+          jwt.verify(process.env.SECOND_TRUE_TOKEN, process.env.PRIVATE_KEY, (err, decoded) => {
+            if (!err) {
+              process.env.SECOND_USER_ID = decoded.payload.id;
+            }
+          });
+        }));
+  it('should not post a particular business into database without a token', (done) => {
     chai.request(app).post('/api/v1/businesses/')
       .send(business1).end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message')
+          .eql('You are forbidden from accessing this route! No token! You need to sign up!');
+        res.body.message.should.be.a('string');
+        done();
+      });
+  });
+  it('should not post a particular business into database with an incorrect token', (done) => {
+    chai.request(app).post('/api/v1/businesses/')
+      .send(business1)
+      .send({ token: process.env.FAKE_TOKEN })
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message')
+          .eql('You are not allowed to access this route, Failed to authenticate!');
+        done();
+      });
+  });
+  it('should successfully post a business if a user provides a valid token', (done) => {
+    chai.request(app).post('/api/v1/businesses/')
+      .send(business1)
+      .send({ token: process.env.TRUE_TOKEN })
+      .end((err, res) => {
         res.should.have.status(201);
         res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('business successfully added');
-        res.body.newBusiness.should.have.property('businessId').eql(4);
-        res.body.newBusiness.should.have.property('businessName').eql('Virgin Austrailia');
-        res.body.newBusiness.should.have.property('businessAddress').eql('No 10 New kingston road new zealand');
-        res.body.newBusiness.should.have.property('location').eql('Austrailia');
-        res.body.newBusiness.should.have.property('category').eql('Flight');
+        res.body.should.have.property('message').eql('business registration was successful');
+        res.body.should.have.property('createdBusinessObject');
+        res.body.createdBusinessObject.should.have.property('businessName').eql('Virgin Austrailia');
+        res.body.createdBusinessObject.should.have.property('businessAddress').eql('No 10 New kingston road new zealand');
+        res.body.createdBusinessObject.should.have.property('location').eql('Austrailia');
+        res.body.createdBusinessObject.should.have.property('category').eql('Flight');
+        res.body.createdBusinessObject.should.have.property('businessDescription').eql('This airline is awesome');
+        res.body.createdBusinessObject.should.have.property('userId').eql(+process.env.USER_ID);
         res.body.message.should.be.a('string');
-        res.body.newBusiness.businessName.should.be.a('string');
-        res.body.newBusiness.businessAddress.should.be.a('string');
-        res.body.newBusiness.location.should.be.a('string');
-        res.body.newBusiness.category.should.be.a('string');
-        businesses.length.should.be.eql(2);
-        businesses[1].category.should.be.eql('Flight');
-        businesses[1].location.should.be.eql('Austrailia');
-        businesses[1].businessId.should.be.eql(4);
-        businesses[1].businessName.should.be.eql('Virgin Austrailia');
-        businesses[1].businessAddress.should.be.eql('No 10 New kingston road new zealand');
+        res.body.createdBusinessObject.businessName.should.be.a('string');
+        res.body.createdBusinessObject.businessAddress.should.be.a('string');
+        res.body.createdBusinessObject.location.should.be.a('string');
+        res.body.createdBusinessObject.category.should.be.a('string');
+        done();
+      });
+  });
+  it('it should successfully post a business if a second user provides a valid token', (done) => {
+    chai.request(app).post('/api/v1/businesses/')
+      .send(business2)
+      .send({ token: process.env.SECOND_TRUE_TOKEN })
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('business registration was successful');
+        res.body.should.have.property('createdBusinessObject');
+        res.body.createdBusinessObject.should.have.property('businessName').eql('Madison Park');
+        res.body.createdBusinessObject.should.have.property('businessAddress').eql('No 10 Washington Road Netherland');
+        res.body.createdBusinessObject.should.have.property('location').eql('Netherland');
+        res.body.createdBusinessObject.should.have.property('category').eql('recreation');
+        res.body.createdBusinessObject.should.have.property('businessDescription')
+          .eql('Madison park is a park situated at the heart of Netherland');
+        res.body.createdBusinessObject.should.have.property('userId').eql(+process.env.SECOND_USER_ID);
+        res.body.message.should.be.a('string');
+        res.body.createdBusinessObject.businessName.should.be.a('string');
+        res.body.createdBusinessObject.businessAddress.should.be.a('string');
+        res.body.createdBusinessObject.location.should.be.a('string');
+        res.body.createdBusinessObject.category.should.be.a('string');
         done();
       });
   });
@@ -98,33 +198,35 @@ describe('Testing /POST businesses', () => {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('message').eql('business list loaded successfully');
-        res.body.should.have.property('businesses');
-        res.body.businesses.should.be.a('array');
-        res.body.businesses.length.should.be.eql(2);
-        res.body.businesses[0].should.have.property('businessId').eql(3);
-        res.body.businesses[0].should.have.property('businessName').eql('Shoprite');
-        res.body.businesses[0].should.have.property('businessAddress').eql('no 5 washington road');
-        res.body.businesses[0].should.have.property('location').eql('USA');
-        res.body.businesses[0].should.have.property('category').eql('supermarket');
-        res.body.businesses[0].should.have.property('userId').eql(1);
-        res.body.businesses[0].businessId.should.be.a('number');
-        res.body.businesses[0].businessName.should.be.a('string');
-        res.body.businesses[0].businessAddress.should.be.a('string');
-        res.body.businesses[0].location.should.be.a('string');
-        res.body.businesses[0].category.should.be.a('string');
-        res.body.businesses[0].userId.should.be.a('number');
-        res.body.businesses[1].should.have.property('businessId').eql(4);
-        res.body.businesses[1].should.have.property('businessName').eql('Virgin Austrailia');
-        res.body.businesses[1].should.have.property('businessAddress').eql('No 10 New kingston road new zealand');
-        res.body.businesses[1].should.have.property('location').eql('Austrailia');
-        res.body.businesses[1].should.have.property('category').eql('Flight');
-        res.body.businesses[1].should.have.property('userId').eql(2);
-        res.body.businesses[1].businessId.should.be.a('number');
-        res.body.businesses[1].businessName.should.be.a('string');
-        res.body.businesses[1].businessAddress.should.be.a('string');
-        res.body.businesses[1].location.should.be.a('string');
-        res.body.businesses[1].category.should.be.a('string');
-        res.body.businesses[1].userId.should.be.a('number');
+        res.body.should.have.property('businessList');
+        res.body.businessList.should.be.a('array');
+        res.body.businessList.length.should.be.eql(2);
+        res.body.businessList[0].should.have.property('id').eql(1);
+        res.body.businessList[0].should.have.property('businessName').eql('Virgin Austrailia');
+        res.body.businessList[0].should.have.property('businessAddress').eql('No 10 New kingston road new zealand');
+        res.body.businessList[0].should.have.property('businessDescription').eql('This airline is awesome');
+        res.body.businessList[0].should.have.property('location').eql('Austrailia');
+        res.body.businessList[0].should.have.property('category').eql('Flight');
+        res.body.businessList[0].should.have.property('userId').eql(1);
+        res.body.businessList[0].id.should.be.a('number');
+        res.body.businessList[0].businessName.should.be.a('string');
+        res.body.businessList[0].businessAddress.should.be.a('string');
+        res.body.businessList[0].businessDescription.should.be.a('string');
+        res.body.businessList[0].location.should.be.a('string');
+        res.body.businessList[0].category.should.be.a('string');
+        res.body.businessList[0].userId.should.be.a('number');
+        res.body.businessList[1].should.have.property('id').eql(2);
+        res.body.businessList[1].should.have.property('businessName').eql('Madison Park');
+        res.body.businessList[1].should.have.property('businessAddress').eql('No 10 Washington Road Netherland');
+        res.body.businessList[1].should.have.property('location').eql('Netherland');
+        res.body.businessList[1].should.have.property('category').eql('recreation');
+        res.body.businessList[1].should.have.property('userId').eql(2);
+        res.body.businessList[1].id.should.be.a('number');
+        res.body.businessList[1].businessName.should.be.a('string');
+        res.body.businessList[1].businessAddress.should.be.a('string');
+        res.body.businessList[1].location.should.be.a('string');
+        res.body.businessList[1].category.should.be.a('string');
+        res.body.businessList[1].userId.should.be.a('number');
         done();
       });
   });
@@ -395,4 +497,3 @@ describe('Testing /PUT businesses/:businessId', () => {
       });
   });
 });
-
