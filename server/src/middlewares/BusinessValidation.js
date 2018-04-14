@@ -25,14 +25,13 @@ class BusinessValidation {
     const {
       businessName, businessAddress, businessDescription, location, category
     } = req.body;
-
     const newBusiness = {
-      businessName: validateBusinessTextFields(businessName),
-      businessAddress: validateBusinessTextFields(businessAddress),
-      businessDescription: validateBusinessTextFields(businessDescription),
+      businessName: validateBusinessTextFields(businessName) || { message: 'businessName is missing!' },
+      businessAddress: validateBusinessTextFields(businessAddress) || { message: 'businessAddress is missing!' },
+      businessDescription: validateBusinessTextFields(businessDescription) || 'Not available yet!',
       businessImage: req.body.businessImage,
-      location: validateBusinessTextFields(location),
-      category: validateBusinessTextFields(category),
+      location: validateLocation(location) || { message: 'location is missing!' },
+      category: validateCategory(category) || { message: 'category field is missing!' },
       userId
     };
     const errorFlag = newBusiness.businessName.message || newBusiness.businessDescription.message
@@ -55,11 +54,11 @@ class BusinessValidation {
     */
   static validateBusinessUpdate(req, res, next) {
     const businessUpdate = {
-      businessName: validateBusinessTextFields(req.body.businessName),
-      businessAddress: validateBusinessTextFields(req.body.businessAddress),
-      businessDescription: validateBusinessTextFields(req.body.businessDescription),
-      location: validateLocation(req.body.location),
-      category: validateCategory(req.body.category),
+      businessName: validateBusinessTextFields(req.body.businessName) || '',
+      businessAddress: validateBusinessTextFields(req.body.businessAddress) || '',
+      businessDescription: validateBusinessTextFields(req.body.businessDescription) || '',
+      location: validateLocation(req.body.location) || '',
+      category: validateCategory(req.body.category) || '',
       userId: req.decoded.payload.id
     };
     const errorFlag = businessUpdate.businessName.message || businessUpdate.businessAddress.message

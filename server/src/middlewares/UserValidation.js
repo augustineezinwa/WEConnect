@@ -30,7 +30,7 @@ class UserValidation {
       email: validateEmail(email),
       password: validatePassword(password),
       confirmpassword: validatePassword(confirmpassword),
-      address: validateBusinessTextFields(address),
+      address: validateBusinessTextFields(address) || 'Not Available yet!',
       phoneNumber: validatePhoneNumber(phoneNumber)
     };
     if (!userSignup.password.message) {

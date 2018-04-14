@@ -101,7 +101,7 @@ class InputFieldsValidation {
   */
   static validateCategory(category) {
     if (category === undefined) {
-      return { message: 'category field is missing!' };
+      return undefined;
     }
     const categories = ['flight', 'supermarket', 'restaurant', 'recreation', 'hotel', 'technology', 'education'];
     category = category.trim();
@@ -121,7 +121,7 @@ class InputFieldsValidation {
   */
   static validateLocation(location) {
     if (location === undefined) {
-      return { message: 'location is missing!' };
+      return undefined;
     }
     const locationList = ['nigeria', 'usa', 'netherland', 'paris', 'southafrica', 'austrailia', 'hiroshima'];
     location = location.trim();
@@ -141,13 +141,13 @@ class InputFieldsValidation {
   */
   static validateBusinessTextFields(businessTextField) {
     if (businessTextField === undefined) {
-      return 'Not Available yet!';
+      return undefined;
     }
     businessTextField = businessTextField.trim();
     if (businessTextField.length === 0) {
       return { message: 'Field cant be empty' };
     }
-    if (!(businessTextField.length > 3)) {
+    if (!(businessTextField.length > 2)) {
       return { message: 'Field cant be too short!' };
     }
     if (businessTextField.length > 150) {

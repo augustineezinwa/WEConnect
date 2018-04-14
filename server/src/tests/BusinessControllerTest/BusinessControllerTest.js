@@ -11,6 +11,74 @@ chai.use(chaiHttp);
 
 console.log(process.env.TRUE_TOKEN);
 console.log(process.env.FAKE_TOKEN);
+const business1 = {
+  businessName: 'Virgin Austrailia',
+  businessAddress: 'No 10 New kingston road new zealand',
+  businessDescription: 'This airline is awesome',
+  location: 'Austrailia',
+  category: 'Flight',
+};
+const business2 = {
+  businessName: 'Madison Park',
+  businessAddress: 'No 10 Washington Road Netherland',
+  businessDescription: 'Madison park is a park situated at the heart of Netherland',
+  location: 'Netherland',
+  category: 'recreation',
+};
+const newUser = {
+  firstName: 'charles',
+  lastName: 'ezinwa',
+  email: 'testerone@gmail.com',
+  password: '5654545q',
+  confirmpassword: '5654545q',
+  address: 'no 54 dffdfb str ..',
+  phoneNumber: '5656455454545'
+};
+const newSecondUser = {
+  firstName: 'Jane',
+  lastName: 'Ezinwa',
+  email: 'JaneEzinwa@gmail.com',
+  password: '5654q45q',
+  confirmpassword: '5654q45q',
+  address: 'no 54 dffdfb str ..',
+  phoneNumber: '5656455454545'
+};
+
+it('signup', (done) => {
+  chai.request(app).post('/api/v1/auth/signup')
+    .send(newUser)
+    .end((err, res) => {
+      res.body.should.have.property('token');
+      process.env.TRUE_TOKEN = res.body.token;
+      jwt.verify(process.env.TRUE_TOKEN, process.env.PRIVATE_KEY, (err, decoded) => {
+        if (!err) {
+          process.env.USER_ID = decoded.payload.id;
+        }
+      });
+    });
+  done();
+});
+
+it('signup', (done) => {
+  chai.request(app).post('/api/v1/auth/signup')
+    .send(newSecondUser)
+    .end(() =>
+      chai.request(app).post('/api/v1/auth/login')
+        .send({
+          email: 'JaneEzinwa@gmail.com',
+          password: '5654q45q'
+        })
+        .end((err, res) => {
+          res.body.should.have.property('token');
+          process.env.SECOND_TRUE_TOKEN = res.body.token;
+          jwt.verify(process.env.SECOND_TRUE_TOKEN, process.env.PRIVATE_KEY, (err, decoded) => {
+            if (!err) {
+              process.env.SECOND_USER_ID = decoded.payload.id;
+            }
+          });
+        }));
+  done();
+});
 describe('Testing /GET businesses', () => {
   it('should GET all business in the database when initialized', (done) => {
     chai.request(app).get('/api/v1/businesses')
@@ -33,95 +101,7 @@ describe('Testing /GET businesses/:businessId', () => {
       });
   });
 });
-describe('Testing /GET businesses/:businessId', () => {
-  it('it should GET a business in the array by businessId.', (done) => {
-    chai.request(app).get('/api/v1/businesses/1')
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('business search was successful');
-        res.body.should.have.property('business');
-        res.body.business.should.be.a('object');
-        res.body.business.should.have.property('businessId').eql(3);
-        res.body.business.should.have.property('businessName').eql('Shoprite');
-        res.body.business.should.have.property('businessAddress').eql('no 5 washington road');
-        res.body.business.should.have.property('location').eql('USA');
-        res.body.business.should.have.property('category').eql('supermarket');
-        res.body.business.should.have.property('userId').eql(1);
-        res.body.business.businessId.should.be.a('number');
-        res.body.business.businessName.should.be.a('string');
-        res.body.business.businessAddress.should.be.a('string');
-        res.body.business.location.should.be.a('string');
-        res.body.business.category.should.be.a('string');
-        res.body.business.userId.should.be.a('number');
-        res.body.business.should.have.property('reviews');
-        res.body.business.reviews.should.be.a('array');
-        res.body.business.reviews.length.should.eql(0);
-        done();
-      });
-  });
-});
 describe('Testing /POST businesses using token authentication', () => {
-  const business1 = {
-    businessName: 'Virgin Austrailia',
-    businessAddress: 'No 10 New kingston road new zealand',
-    businessDescription: 'This airline is awesome',
-    location: 'Austrailia',
-    category: 'Flight',
-  };
-  const business2 = {
-    businessName: 'Madison Park',
-    businessAddress: 'No 10 Washington Road Netherland',
-    businessDescription: 'Madison park is a park situated at the heart of Netherland',
-    location: 'Netherland',
-    category: 'recreation',
-  };
-  const newUser = {
-    firstName: 'charles',
-    lastName: 'ezinwa',
-    email: 'testerone@gmail.com',
-    password: '5654545q',
-    confirmpassword: '5654545q',
-    address: 'no 54 dffdfb str ..',
-    phoneNumber: '5656455454545'
-  };
-  const newSecondUser = {
-    firstName: 'Jane',
-    lastName: 'Ezinwa',
-    email: 'JaneEzinwa@gmail.com',
-    password: '5654q45q',
-    confirmpassword: '5654q45q',
-    address: 'no 54 dffdfb str ..',
-    phoneNumber: '5656455454545'
-  };
-  chai.request(app).post('/api/v1/auth/signup')
-    .send(newUser)
-    .end((err, res) => {
-      res.body.should.have.property('token');
-      process.env.TRUE_TOKEN = res.body.token;
-      jwt.verify(process.env.TRUE_TOKEN, process.env.PRIVATE_KEY, (err, decoded) => {
-        if (!err) {
-          process.env.USER_ID = decoded.payload.id;
-        }
-      });
-    });
-  chai.request(app).post('/api/v1/auth/signup')
-    .send(newSecondUser)
-    .end(() =>
-      chai.request(app).post('/api/v1/auth/login')
-        .send({
-          email: 'JaneEzinwa@gmail.com',
-          password: '5654q45q'
-        })
-        .end((err, res) => {
-          res.body.should.have.property('token');
-          process.env.SECOND_TRUE_TOKEN = res.body.token;
-          jwt.verify(process.env.SECOND_TRUE_TOKEN, process.env.PRIVATE_KEY, (err, decoded) => {
-            if (!err) {
-              process.env.SECOND_USER_ID = decoded.payload.id;
-            }
-          });
-        }));
   it('should not post a particular business into database without a token', (done) => {
     chai.request(app).post('/api/v1/businesses/')
       .send(business1).end((err, res) => {
@@ -146,6 +126,8 @@ describe('Testing /POST businesses using token authentication', () => {
       });
   });
   it('should successfully post a business if a user provides a valid token', (done) => {
+    console.log(process.env.TRUE_TOKEN);
+    console.log(process.env.SECOND_TRUE_TOKEN);
     chai.request(app).post('/api/v1/businesses/')
       .send(business1)
       .send({ token: process.env.TRUE_TOKEN })
@@ -169,6 +151,8 @@ describe('Testing /POST businesses using token authentication', () => {
       });
   });
   it('it should successfully post a business if a second user provides a valid token', (done) => {
+    console.log(process.env.TRUE_TOKEN);
+    console.log(process.env.SECOND_TRUE_TOKEN);
     chai.request(app).post('/api/v1/businesses/')
       .send(business2)
       .send({ token: process.env.SECOND_TRUE_TOKEN })
@@ -227,6 +211,117 @@ describe('Testing /POST businesses using token authentication', () => {
         res.body.businessList[1].location.should.be.a('string');
         res.body.businessList[1].category.should.be.a('string');
         res.body.businessList[1].userId.should.be.a('number');
+        done();
+      });
+  });
+  it('should restrict user if he or she trys to update a business he or she did not create', (done) => {
+    chai.request(app).put('/api/v1/businesses/2')
+      .send({
+        businessName: 'Coca Cola',
+      })
+      .send({
+        token: process.env.TRUE_TOKEN
+      })
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.should.have.property('message').eql('you do not have access to this business');
+        done();
+      });
+  });
+  it('should restrict second user if he or she trys to update a business he or she did not create', (done) => {
+    chai.request(app).put('/api/v1/businesses/1')
+      .send({
+        businessName: 'Coca Cola',
+      })
+      .send({
+        token: process.env.SECOND_TRUE_TOKEN
+      })
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.should.have.property('message').eql('you do not have access to this business');
+        done();
+      });
+  });
+  it('should forbid second user if he/she trys to update a his/her business name with an existing name in database', (done) => {
+    chai.request(app).put('/api/v1/businesses/2')
+      .send({
+        businessName: 'Virgin Austrailia',
+      })
+      .send({
+        token: process.env.SECOND_TRUE_TOKEN
+      })
+      .end((err, res) => {
+        res.should.have.status(409);
+        res.body.should.have.property('message').eql('businessName already exists, choose another!');
+        done();
+      });
+  });
+  it('should let second user to update his/her business', (done) => {
+    chai.request(app).put('/api/v1/businesses/2')
+      .send({
+        businessName: 'Coca Cola',
+      })
+      .send({
+        token: process.env.SECOND_TRUE_TOKEN
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('message').eql('business updated successfully');
+        res.body.should.have.property('updatedBusinessObject');
+        res.body.updatedBusinessObject.should.have.property('businessName').eql('Coca Cola');
+        res.body.updatedBusinessObject.should.have.property('businessAddress').eql('No 10 Washington Road Netherland');
+        res.body.updatedBusinessObject.should.have.property('location').eql('Netherland');
+        res.body.updatedBusinessObject.should.have.property('category').eql('recreation');
+        res.body.updatedBusinessObject.should.have.property('businessDescription')
+          .eql('Madison park is a park situated at the heart of Netherland');
+        res.body.updatedBusinessObject.should.have.property('userId').eql(2);
+        done();
+      });
+  });
+  it('should let first user to update his/her business', (done) => {
+    chai.request(app).put('/api/v1/businesses/1')
+      .send({
+        businessName: 'Apple 30 Inc',
+        category: 'technology',
+        businessDescription: 'A fortune 1000 company where we believe technology makes the world a better place.'
+      })
+      .send({
+        token: process.env.TRUE_TOKEN
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('message').eql('business updated successfully');
+        res.body.should.have.property('updatedBusinessObject');
+        res.body.updatedBusinessObject.should.have.property('businessName').eql('Apple 30 Inc');
+        res.body.updatedBusinessObject.should.have.property('businessAddress').eql('No 10 New kingston road new zealand');
+        res.body.updatedBusinessObject.should.have.property('location').eql('Austrailia');
+        res.body.updatedBusinessObject.should.have.property('category').eql('technology');
+        res.body.updatedBusinessObject.should.have.property('businessDescription')
+          .eql('A fortune 1000 company where we believe technology makes the world a better place.');
+        res.body.updatedBusinessObject.should.have.property('userId').eql(1);
+        done();
+      });
+  });
+});
+describe('Testing /GET businesses/:businessId', () => {
+  it('it should GET a business in the database by businessId.', (done) => {
+    chai.request(app).get('/api/v1/businesses/1')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('business search was successful');
+        res.body.should.have.property('businessList');
+        res.body.businessList.should.be.a('object');
+        res.body.businessList.should.have.property('businessName').eql('Apple 30 Inc');
+        res.body.businessList.should.have.property('businessAddress').eql('No 10 New kingston road new zealand');
+        res.body.businessList.should.have.property('location').eql('Austrailia');
+        res.body.businessList.should.have.property('category').eql('technology');
+        res.body.businessList.should.have.property('userId').eql(1);
+        res.body.businessList.businessName.should.be.a('string');
+        res.body.businessList.businessAddress.should.be.a('string');
+        res.body.businessList.location.should.be.a('string');
+        res.body.businessList.category.should.be.a('string');
+        res.body.businessList.userId.should.be.a('number');
         done();
       });
   });

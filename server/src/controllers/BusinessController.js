@@ -114,7 +114,7 @@ class BusinessController {
         category: req.body.category || businessObject.category,
         userId: businessObject.userId
       }).then(updatedBusinessObject => res.status(200).json({
-        message: 'business update successfully', updatedBusinessObject
+        message: 'business updated successfully', updatedBusinessObject
       })).catch(err => res.status(500).json({
         message: 'Internal server error!', err
       }));
@@ -139,7 +139,7 @@ class BusinessController {
         });
       }
       return businessItem.destroy()
-        .then(() => res.status(206).json({
+        .then(() => res.status(200).json({
           message: `business with businessId ${req.params.businessId} was deleted successfully`
         })).catch(err => res.status(500).json({
           message: 'Internal server error!', err
