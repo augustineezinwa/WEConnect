@@ -10,6 +10,7 @@ module.exports = {
     dialect: process.env.DIALECT
   },
   test: {
+    use_env_variable: 'DB_TEST_URL',
     username: process.env.USERNAME_DB_TEST,
     password: process.env.PASSWORD_DB_TEST,
     database: process.env.DATABASE_DB_TEST,
@@ -22,3 +23,4 @@ module.exports = {
 
   }
 };
+
