@@ -38,7 +38,7 @@ describe('Testing method validatePassword()', () => {
   it('it should return an an error object with message property', () => {
     const output = validatePassword('');
     output.should.have.property('message');
-    output.message.should.be.eql('password fields is empty!');
+    output.message.should.be.eql('password is empty!');
   });
   it('it should return an an error object with message property', () => {
     const output = validatePassword('derjere%34&');
@@ -47,7 +47,7 @@ describe('Testing method validatePassword()', () => {
   it('it should return an an error object with message property', () => {
     const output = validatePassword('');
     output.should.be.a('object');
-    output.message.should.be.eql('password fields is empty!');
+    output.message.should.be.eql('password is empty!');
   });
   it('it should return an an error object with message property if password is too short', () => {
     const output = validatePassword('323');
@@ -147,7 +147,7 @@ describe('Testing method validateBusinessTextFields()', () => {
     output.should.be.eql('newJersey');
   });
   it('it should return an an error object with message property if field is empty or short or long', () => {
-    let output = validateBusinessTextFields('A.B');
+    let output = validateBusinessTextFields('AC');
     output.should.have.property('message');
     output.message.should.be.eql('Field cant be too short!');
     output = validateBusinessTextFields('');

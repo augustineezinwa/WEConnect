@@ -22,7 +22,7 @@ class ReviewController {
     })
       .then((businessObject) => {
         if (!businessObject) {
-          return res.status(404).json({ message: `Cannot add Review!, Business with businessId ${business.id} does not exist` });
+          return res.status(404).json({ message: `Cannot add Review!, Business with businessId ${req.params.businessId} does not exist` });
         }
         return review.create({
           reviewContent: req.body.reviewContent,

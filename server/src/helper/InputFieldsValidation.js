@@ -123,7 +123,7 @@ class InputFieldsValidation {
     if (location === undefined) {
       return undefined;
     }
-    const locationList = ['nigeria', 'usa', 'netherland', 'paris', 'southafrica', 'austrailia', 'hiroshima'];
+    const locationList = ['nigeria', 'usa', 'netherland', 'paris', 'southafrica', 'austrailia', 'hiroshima', 'united kingdom'];
     location = location.trim();
     const isValidLocation = locationList.find(locationSite =>
       locationSite === location.toLowerCase());
