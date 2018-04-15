@@ -4,7 +4,7 @@
   "description": "This folder contains the technologies neccesary for the backend",
   "main": "app.js",
   "scripts": {
-   "test": "set NODE_ENV=test && sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && nyc --require babel-register --require babel-polyfill mocha --timeout 1000000 server/src/tests/**/*.js --exit ",
+   "test": "set NODE_ENV=test && sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && nyc --require babel-register --require babel-polyfill mocha --timeout 1000000000 server/src/tests/**/*.js --exit ",
     "start": " babel-node server/src/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
