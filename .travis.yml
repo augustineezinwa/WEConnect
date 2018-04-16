@@ -17,20 +17,8 @@ script:
 after_success:
   - npm run coverage
   - npm run coveralls
-
-
-
-
-
-
-
-
 cache:
   directories:
     - node_modules
-
-before_script:
-  - npm i nyc --save-dev
-
-script:
-  - npm run test
+addons:
+  ssh_known_hosts: baasu.db.elephantsql.com
