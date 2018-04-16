@@ -11,7 +11,7 @@ before_script:
   - npm install
   - npm i nyc --save-dev
 script:
-  - npm run test
+  - npm test
 after_success:
   - npm run coverage
   - npm run coveralls
