@@ -5,16 +5,13 @@ notifications:
   email: false
 services:
   - postgresql
-TRAVIS_SECURE_ENV_VARS: true
 env:
 global:
   - export NODE_ENV=test
-  - export timeout=10000000000
 before_script:
   - npm install
   - npm i nyc --save-dev
-  - psql -c 'CREATE DATABASE travis;' -U postgres
-  - psql -c "CREATE USER petit WITH PASSWORD 'password';" -U postgres
+  - psql -c "psql 'DB_TEST_URL';"
 script:
   - npm test
 after_success:
