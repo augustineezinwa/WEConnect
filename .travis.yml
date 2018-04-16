@@ -18,3 +18,5 @@ after_success:
 cache:
   directories:
     - node_modules
+os:
+ - win32
