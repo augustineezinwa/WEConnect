@@ -13,7 +13,7 @@ global:
 before_script:
   - npm install
   - npm i nyc --save-dev
-  - psql DB_TEST_URL
+  - psql process.env['DB_TEST_URL']
 script:
   - npm test
 after_success:
