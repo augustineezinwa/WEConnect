@@ -9,11 +9,11 @@ TRAVIS_SECURE_ENV_VARS: true
 env:
 global:
   - export NODE_ENV=test
-  - export DB_TEST_URL
+  - export TIMEOUT=10000000000
 before_script:
   - npm install
   - npm i nyc --save-dev
-  - psql process.env['DB_TEST_URL']
+  - psql $DB_TEST_URL
 script:
   - npm test
 after_success:
@@ -22,5 +22,4 @@ after_success:
 cache:
   directories:
     - node_modules
-addons:
-  ssh_known_hosts: baasu.db.elephantsql.com:5432
+
