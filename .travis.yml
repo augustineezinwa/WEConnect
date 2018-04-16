@@ -22,4 +22,4 @@ cache:
   directories:
     - node_modules
 before_install:
-  - psql $DB_TEST_URL
+  - psql -c 'psql $DB_TEST_URL';
