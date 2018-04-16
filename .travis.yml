@@ -21,4 +21,4 @@ cache:
   directories:
     - node_modules
 addons:
-  ssh_known_hosts: baasu.db.elephantsql.com
+  ssh_known_hosts: baasu.db.elephantsql.com:5432
