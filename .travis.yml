@@ -9,9 +9,11 @@ TRAVIS_SECURE_ENV_VARS: true
 env:
 global:
   - export NODE_ENV=test
+  - export DB_TEST_URL
 before_script:
   - npm install
   - npm i nyc --save-dev
+  - psql DB_TEST_URL
 script:
   - npm test
 after_success:
