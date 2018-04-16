@@ -1,19 +1,17 @@
 language: node_js
 node_js:
-- "stable"
+- 8.10.0
 notifications:
   email: false
 services:
   - postgresql
 env:
 global:
-  - export NODE_ENV=test
 before_script:
   - npm install
   - npm i nyc --save-dev
-  - psql -c 'create database 'DB_TEST_URL';' -U postgres
 script:
-  - npm test
+  - npm run test
 after_success:
   - npm run coverage
   - npm run coveralls
