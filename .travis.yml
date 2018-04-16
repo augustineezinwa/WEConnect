@@ -11,7 +11,7 @@ global:
 before_script:
   - npm install
   - npm i nyc --save-dev
-  - psql -c 'create database DB_TEST_URL;' -U postgres
+  - psql -c 'create database 'DB_TEST_URL';' -U postgres
 script:
   - npm test
 after_success:
