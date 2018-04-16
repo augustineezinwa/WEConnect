@@ -4,16 +4,15 @@ node_js:
 notifications:
   email: false
 services:
-  - postgresql
+  - elephantsql
 TRAVIS_SECURE_ENV_VARS: true
 env:
 global:
   - export NODE_ENV=test
-  - export TIMEOUT=10000000000
+  - export timeout=10000000000
 before_script:
   - npm install
   - npm i nyc --save-dev
-  - psql $DB_TEST_URL
 script:
   - npm test
 after_success:
