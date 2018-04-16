@@ -4,13 +4,10 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import app from '../../app';
 
-
 dotenv.config();
 const should = chai.should();
 chai.use(chaiHttp);
 
-console.log(process.env.TRUE_TOKEN);
-console.log(process.env.FAKE_TOKEN);
 const business1 = {
   businessName: 'Virgin Austrailia',
   businessAddress: 'No 10 New kingston road new zealand',
@@ -133,8 +130,6 @@ describe('Testing /POST businesses using token authentication', () => {
       });
   });
   it('should successfully post a business if a user provides a valid token', (done) => {
-    console.log(process.env.TRUE_TOKEN);
-    console.log(process.env.SECOND_TRUE_TOKEN);
     chai.request(app).post('/api/v1/businesses/')
       .send(business1)
       .send({ token: process.env.TRUE_TOKEN })
@@ -158,8 +153,6 @@ describe('Testing /POST businesses using token authentication', () => {
       });
   });
   it('it should successfully post a business if a second user provides a valid token', (done) => {
-    console.log(process.env.TRUE_TOKEN);
-    console.log(process.env.SECOND_TRUE_TOKEN);
     chai.request(app).post('/api/v1/businesses/')
       .send(business2)
       .send({ token: process.env.SECOND_TRUE_TOKEN })
