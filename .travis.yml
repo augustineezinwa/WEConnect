@@ -16,6 +16,3 @@ after_success:
 cache:
   directories:
     - node_modules
-env:
-global:
-  - global=
