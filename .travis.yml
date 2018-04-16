@@ -1,22 +1,21 @@
 language: node_js
 node_js:
-- 8.10.0
+- "stable"
 notifications:
   email: false
 services:
   - postgresql
-env:
-global:
 before_script:
   - npm install
   - npm i nyc --save-dev
 script:
-  - npm test
+  - npm run test
 after_success:
   - npm run coverage
   - npm run coveralls
 cache:
   directories:
     - node_modules
-os:
- - win32
+env:
+global:
+  - global=
