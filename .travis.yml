@@ -4,12 +4,13 @@ node_js:
 notifications:
   email: false
 services:
-  - elephantsql
+  - postgresql
 TRAVIS_SECURE_ENV_VARS: true
 env:
 global:
   - export NODE_ENV=test
   - export timeout=10000000000
+  - PGPORT=5432
 before_script:
   - npm install
   - npm i nyc --save-dev
@@ -21,4 +22,9 @@ after_success:
 cache:
   directories:
     - node_modules
-
+addons:
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
