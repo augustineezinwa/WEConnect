@@ -18,6 +18,6 @@ app.use('/', (req, res) => {
     message: 'Welcome to WEConnect!'
   });
 });
-app.listen(PORT, () => console.log('server listening on port 2020'));
+app.listen(PORT, () => console.log(`server listening on port ${PORT}`));
 
 export default app;

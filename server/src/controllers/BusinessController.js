@@ -1,4 +1,6 @@
-import { businesses } from '../dummydatabase/dummydatabase';
+import models from '../../models/';
+
+const { business } = models;
 /**
   * @class BusinessController
   * @description CRUD operations on Business
@@ -12,14 +14,18 @@ class BusinessController {
   * @memberOf BusinessController
   */
   static getAllBusinesses(req, res) {
-    try {
-      if (businesses.length === 0) {
-        return res.status(404).json({ message: 'No business available at this time', businesses });
+    business.findAll().then((businessList) => {
+      if (businessList.length < 1) {
+        return res.status(404).json({
+          message: 'No business available at this time', businessList
+        });
       }
-      return res.json({ message: 'business list loaded successfully', businesses });
-    } catch (err) {
-      res.status(500).send({ message: 'Internal server error' });
-    }
+      return res.status(200).json({
+        message: 'business list loaded successfully', businessList
+      });
+    }).catch(err => res.status(500).json({
+      message: 'Internal server error', err
+    }));
   }
   /**
     * @static
@@ -29,16 +35,29 @@ class BusinessController {
     * @memberOf BusinessController
     */
   static getBusinessById(req, res) {
-    try {
-      const id = req.params.businessId;
-      const business = businesses.find(businessItem => +businessItem.businessId === +id);
-      if (!business) {
-        return res.status(404).json({ message: `Business with businessId ${id} does not exist` });
+    business.find({
+      where: {
+        id: req.params.businessId
       }
-      return res.json({ message: 'business search was successful', business });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    }).then((businessObject) => {
+      if (!businessObject) {
+        return res.status(404).json({ message: `Business with businessId ${req.params.businessId} does not exist` });
+      }
+      const businessList = {
+        businessName: businessObject.businessName,
+        businessAddress: businessObject.businessAddress,
+        businessDescription: businessObject.businessDescription,
+        businessImage: businessObject.businessImage,
+        location: businessObject.location,
+        category: businessObject.category,
+        userId: businessObject.userId
+      };
+      return res.status(200).json({
+        message: 'business search was successful', businessList
+      });
+    }).catch(err => res.status(500).json({
+      message: 'A severe error just occured -Internal server error', err
+    }));
   }
   /**
    * @static
@@ -48,17 +67,26 @@ class BusinessController {
    * @memberOf BusinessController
    */
   static createBusiness(req, res) {
-    try {
-      const businessId = businesses.length === 0 ? 1 :
-        businesses[businesses.length - 1].businessId + 1;
-      const newBusiness = req.body;
-      newBusiness.businessId = businessId;
-      newBusiness.reviews = [];
-      businesses.push(newBusiness);
-      return res.status(201).send({ message: 'business successfully added', newBusiness });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    return business.create({
+      businessName: req.body.businessName,
+      businessAddress: req.body.businessAddress,
+      businessDescription: req.body.businessDescription,
+      businessImage: req.body.businessImage || 'Not available yet',
+      userId: req.body.userId,
+      location: req.body.location,
+      category: req.body.category
+    }).then((businessObject) => {
+      const createdBusinessObject = {
+        businessName: businessObject.businessName,
+        businessAddress: businessObject.businessAddress,
+        businessDescription: businessObject.businessDescription,
+        businessImage: businessObject.businessImage,
+        location: businessObject.location,
+        category: businessObject.category,
+        userId: req.body.userId
+      };
+      res.status(201).json({ message: 'business registration was successful', createdBusinessObject });
+    }).catch(error => res.status(500).send(error));
   }
   /**
   * @static
@@ -68,14 +96,29 @@ class BusinessController {
   * @memberOf BusinessController
   */
   static updateBusiness(req, res) {
-    try {
-      const id = req.params.businessId;
-      const business = businesses.find(businessItem => +businessItem.businessId === +id);
-      Object.assign(business, req.body);
-      return res.json({ message: 'business updated successfully', business });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    business.find({
+      where: {
+        id: req.params.businessId
+      }
+    }).then((businessObject) => {
+      if (!businessObject) {
+        return res.status(404).json({
+          message: `business with businessId ${req.params.businessId} does not exist`
+        });
+      }
+      return businessObject.update({
+        businessName: req.body.businessName || businessObject.businessName,
+        businessAddress: req.body.businessAddress || businessObject.businessAddress,
+        businessDescription: req.body.businessDescription || businessObject.businessDescription,
+        location: req.body.location || businessObject.location,
+        category: req.body.category || businessObject.category,
+        userId: businessObject.userId
+      }).then(updatedBusinessObject => res.status(200).json({
+        message: 'business updated successfully', updatedBusinessObject
+      })).catch(err => res.status(500).json({
+        message: 'Internal server error!', err
+      }));
+    }).catch(err => res.status(500).json({ message: 'Internal server error!', err }));
   }
   /**
   * @static
@@ -85,17 +128,25 @@ class BusinessController {
   * @memberOf BusinessController
   */
   static removeBusiness(req, res) {
-    try {
-      const id = req.params.businessId;
-      const business = businesses.find(businessItem => +businessItem.businessId === +id);
-      if (!business) {
-        return res.status(404).json({ message: `business with businessId ${id} does not exist` });
+    business.find({
+      where: {
+        id: req.params.businessId
       }
-      businesses.splice(businesses.indexOf(business), 1);
-      return res.status(204).json({ message: `business with businessId ${id} was deleted successfully` });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    }).then((businessItem) => {
+      if (!businessItem) {
+        return res.status(404).json({
+          message: `business with business ${req.params.businessId} does not exist`
+        });
+      }
+      return businessItem.destroy()
+        .then(() => res.status(200).json({
+          message: `business with businessId ${req.params.businessId} was deleted successfully`
+        })).catch(err => res.status(500).json({
+          message: 'Internal server error!', err
+        }));
+    }).catch(err => res.status(500).json({
+      message: 'Internal server error!', err
+    }));
   }
   /**
   * @static
@@ -106,18 +157,24 @@ class BusinessController {
   * @memberOf BusinessController
   */
   static filterSearchByLocation(req, res, next) {
-    try {
-      const { location } = req.query;
-      if (!location) { return next(); }
-      const searchBusinessResults = businesses.filter(businessItem =>
-        businessItem.location === location);
-      if (searchBusinessResults.length === 0) {
-        return res.status(404).json({ message: `Business under location ${location} not found` });
+    const { location } = req.query;
+    if (!location) { return next(); }
+    business.findAll({
+      where: {
+        location
+      },
+    }).then((businessItems) => {
+      if (businessItems.length < 1) {
+        return res.status(404).json({
+          message: `No business was found in this location -${location}`
+        });
       }
-      return res.status(200).json({ message: 'Search was successful', searchBusinessResults });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+      return res.status(200).json({
+        message: 'Search was successful', businessItems
+      });
+    }).catch(err => res.status(500).json({
+      message: 'Internal server error', err
+    }));
   }
   /**
   * @static
@@ -129,18 +186,22 @@ class BusinessController {
   * @memberOf BusinessController
   */
   static filterSearchByCategory(req, res, next) {
-    try {
-      const { category } = req.query;
-      if (!category) { return next(); }
-      const searchBusinessResults = businesses.filter(businessItem =>
-        businessItem.category === category);
-      if (searchBusinessResults.length === 0) {
-        return res.status(404).json({ message: `Business under category ${category} not found!` });
+    const { category } = req.query;
+    if (!category) { return next(); }
+    business.findAll({
+      where: {
+        category
+      },
+    }).then((businessItems) => {
+      if (businessItems.length < 1) {
+        return res.status(404).json({
+          message: `Business under category ${category} not found!`
+        });
       }
-      return res.status(200).json({ message: 'Search was successful', searchBusinessResults });
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+      return res.status(200).json({
+        message: 'Search was successful', businessItems
+      });
+    }).catch(err => res.status(500).json({ message: 'Internal server error', err }));
   }
 }
 

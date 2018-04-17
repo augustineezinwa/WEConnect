@@ -1,249 +1,49 @@
+* {
+    box-sizing: border-box;
+}
 h1 {
     text-align: center;
 }
-
-
-
-.header {
-
-    text-align : center;
-    background-color :black;
-    color:white;
-}
-
-img {
-
-    border : 2px solid yellow;
-
-}
-
-.btn1 ,.btn2 {
-    
-    width : 30%;
-    height: 40px;
-}
-
-.btn3 {
-    width: 100%;
-    height: 40px;
-}
-
-.form1 {
-
-    margin-top: 130px;
-    margin-bottom:130px;
-
-}
-
-input[type=text] {
-    width :60%;
-    border:4px solid lightgreen;
-    border-radius: 5px;
-    height: 36px;
-    padding-bottom: 3px;
-    
-}
-
-.c3 {
-
-    background: url('../images/flight/austraila/virgin.jpg') no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 500px;
-    width: 100%;
-    margin:0 auto;
-    
-   
-}
-
-
-
-.c6 {
-    
-        background: url('../images/flight/austraila/virgin.jpg') no-repeat;
-        background-size: cover;
-        background-position: center;
-        height: 350px;
-        width: 100%;
-        margin:0 auto;
-    }
-
-
-    .c7 {
-        
-            background: url('../images/catalog3.jpg') no-repeat;
-            background-size: cover;
-            background-position: center;
-            height: 350px;
-            width: 100%;
-            margin:0 auto;
-            
-        }
-
-
-
-        
-        .c8 {
-            
-                background: url('../images/profilebg.jpg') no-repeat;
-                background-size: cover;
-                background-position: center;
-                height: 350px;
-                width: 100%;
-                margin:0 auto;
-                
-            }
-
-.review {
-
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    border-bottom: 4px solid grey;
-    color: white;
-    text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;
-    font-size:50px;
-}
-
-.footer {
-
-    text-align : center;
-    background-color :black;
-    color:white;
-    height : 100px;
-}
-
-
-
-.nbar {
-
-    border : 1px solid lightgreen;
-    padding : 5px 10px;
-    margin:4px;
-}
-
-.nbar:hover {
-
-    color :green;
-    border: 2px solid white;
-    background-color:black;
-}
-
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    width:100%;
-    margin:10px;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-    
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top:10px;
-    left: 80px;
-    background-color: #f9f9f9;
-    width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    
-    
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: darkgreen;
-}
-
 .card {
 
     margin :4px;
 }
-
-.bl {
-
-    border-left : 2px solid green;
-
-    padding-top: 10px;
-
+.footer {
+    text-align :center;
+    background-color:black;
+    color:white;
+    height:100px;
 }
-
-.bl2 {
-
-    border-bottom: 2px solid green;
-    border-top:2px solid green;
-}
-
-
-.pd {
-
-    padding : 10px;
-}
-
-.addr{
-
-    padding: 10px;
-    border-bottom:0.5px solid green;
-}
-
-.btnfr {
-
-    float:right;
-    margin: 3px;
-    
-}
-
 .cardheight {
 
     height : 500px;
     overflow-y:scroll;
-    
-
 }
-
-
 .imgheight {
 
     height: 220px;
 }
-
 
 #location3, #category3 {
 
     display: none;
     height: 50px;
 }
-
 .login-box {
-
+    width : 100%;
     border : 1px solid green;
-    padding : 20px;
-    border-radius: 15px;
-    margin: 20px;
+    border-radius: 10px;
+    padding :10px;
+    height: 100%;  
 }
-
 .header-text {
-
-    margin-top : 50px;
-
+    margin-top : 100px;
+}
+.image-background {
+    background: url('../images/supermarket/supermarket.jpeg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    width: 100%;
+    margin:0 auto;
 }

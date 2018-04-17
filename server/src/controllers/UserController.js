@@ -1,4 +1,11 @@
-import { users } from '../dummydatabase/dummydatabase';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
+import models from '../../models/';
+
+dotenv.config();
+
+const { user } = models;
 /**
   * @class UserController
   * @description CRUD operations on Users
@@ -13,23 +20,45 @@ class UserController {
   * @static
   */
   static loginUser(req, res) {
-    try {
-      const { email, password } = req.body;
-      if (email && password) {
-        const user = users.find(userItem => userItem.email === email);
-        if (user) {
-          if ((user.password === password) && (user.email === email)) {
-            res.status(200).json({ message: 'you successfully logged in' });
-          } else {
-            res.status(401).json({ message: 'login failed! Incorrect password' });
-          }
-        } else {
-          res.status(404).json({ message: 'your email was not found, sign up!' });
-        }
-      }
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
+    const { email, password } = req.body;
+    if (!email) {
+      return res.status(406).json({
+        message: 'email is missing!'
+      });
     }
+    if (!password) {
+      return res.status(406).json({
+        message: 'password is missing!'
+      });
+    }
+    user.find({
+      where: {
+        email
+      }
+    }).then((userObject) => {
+      if (userObject) {
+        if (bcrypt.compareSync(password, userObject.password)) {
+          const payload = {
+            id: userObject.id,
+            email,
+          };
+          const token = jwt.sign({ payload }, process.env.PRIVATE_KEY, {
+            expiresIn: 334 * 60
+          });
+          return res.status(200).json({
+            message: 'you successfully logged in', token
+          });
+        }
+        return res.status(401).json({
+          message: 'password is incorrect'
+        });
+      }
+      return res.status(404).json({
+        message: 'your email does not exist, please sign up!'
+      });
+    }).catch(err => res.status(500).json({
+      message: 'Internal server error', err
+    }));
   }
   /**
   * @description -This method signs up users into WEConnect
@@ -40,21 +69,17 @@ class UserController {
   * @static
   */
   static signupUser(req, res) {
-    try {
-      const user = req.body;
-      const emailUser = users.find(userItem => userItem.email === user.email);
-      if (!emailUser) {
-        const userId = users.length === 0 ? 1 : users[users.length - 1].userId + 1;
-        user.userId = userId;
-        user.businesses = [];
-        users.push(user);
-        res.status(201).json({ message: 'You successfully signed up', user });
-      } else {
-        res.status(409).json({ message: 'email has been used' });
-      }
-    } catch (err) {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    user.create(req.body)
+      .then((usersignup) => {
+        const payload = {
+          id: usersignup.id,
+          email: usersignup.email
+        };
+        const token = jwt.sign({ payload }, process.env.PRIVATE_KEY, { expiresIn: 60 * 60 });
+        res.status(201).send({
+          message: 'you have successfully signed up!', token
+        });
+      }).catch(err => res.status(500).send(err));
   }
 }
 export default UserController;

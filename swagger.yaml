@@ -1,354 +1,355 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  description: "This is a business web application."
-  version: "1.0.0"
-  title: "WeConnect Web Application"
-  termsOfService: "http://swagger.io/terms/"
+  description: This is a business web application.
+  version: 1.0.0
+  title: WeConnect Web Application
+  termsOfService: 'http://swagger.io/terms/'
   contact:
-    email: "augustineezinwa@gmail.com"
+    email: augustineezinwa@gmail.com
   license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "we--connect.herokuapp.com"
-basePath: "/api/v1"
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: we--connect.herokuapp.com
+basePath: /api/v1
 tags:
-- name: "Users"
-  description: "API for user"
-- name: "Businesses"
-  description: "API for businesses"
+  - name: Users
+    description: API for user
+  - name: Businesses
+    description: API for businesses
 schemes:
-- "https"
-- "http"
+  - https
+  - http
 paths:
   /auth/signup:
     post:
       tags:
-      - "Users"
-      summary: "Add a new user"
-      description: "Registers a new user into WEConnect"
-      operationId: "addUser"
+        - Users
+      summary: Add a new user
+      description: Registers a new user into WEConnect
+      operationId: addUser
       consumes:
-      - "application/json"
+        - application/json
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - in: "body"
-        name: "user"
-        description: "A new user to register"
-        required: true
-        schema:
-          $ref: "#/definitions/UserSignUp"
+        - in: body
+          name: user
+          description: A new user to register
+          required: true
+          schema:
+            $ref: '#/definitions/UserSignUp'
       responses:
-        201:
-          description: "You signed up successfully"
-        400:
-          description: "email is already in use."  
-        406:
-          description: "An error Occured! Invalid parameters."
+        '201':
+          description: You signed up successfully
+        '400':
+          description: email is already in use.
+        '406':
+          description: An error Occured! Invalid parameters.
   /auth/login:
     post:
       tags:
-      - "Users"
-      summary: "Login User"
-      description: "Logins a registered user into WEConnect"
-      operationId: "loginUser"
+        - Users
+      summary: Login User
+      description: Logins a registered user into WEConnect
+      operationId: loginUser
       consumes:
-      - "application/json"
+        - application/json
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - in: "body"
-        name: "user"
-        description: "Logins a registered user"
-        required: true
-        schema:
-          $ref: "#/definitions/UserLogin"
+        - in: body
+          name: user
+          description: Logins a registered user
+          required: true
+          schema:
+            $ref: '#/definitions/UserLogin'
       responses:
-        200:
-          description: "you successfully logged in."
-        400:
-          description: "email or password is incorrect."
-        
-    
+        '200':
+          description: you successfully logged in.
+        '400':
+          description: email or password is incorrect.
   /businesses:
     post:
       tags:
-      - "Businesses"
-      summary: "Register a business"
-      description: "Register a business in WEConnect"
-      operationId: "createNewBusiness"
+        - Businesses
+      summary: Register a business
+      description: Register a business in WEConnect
+      operationId: createNewBusiness
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - in: "body"
-        name: "businesses"
-        description: "Creating a new business in WEConnect"
-        required: true
-        schema:
-          $ref: "#/definitions/RegisterBusinessModel"
-      responses: 
-        200:
-          description: "business successfully added"
-        400:
-          description: "An error occured!"   
+        - in: body
+          name: businesses
+          description: Creating a new business in WEConnect
+          required: true
+          schema:
+            $ref: '#/definitions/RegisterBusinessModel'
+      responses:
+        '200':
+          description: business successfully added
+        '400':
+          description: An error occured!
     get:
       tags:
-      - "Businesses"
-      summary: "Get all businesses"
+        - Businesses
+      summary: Get all businesses
       produces:
-      - "application/json"
+        - application/json
       parameter: []
       responses:
-        200:
-          description: "business list loaded successfully"
-          
-            
-  /businesses/{businessId}:
+        '200':
+          description: business list loaded successfully
+  '/businesses/{businessId}':
     get:
       tags:
-      - "Businesses"
-      summary: "Get a business with an id parameter"
+        - Businesses
+      summary: Get a business with an id parameter
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - name: "businessId"
-        in: "path"
-        description: "Id to fetch a business"
-        required: true
-        type: "integer"
+        - name: businessId
+          in: path
+          description: Id to fetch a business
+          required: true
+          type: integer
       responses:
-        200:
-          description: "business search was successful"
+        '200':
+          description: business search was successful
           schema:
-            $ref: "#/definitions/BusinessFoundModel"
-        404:
-          description: "Business not found"
-          
+            $ref: '#/definitions/BusinessFoundModel'
+        '404':
+          description: Business not found
     put:
       tags:
-      - "Businesses"
-      summary: "Update a business profile"
-      description: "This can only be done by the logged in user."
-      operationId: "updateBusiness"
+        - Businesses
+      summary: Update a business profile
+      description: This can only be done by the logged in user.
+      operationId: updateBusiness
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - name: "businessId"
-        in: "path"
-        description: "business that needs to be updated"
-        required: true
-      - name: "body"
-        in: "body"
-        description: "business Object to database"
-        required: true
-        schema:
-          $ref: "#/definitions/RegisterBusinessModel"
+        - name: businessId
+          in: path
+          description: business that needs to be updated
+          required: true
+        - name: body
+          in: body
+          description: business Object to database
+          required: true
+          schema:
+            $ref: '#/definitions/RegisterBusinessModel'
       responses:
-        200:
-          description: "Business Update Successful"
-        404:
-          description: "Business with id does not exist"
+        '200':
+          description: Business Update Successful
+        '404':
+          description: Business with id does not exist
     delete:
       tags:
-      - "Businesses"
-      summary: "Delete Business"
-      description: "This can only be done by the logged in user."
-      operationId: "deleteBusiness"
+        - Businesses
+      summary: Delete Business
+      description: This can only be done by the logged in user.
+      operationId: deleteBusiness
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - name: "businessId"
-        in: "path"
-        description: "The id of the business that needs to be deleted"
-        required: true
-        type: "integer"
+        - name: businessId
+          in: path
+          description: The id of the business that needs to be deleted
+          required: true
+          type: integer
       responses:
-        206:
-          description: "No Content"
-        404:
-          description: "Business with id does not exist"
-          
-  /businesses/{businessId}/reviews:
+        '206':
+          description: No Content
+        '404':
+          description: Business with id does not exist
+  '/businesses/{businessId}/reviews':
     post:
       tags:
-      - "Businesses"
-      summary: "Add a business review"
-      description: "Adding a business review"
-      operationId: "BusinessReview"
+        - Businesses
+      summary: Add a business review
+      description: Adding a business review
+      operationId: BusinessReview
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - name: businessId
-        in: "path"
-        description: "Adding a new business review"
-        required: true
-      - name: "body"
-        in: "body"
-        description: "user object to add to database"
-        required: true
-        schema:
-          $ref: "#/definitions/ReviewModel"
-      responses: 
-        200:
-          description: "Review was successfully added"
-        404:
-          description: "Cannot add review , business with id does not exist"
-        
+        - name: businessId
+          in: path
+          description: Adding a new business review
+          required: true
+        - name: body
+          in: body
+          description: user object to add to database
+          required: true
+          schema:
+            $ref: '#/definitions/ReviewModel'
+      responses:
+        '200':
+          description: Review was successfully added
+        '404':
+          description: 'Cannot add review , business with id does not exist'
     get:
       tags:
-      - "Businesses"
-      summary: "Get all business reviews for a particular business."
-      description: "Get all business reviews for a particular business by id"
-      operationId: "AllBusinessReview"
+        - Businesses
+      summary: Get all business reviews for a particular business.
+      description: Get all business reviews for a particular business by id
+      operationId: AllBusinessReview
       produces:
-      - "application/json"
+        - application/json
       parameters:
-        - name: "businessId"
-          in: "path"
-          description: "Id to get business reviews"
+        - name: businessId
+          in: path
+          description: Id to get business reviews
           required: true
-          type: "integer"
-      responses: 
-        200:
-          description: "Review list loaded successfully."
-        404: 
-          description: "Cannot get Review, business with id does not exist"
-
+          type: integer
+      responses:
+        '200':
+          description: Review list loaded successfully.
+        '404':
+          description: 'Cannot get Review, business with id does not exist'
   /businesses?location=location:
     get:
       tags:
-      - "Businesses"
-      summary: "Get a business with specific location in WEConnect"
+        - Businesses
+      summary: Get a business with specific location in WEConnect
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - name: "location"
-        in: "query"
-        description: "Location to get a business"
-        schema:
-          type: "string"
-      responses:
-        200:
-          description: "Search was successful"
+        - name: location
+          in: query
+          description: Location to get a business
           schema:
-            $ref: "#/definitions/BusinessFoundModel"
-        404:
-          description: "Business under location [locationName] not found"
-
+            type: string
+      responses:
+        '200':
+          description: Search was successful
+          schema:
+            $ref: '#/definitions/BusinessFoundModel'
+        '404':
+          description: 'Business under location [locationName] not found'
   /businesses?category=category:
     get:
       tags:
-      - "Businesses"
-      summary: "Get a business under the specified category"
+        - Businesses
+      summary: Get a business under the specified category
       produceses:
-      - "application/json"
+        - application/json
       parameters:
-      - name: "category"
-        in: "query"
-        description: "Searches for a business category as specified in the query parameter"
-        schema:
-          type: "string"
-      responses:
-        200:
-          description: "business found"
+        - name: category
+          in: query
+          description: Searches for a business category as specified in the query parameter
           schema:
-            $ref: "#/definitions/BusinessFoundModel"
-        404:
-          description: "business under category[categoryName] does not exist"
- 
+            type: string
+      responses:
+        '200':
+          description: business found
+          schema:
+            $ref: '#/definitions/BusinessFoundModel'
+        '404':
+          description: 'business under category[categoryName] does not exist'
 definitions:
   UserSignUp:
-    type: "object"
-    required: ["firstName","lastName", "email", "password", "password2", "phoneNumber"]
+    type: object
+    required:
+      - firstname
+      - lastname
+      - email
+      - password
+      - password2
     properties:
       firstName:
-        type: "string"
+        type: string
         uniqueItems: false
       lastName:
-        type: "string"
+        type: string
         uniqueItems: false
       email:
-        type: "string"
+        type: string
         uniqueItems: true
       password:
-        type: "string"
+        type: string
         uniqueItems: true
-      password2:
-        type: "string"
+      confirmpassword:
+        type: string
         uniqueItems: true
-      phoneNumber:
-        type: "string"
-        uniqueItems: true
-      
   UserLogin:
-    type: "object"
-    required: ["email", "password"]
+    type: object
+    required:
+      - email
+      - password
     properties:
       email:
-        type: "string"
+        type: string
         uniqueItems: true
       password:
-        type: "string"
+        type: string
         uniqueItems: true
-
   RegisterBusinessModel:
-    type: "object"
-    required: ["businessName", "businessAddress","businessDescripton","phoneNumber","email", "location", "category"]
+    type: object
+    required:
+      - businessName
+      - businessAddress
+      - businessDescripton
+      - phoneNumber
+      - email
+      - location
+      - category
+      - token
     properties:
       businessName:
-        type: "string"
+        type: string
         uniqueItems: true
       businessAddress:
-        type: "string"
+        type: string
         uniqueItems: true
       businessDescription:
-        type: "string"
+        type: string
         uniqueItems: true
       email:
-        type: "string"
+        type: string
         uniqueItems: true
       phoneNumber:
-        type: "string"
+        type: string
         uniqueItems: true
       location:
-        type: "string"
+        type: string
         uniqueItems: false
-      userId:
-        type: "string"
-        uniqueItems: true
       category:
-        type: "string"
+        type: string
         uniqueItems: true
-  
-    
+      token:
+        type: string
+        uniqueItems: true
   BusinessFoundModel:
-    type: "object"
-    required: ["business"]
+    type: object
+    required:
+      - createdBusinessObject
     properties:
       message:
-       type: "string"
-      business:
-        type: "object"
-        
+        type: string
+      businessList:
+        type: object
   AllBusinessesListModel:
-    type: "object"
-    required: ["message"]
+    type: object
+    required:
+      - message
     properties:
       message:
-        type: "string"
-      businesses:
-        type: "array"
-        business:
-          type : "object"
-        
+        type: string
+      businessList:
+        type: array
   ReviewModel:
-    type: "object"
-    required: ["reviewContent", "reviewId", "businessId"]
+    type: object
+    required:
+      - reviewContent
+      - reviewId
+      - businessId
+      - token
     properties:
       reviewId:
-        type: "string"
+        type: string
       reviewContent:
-        type: "string"
+        type: string
       businessId:
-        type: "string"
-                
+        type: string
+      token:
+        type: string

@@ -12,7 +12,7 @@ class InputFieldsValidation {
   */
   static validateName(name) {
     if (name === undefined) {
-      return undefined;
+      return { message: 'Name field is missing!' };
     }
     name = name.trim();
     if (name.length === 0) {
@@ -26,16 +26,19 @@ class InputFieldsValidation {
     * @description -This method validates user passwords awaiting signUp in WEConnect
     * @param {string} password - The string data sent from the middleware
     * @returns {object} - The validated data sent back to the middleware
-    * @memberOf UserController
+    * @memberOf InputFieldsValidation
     * @static
     */
   static validatePassword(password) {
     if (password === undefined) {
-      return undefined;
+      return { message: 'password is needed!' };
+    }
+    if (Array.isArray(password)) {
+      return { message: 'password cant be an array!' };
     }
     password = password.trim();
     if (password.length === 0) {
-      return { message: 'password fields is empty!' };
+      return { message: 'password is empty!' };
     }
     if (password.length < 6) {
       return { message: 'password length must be at least 6 characters' };
@@ -46,18 +49,18 @@ class InputFieldsValidation {
     if (!/^(?=.*[0-9-\W]).+$/.test(password)) {
       return { message: 'password must contain at least a number, and any other special character' };
     }
-    return `${password  }`;
+    return `${password}`;
   }
   /**
   * @description -This method validates users email awaiting signup in WEConnect
   * @param {string} email - The data sent from the middleware.
   * @returns {object} - The validated data sent back to the router.
-  * @memberOf UserController
+  * @memberOf InputFieldsValidation
   * @static
   */
   static validateEmail(email) {
     if (email === undefined) {
-      return undefined;
+      return { message: 'email field is missing!' };
     }
     email = email.trim();
     if (email.length === 0) {
@@ -73,12 +76,12 @@ class InputFieldsValidation {
   * @description -This method validates phone numbers of users placed into WEConnect
   * @param {string} phone - The request payload sent to the router
   * @returns {object} - status Message and logins user into WEConnect
-  * @memberOf UserController
+  * @memberOf InputFieldsValidation
   * @static
   */
   static validatePhoneNumber(phone) {
     if (phone === undefined) {
-      return undefined;
+      return { message: 'phoneNumber field cant be empty!' };
     }
     phone = phone.trim();
     if (!Number(phone)) {
@@ -93,14 +96,14 @@ class InputFieldsValidation {
   * @description -This method validates categories of business in WEConnect
   * @param {string} category - The request payload sent from the middleware
   * @returns {object} - returns valid category to the middleware
-  * @memberOf UserController
+  * @memberOf InputFieldsValidation
   * @static
   */
   static validateCategory(category) {
     if (category === undefined) {
       return undefined;
     }
-    const categories = ['flight', 'supermarket', 'restaurant', 'recreation', 'hotel'];
+    const categories = ['flight', 'supermarket', 'restaurant', 'recreation', 'hotel', 'technology', 'education'];
     category = category.trim();
     const isValidcategory = categories.find(categoryItem => categoryItem ===
       category.toLowerCase());
@@ -113,14 +116,14 @@ class InputFieldsValidation {
   * @description -This method validates locations of business in WEConnect
   * @param {string} location - The request payload sent from the router
   * @returns {object}  - returns valid location to middleware
-  * @memberOf UserController
+  * @memberOf InputFieldsValidation class
   * @static
   */
   static validateLocation(location) {
     if (location === undefined) {
       return undefined;
     }
-    const locationList = ['nigeria', 'usa', 'netherland', 'paris', 'southafrica', 'austrailia', 'hiroshima'];
+    const locationList = ['nigeria', 'usa', 'netherland', 'paris', 'southafrica', 'austrailia', 'hiroshima', 'united kingdom'];
     location = location.trim();
     const isValidLocation = locationList.find(locationSite =>
       locationSite === location.toLowerCase());
@@ -133,7 +136,7 @@ class InputFieldsValidation {
   * @description -This method validates businesstextfields of business in WEConnect
   * @param {string} businessTextField - The request payload sent to the router
   * @returns {object} - returns validated business text fields to middleware.
-  * @memberOf UserController
+  * @memberOf InputFieldsValidation
   * @static
   */
   static validateBusinessTextFields(businessTextField) {
@@ -144,7 +147,7 @@ class InputFieldsValidation {
     if (businessTextField.length === 0) {
       return { message: 'Field cant be empty' };
     }
-    if (!(businessTextField.length > 3)) {
+    if (!(businessTextField.length > 2)) {
       return { message: 'Field cant be too short!' };
     }
     if (businessTextField.length > 150) {
