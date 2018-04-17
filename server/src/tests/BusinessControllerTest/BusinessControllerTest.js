@@ -100,6 +100,7 @@ describe('Testing /GET businesses/:businessId', () => {
       .end((err, res) => {
         res.should.have.status(404);
         res.body.should.be.a('object');
+        res.body.message.should.be.a('string');
         res.body.should.have.property('message').eql('Business with businessId 4 does not exist');
         done();
       });

@@ -112,6 +112,11 @@ describe('Testing method validatephoneNumber()', () => {
     output.should.have.property('message');
     output.message.should.be.eql('Phone number is not valid, must not contain - or _ or space');
   });
+  it('it should return an an error object with message property', () => {
+    const output = validatePhoneNumber('43493493958348039493497348937493849394');
+    output.should.have.property('message');
+    output.message.should.be.eql('Phone Number is too long.');
+  });
 });
 describe('Testing method validateCategory()', () => {
   it('it should return an error object if supplied with an invalid categoryu', () => {

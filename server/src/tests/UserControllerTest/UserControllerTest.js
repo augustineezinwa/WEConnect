@@ -309,7 +309,7 @@ describe('Testing /POST user login', () => {
         done();
       });
   });
-  it('should return an error message if user-credentials mismatches the ones in database', (done) => {
+  it('should return an error message if user credentials is not found in database during login', (done) => {
     const unverifiedUser = {
       email: 'jet5559q1@gmail.com',
       password: '4343i434'
