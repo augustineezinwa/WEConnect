@@ -18,7 +18,7 @@ class Authentication {
   * @static
   */
   static secureRoute(req, res, next) {
-    const token = req.body.token || req.query.token || req.headers.Authorization;
+    const token = req.body.token || req.query.token || req.headers.authorization;
     if (token) {
       jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded) => {
         if (err) {
