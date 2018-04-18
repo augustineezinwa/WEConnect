@@ -4,11 +4,13 @@
   "description": "This folder contains the technologies neccesary for the backend",
   "main": "app.js",
   "scripts": {
-    "test": "export NODE_ENV=test && sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && nyc --require babel-register --require babel-polyfill mocha --timeout 1000000000 server/src/tests/**/*.js --exit ",
-    "test-dev":"set NODE_ENV=testdev && sequelize db:migrate:undo:all --env testdev && sequelize db:migrate --env testdev && nyc --require babel-register --require babel-polyfill mocha --timeout 1000000000 server/src/tests/**/*.js --exit ",
+    "test": "cross-env NODE_ENV=test nyc --require babel-register --require babel-polyfill mocha --timeout 1000000000 server/src/tests/**/*.js --exit ",
+    "test-dev": "cross-env NODE_ENV=testdev nyc --require babel-register --require babel-polyfill mocha --timeout 1000000000 server/src/tests/**/*.js --exit ",
     "start": " babel-node server/src/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "coveralls": "nyc --reporter=lcov npm test"
+    "coveralls": "npm run init-test-database && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --require babel-register --require babel-polyfill mocha --timeout 1000000000 server/src/tests/**/*.js --exit ",
+    "init-test-database":"sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test",
+    "init-test-dev-database":"sequelize db:migrate:undo:all --env testdev && sequelize db:migrate --env testdev"
   },
   "repository": {
     "type": "git",
@@ -46,6 +48,8 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
