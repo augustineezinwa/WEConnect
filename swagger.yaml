@@ -157,6 +157,11 @@ paths:
           description: The id of the business that needs to be deleted
           required: true
           type: integer
+        - name: token
+          in: query
+          description: token used to authenticate action
+          schema:
+            type: string
       responses:
         '206':
           description: No Content
@@ -267,8 +272,11 @@ definitions:
         uniqueItems: true
       password:
         type: string
-        uniqueItems: true
+        uniqueItems: false
       confirmpassword:
+        type: string
+        uniqueItems: false
+      phoneNumber:
         type: string
         uniqueItems: true
   UserLogin:
@@ -282,15 +290,13 @@ definitions:
         uniqueItems: true
       password:
         type: string
-        uniqueItems: true
+        uniqueItems: false
   RegisterBusinessModel:
     type: object
     required:
       - businessName
       - businessAddress
       - businessDescripton
-      - phoneNumber
-      - email
       - location
       - category
       - token
@@ -304,18 +310,12 @@ definitions:
       businessDescription:
         type: string
         uniqueItems: true
-      email:
-        type: string
-        uniqueItems: true
-      phoneNumber:
-        type: string
-        uniqueItems: true
       location:
         type: string
         uniqueItems: false
       category:
         type: string
-        uniqueItems: true
+        uniqueItems: false
       token:
         type: string
         uniqueItems: true
@@ -341,12 +341,9 @@ definitions:
     type: object
     required:
       - reviewContent
-      - reviewId
       - businessId
       - token
     properties:
-      reviewId:
-        type: string
       reviewContent:
         type: string
       businessId:
