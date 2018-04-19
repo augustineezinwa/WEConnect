@@ -4,7 +4,7 @@ import ReviewController from '../controllers/ReviewController';
 import BusinessValidation from '../middlewares/BusinessValidation';
 import Authentication from '../middlewares/Authentication';
 
-const businessRouter = express.Router();
+const BusinessRouter = express.Router();
 const {
   getAllBusinesses, getBusinessById, createBusiness,
   updateBusiness, removeBusiness, filterSearchByCategory,
@@ -16,15 +16,15 @@ const {
 } = BusinessValidation;
 const { secureRoute } = Authentication;
 
-businessRouter.route('/businesses')
+BusinessRouter.route('/businesses')
   .get(filterSearchByLocation, filterSearchByCategory, getAllBusinesses)
   .post(secureRoute, validateBusiness, checkBusinessName, createBusiness);
-businessRouter.route('/businesses/:businessId')
+BusinessRouter.route('/businesses/:businessId')
   .get(getBusinessById)
   .put(secureRoute, verifyUserAction, validateBusinessUpdate, checkBusinessName, updateBusiness)
   .delete(secureRoute, verifyUserAction, removeBusiness);
-businessRouter.route('/businesses/:businessId/reviews')
+BusinessRouter.route('/businesses/:businessId/reviews')
   .post(secureRoute, addReview)
   .get(getAllReviews);
 
-export default businessRouter;
+export default BusinessRouter;
