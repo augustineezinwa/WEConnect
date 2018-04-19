@@ -9,11 +9,11 @@ dotenv.config();
   */
 class Authentication {
 /**
-  * @description -This method logins users into WEConnect
+  * @description -This method verifies a user action before accessing any protected route.
   * @param {object} req - The request payload sent to the router
-  * @param {object} res - The response payload sent back from the controller
-  * @param {object} next - The response payload sent back from the controller
-  * @returns {object} - status Message and logins user into WEConnect
+  * @param {object} res - The response payload sent back from the secureRoute middleware
+  * @param {object} next - The request payload sent to the next middleware in the stack.
+  * @returns {object} - status Message and verifies a token from a user, granting access.
   * @memberOf Authentication
   * @static
   */

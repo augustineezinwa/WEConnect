@@ -16,6 +16,7 @@ class UserController {
   * @param {object} req - The request payload sent to the router
   * @param {object} res - The response payload sent back from the controller
   * @returns {object} - status Message and logins user into WEConnect
+  * @description This controller signs a user after authentication using jwt and returns token.
   * @memberOf UserController
   * @static
   */
@@ -65,6 +66,7 @@ class UserController {
   * @param {object} req - The request payload sent to the router
   * @param {object} res - The response payload sent back from the controller
   * @returns {object} - status Message and signs up user into WEConnect
+  * @description This controller authenticates a user during signup using jwt token.
   * @memberOf UserController
   * @static
   */

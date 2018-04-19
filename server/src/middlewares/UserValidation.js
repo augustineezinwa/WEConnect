@@ -52,11 +52,11 @@ class UserValidation {
     return next();
   }
   /**
-  * @description -This method validates users in WEConnect
+  * @description -This method checks if an email is existing in WEConnect to avoid reuse.
   * @param {object} req - The request payload sent to the router
   * @param {object} res - The response payload sent back from the controller
   * @param {function} next
-  * @returns {object} - status Message and logins user into WEConnect
+  * @returns {object} - status Message stating if mail is in use or not.
   * @memberOf Uservalidation class
   * @static
   */

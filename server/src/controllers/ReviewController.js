@@ -10,7 +10,7 @@ class ReviewController {
  * @static
  * @param {object} req - The request payload sent to the router
  * @param {object} res - The response payload sent back from the controller
- * @returns {object} - Status message showing status of recieved review
+ * @returns {object} - Status message showing review has been added and its content
  * @memberOf ReviewController
  */
   static addReview(req, res) {

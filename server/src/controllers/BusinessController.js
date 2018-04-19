@@ -10,7 +10,8 @@ class BusinessController {
   * @static
   * @param {object} req - The request payload recieved from the router
   * @param {object} res - The response payload sent back from the controller
-  * @returns {object} - status Message and list of all businesses*
+  * @returns {object} - status Message and list of all businesses
+  * @description This method gets all business in WEConnect
   * @memberOf BusinessController
   */
   static getAllBusinesses(req, res) {
@@ -32,6 +33,7 @@ class BusinessController {
     * @param {object} req - The request payload sent to the router
     * @param {object} res - The response payload sent back from the controller
     * @returns {object} - status Message and the particular businesses by id.
+    * @description This method gets a business by id in WEConnect
     * @memberOf BusinessController
     */
   static getBusinessById(req, res) {
@@ -93,6 +95,7 @@ class BusinessController {
   * @param {object} req - The request payload sent to the router
   * @param {object} res - The response payload sent back from the controller
   * @returns {object} - status Message and the particular updated businesses created.
+  * @description This method updates a particular business in WEConnect.
   * @memberOf BusinessController
   */
   static updateBusiness(req, res) {
@@ -125,6 +128,7 @@ class BusinessController {
   * @param {object} req - The request payload sent to the router
   * @param {object} res - The response payload sent back from the controller
   * @returns {object} - status Message showing that business has been deleted.
+  * @description This method deletes a business from WEConnect
   * @memberOf BusinessController
   */
   static removeBusiness(req, res) {
