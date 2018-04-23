@@ -2,7 +2,6 @@ import InputFieldsValidation from '../helper/InputFieldsValidation';
 import models from '../../models/';
 
 const { business } = models;
-
 const {
   validateLocation, validateCategory, validateBusinessTextFields
 } = InputFieldsValidation;

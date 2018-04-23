@@ -1,19 +1,20 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
-import { businesses } from '../../dummydatabase/dummydatabase';
+import model from '../../../models';
 
+const { business, review } = model;
 const should = chai.should();
 chai.use(chaiHttp);
-process.env.NODE_ENV = 'test';
+
 describe('Testing /POST reviews', () => {
   it('it should return an error message if a business doesnt exist', (done) => {
-    const review = {
+    const review1 = {
       reviewContent: 'i love this park',
       userId: 34
     };
     chai.request(app).post('/api/v1/businesses/4/reviews')
-      .send(review)
+      .send(review1)
       .send({ token: process.env.TRUE_TOKEN })
       .end((err, res) => {
         res.should.be.status(404);
@@ -26,11 +27,11 @@ describe('Testing /POST reviews', () => {
 });
 describe('Testing /POST reviews', () => {
   it('it should add reviews to a particular business by Id', (done) => {
-    const review = {
+    const review1 = {
       reviewContent: 'I love this place, its awesome!'
     };
     chai.request(app).post('/api/v1/businesses/3/reviews')
-      .send(review)
+      .send(review1)
       .send({ token: process.env.TRUE_TOKEN })
       .end((err, res) => {
         res.should.have.status(201);
@@ -89,6 +90,132 @@ describe('Testing /GET reviews for a business that doesnt exist', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('message');
         res.body.message.should.eql('Cannot get Reviews!,business with id 10 doesnt exist');
+        done();
+      });
+  });
+});
+describe('Testing for Internal server error/ unexpected circumstance', () => {
+  const business1 = {
+    businessName: 'Coca Cola',
+    businessAddress: 'No 10 New kingston road new zealand',
+    businessDescription: 'This airline is awesome',
+    location: 'Austrailia',
+    category: 'Flight',
+  };
+  it('should return an error message while fetching all businesses,when an unexpected error occurs', (done) => {
+    business.findAll = () => Promise.reject();
+    chai.request(app).get('/api/v1/businesses')
+      .end((err, res) => {
+        res.should.have.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.be.a('string');
+        res.body.message.should.eql('Internal server error');
+        done();
+      });
+  });
+  it('should return an error message while fetching a businesses,when an unexpected error occurs', (done) => {
+    business.findAll = () => Promise.reject();
+    chai.request(app).get('/api/v1/businesses/1')
+      .end((err, res) => {
+        res.should.have.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.be.a('string');
+        res.body.message.should.eql('A severe error just occured -Internal server error');
+        done();
+      });
+  });
+  it('should return an error message while deleting a businesses,when an unexpected error occurs', (done) => {
+    business.find = () => Promise.reject();
+    chai.request(app).delete('/api/v1/businesses/1')
+      .send({ token: process.env.TRUE_TOKEN })
+      .end((err, res) => {
+        res.should.have.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.be.a('string');
+        res.body.message.should.eql('Internal server error!');
+        done();
+      });
+  });
+  it('should return an error message while posting a businesses,when an unexpected error occurs', (done) => {
+    business.create = () => Promise.reject();
+    chai.request(app).post('/api/v1/businesses')
+      .send(business1)
+      .send({ token: process.env.TRUE_TOKEN })
+      .end((err, res) => {
+        res.should.have.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.be.a('string');
+        res.body.message.should.eql('Internal server error');
+        done();
+      });
+  });
+  it('should return an error message while updating a businesses,when an unexpected error occurs', (done) => {
+    business.update = () => Promise.reject();
+    chai.request(app).put('/api/v1/businesses/1')
+      .send({
+        businessName: 'Apple Inc',
+        token: process.env.TRUE_TOKEN
+      })
+      .end((err, res) => {
+        res.should.have.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.be.a('string');
+        res.body.message.should.eql('Internal server error!');
+        done();
+      });
+  });
+  it('should return an error message while get a businesses by category,when an unexpected error occurs', (done) => {
+    business.find = () => Promise.reject();
+    chai.request(app).get('/api/v1/businesses/category?=technology')
+      .end((err, res) => {
+        res.should.have.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.be.a('string');
+        res.body.message.should.eql('A severe error just occured -Internal server error');
+        done();
+      });
+  });
+  it('should return an error message while get a businesses by location,when an unexpected error occurs', (done) => {
+    business.find = () => Promise.reject();
+    chai.request(app).get('/api/v1/businesses/location?=Austrailia')
+      .end((err, res) => {
+        res.should.have.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.be.a('string');
+        res.body.message.should.eql('A severe error just occured -Internal server error');
+        done();
+      });
+  });
+  it('should return error when an unexpected event occurs while fetching reviews for a business', (done) => {
+    review.find = () => Promise.reject();
+    chai.request(app).get('/api/v1/businesses/1/reviews')
+      .end((err, res) => {
+        res.should.be.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.eql('Internal server error');
+        done();
+      });
+  });
+  it('should return error when an unexpected event occurs while posting reviews for a business', (done) => {
+    review.create = () => Promise.reject();
+    chai.request(app).post('/api/v1/businesses/1/reviews')
+      .send({
+        reviewContent: 'I love this place!',
+      })
+      .send({ token: process.env.TRUE_TOKEN })
+      .end((err, res) => {
+        res.should.be.status(500);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.eql('Internal server error');
         done();
       });
   });
