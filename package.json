@@ -9,8 +9,8 @@
     "start": " babel-node server/src/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "npm run init-test-database && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --require babel-register --require babel-polyfill mocha --timeout 1000000000 server/src/tests/**/*.js --exit ",
-    "init-test-database":"sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test",
-    "init-test-dev-database":"sequelize db:migrate:undo:all --env testdev && sequelize db:migrate --env testdev"
+    "init-test-database": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test",
+    "init-test-dev-database": "sequelize db:migrate:undo:all --env testdev && sequelize db:migrate --env testdev"
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,7 @@
     "eslint": "^4.18.2",
     "eslint-config-airbnb-base": "^12.1.0",
     "express": "^4.16.2",
+    "hoek": "^5.0.3",
     "jsonwebtoken": "^8.2.0",
     "mocha": "^5.0.4",
     "mocha-lcov-reporter": "^1.3.0",
